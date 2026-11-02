@@ -40,7 +40,7 @@ def mascara_centro(alto, ancho):
 
 
 def mascara_grabcut(imagen_rgb):
-    """Aísla la hoja con GrabCut (sin contorno dibujado). Es la máscara de la app."""
+    cv2.setRNGSeed(0)
     arreglo = np.asarray(imagen_rgb)
     alto, ancho = arreglo.shape[:2]
     chica = cv2.resize(arreglo, (512, int(alto * 512 / ancho)))
