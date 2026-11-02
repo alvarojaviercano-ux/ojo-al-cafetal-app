@@ -59,13 +59,19 @@ def predecir():
         return render_template("index.html", resultado=None,
                                error="No pude leer esa foto. Pruebe con otra imagen (JPG o PNG).")
 
-    probabilidad = float(modelo.predict_proba(pd.DataFrame([valores], columns=columnas))[0][1])
+    probabilidad = float(modelo.predict_proba(pd.DataFrame([valores], columns=columnas))[0][1])   # probabilidad de "enferma"
     enferma = probabilidad >= 0.5
     seguridad = probabilidad if enferma else 1 - probabilidad
+    if seguridad >= 0.80:
+        nivel = "alta"
+    elif seguridad >= 0.65:
+        nivel = "media"
+    else:
+        nivel = "baja"
     resultado = {
         "enferma": enferma,
         "porcentaje": round(seguridad * 100),
-        "dudosa": seguridad < 0.65,
+        "nivel": nivel,
         "imagen": foto_con_contorno(imagen, mascara),
     }
     return render_template("index.html", resultado=resultado, error=None)

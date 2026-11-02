@@ -3,72 +3,110 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ojo al Cafetal</title>
+  <title>Ojo al Cafetal – App</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Domine:wght@600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
-    :root { --oscuro:#2B1D16; --crema:#F6F1E9; --verde:#2F6B47; --roya:#A5531A; --linea:#E4D9C8; }
+    :root { --dark:#2B1D16; --cream:#F6F1E9; --card:#FFFDF8; --green:#2F6B47; --rust:#A5531A;
+            --orange:#E39A55; --muted:#5A4A40; --line:#E4D9C8; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'DM Sans', Arial, sans-serif; background: var(--crema); color: var(--oscuro);
-           line-height: 1.6; font-size: 18px; }
-    header { background: var(--oscuro); color: var(--crema); padding: 28px 16px; text-align: center; }
-    header h1 { font-family: Georgia, serif; font-size: 34px; }
-    header p { color: #D9CBBB; margin-top: 6px; }
-    main { max-width: 640px; margin: 0 auto; padding: 24px 16px 48px; }
-    .tarjeta { background: #FFFDF8; border: 1px solid var(--linea); border-radius: 14px;
-               padding: 22px; margin-bottom: 18px; }
-    input[type=file] { width: 100%; padding: 14px; border: 2px dashed var(--linea);
-                       border-radius: 10px; background: var(--crema); font-size: 16px; }
+    body { font-family: 'DM Sans', Arial, sans-serif; background: var(--cream); color: var(--dark);
+           line-height: 1.65; font-size: 18px; }
+    h1, h2 { font-family: 'Domine', Georgia, serif; line-height: 1.15; }
+    a { color: var(--green); }
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+
+    nav { position: sticky; top: 0; z-index: 5; background: var(--dark); color: var(--cream); }
+    nav .wrap { display: flex; gap: 6px 18px; align-items: center; flex-wrap: wrap; padding: 12px 20px; }
+    nav b { font-family: 'Domine', Georgia, serif; margin-right: auto; font-size: 19px; }
+    nav a { color: #D9CBBB; text-decoration: none; font-size: 15px; }
+    nav a:hover { color: var(--orange); }
+
+    header.hero { background: var(--dark); color: var(--cream); padding: 56px 0 50px; position: relative; overflow: hidden; }
+    header.hero::before { content: ""; position: absolute; inset: 0; opacity: .07;
+      background-image: radial-gradient(ellipse 12px 17px at 30px 30px, #F6F1E9 98%, transparent 100%),
+                       radial-gradient(ellipse 22px 10px at 90px 80px, #F6F1E9 98%, transparent 100%);
+      background-size: 120px 120px; }
+    header.hero .wrap { position: relative; }
+    .kicker { letter-spacing: 2px; font-size: 14px; color: var(--orange); font-weight: 700; text-transform: uppercase; }
+    header.hero h1 { font-size: clamp(38px, 7vw, 64px); margin: 12px 0; }
+    header.hero p.sub { font-size: 21px; color: #E8DDCF; max-width: 640px; }
+
+    main { max-width: 680px; margin: 0 auto; padding: 32px 20px 56px; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 22px; margin-bottom: 18px; }
+    input[type=file] { width: 100%; padding: 14px; border: 2px dashed var(--line); border-radius: 10px;
+                       background: var(--cream); font-size: 16px; margin-top: 8px; }
     button { margin-top: 14px; width: 100%; padding: 14px; border: 0; border-radius: 10px;
-             background: var(--verde); color: #fff; font-size: 18px; font-weight: 700; cursor: pointer; }
-    .error { background: #FBEFE1; border-left: 6px solid var(--roya); padding: 14px 18px;
-             border-radius: 0 10px 10px 0; margin-bottom: 18px; }
-    .sana { border-left: 8px solid var(--verde); }
-    .enferma { border-left: 8px solid var(--roya); }
-    .resultado h2 { font-family: Georgia, serif; font-size: 28px; margin-bottom: 6px; }
-    .nota { color: #5A4A40; font-size: 16px; }
-    img { width: 100%; border-radius: 10px; margin: 12px 0; }
+             background: var(--green); color: #fff; font-size: 18px; font-weight: 700; cursor: pointer;
+             font-family: inherit; }
+    button:hover { background: #3E8A5B; }
+    .error { background: #FBEFE1; border-left: 6px solid var(--rust); padding: 14px 18px;
+             border-radius: 0 12px 12px 0; margin-bottom: 18px; }
+    .sana { border-left: 8px solid var(--green); }
+    .enferma { border-left: 8px solid var(--rust); }
+    .resultado h2 { font-size: 28px; margin-bottom: 6px; }
+    .note { color: var(--muted); font-size: 16px; }
+    .resultado img { width: 100%; border-radius: 10px; margin: 12px 0; }
+
+    footer { background: var(--dark); color: #D9CBBB; padding: 32px 0; font-size: 15px; }
+    footer a { color: var(--orange); }
+    @media (max-width: 600px) { body { font-size: 17px; } }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Ojo al Cafetal</h1>
-    <p>Suba la foto de una hoja de café y vea si está sana o enferma</p>
-  </header>
+  <nav><div class="wrap">
+    <b>Ojo al Cafetal</b>
+    <a href="https://ojo-al-cafetal.onrender.com">Investigación</a>
+    <a href="/">App</a>
+  </div></nav>
+
+  <header class="hero"><div class="wrap">
+    <div class="kicker">Detector de enfermedades</div>
+    <h1>Revise una hoja de café</h1>
+    <p class="sub">Suba la foto de una hoja y vea si está sana o enferma.</p>
+  </div></header>
+
   <main>
     {% if error %}
       <div class="error">{{ error }}</div>
     {% endif %}
 
-    <form class="tarjeta" action="/predecir" method="post" enctype="multipart/form-data">
+    <form class="card" action="/predecir" method="post" enctype="multipart/form-data">
       <label for="foto"><b>Foto de la hoja</b></label>
-      <p class="nota">Tómela de cerca, con la hoja bien a la vista y en el centro de la foto.</p>
+      <p class="note">Fotografíe <b>una sola hoja</b>, de cerca y llenando la foto. Un fondo liso (la mano, un papel) o a contraluz ayuda mucho.</p>
       <input type="file" id="foto" name="foto" accept="image/*" required>
       <button type="submit">Revisar la hoja</button>
     </form>
 
     {% if resultado %}
-      <div class="tarjeta resultado {{ 'enferma' if resultado.enferma else 'sana' }}">
+      <div class="card resultado {{ 'enferma' if resultado.enferma else 'sana' }}">
         {% if resultado.enferma %}
           <h2>La hoja parece enferma</h2>
         {% else %}
           <h2>La hoja parece sana</h2>
         {% endif %}
-        <p>Seguridad del modelo: <b>{{ resultado.porcentaje }}%</b></p>
-        {% if resultado.dudosa %}
-          <p class="nota">El resultado es dudoso. Pruebe con otra foto, más cerca y con buena luz.</p>
+        <p>Confianza del modelo: <b>{{ resultado.nivel }}</b> ({{ resultado.porcentaje }}%)</p>
+        {% if resultado.nivel == "baja" %}
+          <p class="note">La confianza es baja. Pruebe con otra foto de una sola hoja, más cerca y con buena luz.</p>
         {% endif %}
         <img src="data:image/jpeg;base64,{{ resultado.imagen }}" alt="Zona analizada">
-        <p class="nota">La línea amarilla muestra la zona que la app analizó. Si no cubre la hoja,
+        <p class="note">La línea amarilla muestra la zona que la app analizó. Si no cubre la hoja,
           el resultado no es confiable.</p>
         {% if resultado.enferma %}
-          <p class="nota"><b>Qué hacer:</b> esta es una ayuda, no un diagnóstico. Revise más hojas
+          <p class="note"><b>Qué hacer:</b> esta es una ayuda, no un diagnóstico. Revise más hojas
             de la misma planta y consulte con un técnico del Comité de Cafeteros o de Cenicafé
             antes de aplicar cualquier producto.</p>
         {% endif %}
       </div>
     {% endif %}
-
-    <p class="nota">Proyecto de Machine Learning, UDEC. Modelo entrenado con el dataset RoCoLe
-      (hojas de café robusta). En otras variedades el resultado puede ser menos preciso.</p>
   </main>
+
+  <footer><div class="wrap">
+    Proyecto final de Machine Learning, UDEC · Álvaro Javier Cano.<br>
+    Modelo entrenado con el dataset RoCoLe (hojas de café robusta); en otras variedades el resultado
+    puede ser menos preciso. <a href="https://ojo-al-cafetal.onrender.com">Ver la investigación</a>.
+  </div></footer>
 </body>
 </html>
