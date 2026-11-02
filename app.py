@@ -64,6 +64,8 @@ def recomendar(nivel, variedad):
     return {"variedad": ["resistente", "susceptible"][variedad], "accion": accion, "texto": texto}
 
 
+
+
 def recorte_dudoso(mascara):
     """True si el recorte parece no ser una sola hoja:
     cubre casi toda la foto o tiene forma muy irregular."""
@@ -75,7 +77,12 @@ def recorte_dudoso(mascara):
     mayor = max(contornos, key=cv2.contourArea)
     casco = cv2.contourArea(cv2.convexHull(mayor))
     solidez = cv2.contourArea(mayor) / casco if casco > 0 else 0
+    print(f"fraccion={fraccion:.2f} solidez={solidez:.2f} contornos={len(contornos)}", flush=True)
     return fraccion > 0.55 or solidez < 0.80
+
+
+
+
 
 
 def foto_con_contorno(imagen, mascara, mapa=None):
