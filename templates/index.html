@@ -49,6 +49,8 @@
     .resultado h2 { font-size: 28px; margin-bottom: 6px; }
     .note { color: var(--muted); font-size: 16px; }
     .resultado img { width: 100%; border-radius: 10px; margin: 12px 0; }
+    .aviso { background: #FBEFE1; border-left: 6px solid var(--rust); padding: 12px 16px;
+             border-radius: 0 10px 10px 0; margin: 12px 0; font-size: 16px; }
 
     select { width: 100%; padding: 12px; border: 2px solid var(--line); border-radius: 10px;
              background: var(--cream); font-size: 16px; font-family: inherit; margin-top: 8px; }
@@ -93,6 +95,14 @@
 
     {% if resultado %}
       <div class="card resultado {{ 'enferma' if resultado.enferma else 'sana' }}">
+        {% if resultado.dudosa %}
+          <p class="aviso">
+            <strong>Esta foto puede no ser adecuada.</strong>
+            El recorte parece incluir más de una hoja o parte del fondo, así que el resultado
+            no es confiable. Tome la foto de una sola hoja, centrada y con fondo liso
+            (una mano o un papel detrás).
+          </p>
+        {% endif %}
         {% if resultado.enferma %}
           <h2>La hoja parece enferma</h2>
         {% else %}
@@ -122,6 +132,11 @@
             y la guía de Cenicafé. Es una ayuda, no un diagnóstico: revise más hojas de la misma planta
             y consulte con un técnico del Comité de Cafeteros o de Cenicafé antes de aplicar cualquier producto.</p>
         {% endif %}
+        <p class="aviso">
+          La app solo reconoce roya y mancha por ácaro (dataset RoCoLe).
+          Otros problemas, como hongos blancos o manchas de otro origen,
+          pueden aparecer como falsos positivos.
+        </p>
       </div>
     {% endif %}
   </main>
@@ -132,4 +147,4 @@
     puede ser menos preciso. <a href="https://ojo-al-cafetal.onrender.com">Ver la investigación</a>.
   </div></footer>
 </body>
-</html>
+</html> 
