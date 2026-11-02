@@ -24,6 +24,45 @@ paquete = joblib.load(RAIZ / "models" / "modelo_app.joblib")
 modelo = paquete["modelo"]
 columnas = paquete["columnas"]
 
+# Modelo de Q-Learning (entrenado en reinforcement.py): recomienda qué hacer
+q = joblib.load(RAIZ / "models" / "qlearning.joblib")
+Q_PESOS = q["q_model"].coef_
+ACCIONES = q["acciones"]
+N_NIVELES = len(q["niveles"])
+N_ACCIONES = len(ACCIONES)
+
+TEXTO_ACCION = {
+    "Solo monitorear": "Siga revisando las hojas cada mes; por ahora no hace falta tratar.",
+    "Mejorar el manejo del cultivo": "Mejore el manejo: fertilización según análisis de suelo, "
+                                     "control de arvenses y de sombra, y densidad adecuada.",
+    "Aplicar fungicida": "Consulte a un técnico para aplicar un fungicida sistémico a tiempo.",
+}
+
+
+def nivel_estimado(enferma, afectada):
+    """Nivel de roya aproximado (0 a 4) según la zona marcada por K-Means."""
+    if not enferma:
+        return 0
+    if afectada < 3:
+        return 1
+    if afectada < 8:
+        return 2
+    if afectada < 15:
+        return 3
+    return 4
+
+
+def recomendar(nivel, variedad):
+    """Mejor acción según Q-Learning. variedad: 0 = resistente, 1 = susceptible."""
+    estado = variedad * N_NIVELES + nivel
+    valores = Q_PESOS[estado * N_ACCIONES:(estado + 1) * N_ACCIONES]
+    accion = ACCIONES[int(np.argmax(valores))]
+    texto = TEXTO_ACCION[accion]
+    if accion == "Aplicar fungicida" and variedad == 0:
+        texto = ("Es poco común en variedades resistentes: consulte primero a un técnico "
+                 "antes de aplicar nada.")
+    return {"variedad": ["resistente", "susceptible"][variedad], "accion": accion, "texto": texto}
+
 
 def foto_con_contorno(imagen, mascara, mapa=None):
     """Devuelve la foto con la zona analizada (línea amarilla) y, si se da,
@@ -44,14 +83,17 @@ def foto_con_contorno(imagen, mascara, mapa=None):
 
 @app.route("/")
 def inicio():
-    return render_template("index.html", resultado=None, error=None)
+    return render_template("index.html", resultado=None, error=None, variedad="no_se")
 
 
 @app.route("/predecir", methods=["POST"])
 def predecir():
     archivo = request.files.get("foto")
+    variedad = request.form.get("variedad", "no_se")
+    if variedad not in ("no_se", "resistente", "susceptible"):
+        variedad = "no_se"
     if archivo is None or archivo.filename == "":
-        return render_template("index.html", resultado=None,
+        return render_template("index.html", resultado=None, variedad=variedad,
                                error="Elija una foto de una hoja.")
     try:
         foto = Image.open(archivo.stream)
@@ -60,7 +102,7 @@ def predecir():
         mascara = car.mascara_grabcut(imagen)
         valores = car.extraer(imagen, mascara)
     except Exception:
-        return render_template("index.html", resultado=None,
+        return render_template("index.html", resultado=None, variedad=variedad,
                                error="No pude leer esa foto. Pruebe con otra imagen (JPG o PNG).")
 
     probabilidad = float(modelo.predict_proba(pd.DataFrame([valores], columns=columnas))[0][1])   # probabilidad de "enferma"
@@ -77,14 +119,24 @@ def predecir():
     if enferma:
         mapa, afectada = car.segmentar_manchas(imagen, mascara)
         afectada = round(afectada, 1)
+    # Q-Learning: qué hacer según el nivel estimado y la variedad
+    nivel_roya = nivel_estimado(enferma, afectada)
+    if variedad == "resistente":
+        recomendaciones = [recomendar(nivel_roya, 0)]
+    elif variedad == "susceptible":
+        recomendaciones = [recomendar(nivel_roya, 1)]
+    else:
+        recomendaciones = [recomendar(nivel_roya, 0), recomendar(nivel_roya, 1)]
     resultado = {
         "enferma": enferma,
         "porcentaje": round(seguridad * 100),
         "nivel": nivel,
         "afectada": afectada,
+        "nivel_roya": nivel_roya,
+        "recomendaciones": recomendaciones,
         "imagen": foto_con_contorno(imagen, mascara, mapa),
     }
-    return render_template("index.html", resultado=resultado, error=None)
+    return render_template("index.html", resultado=resultado, error=None, variedad=variedad)
 
 
 if __name__ == "__main__":

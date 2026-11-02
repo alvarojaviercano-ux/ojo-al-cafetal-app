@@ -50,6 +50,9 @@
     .note { color: var(--muted); font-size: 16px; }
     .resultado img { width: 100%; border-radius: 10px; margin: 12px 0; }
 
+    select { width: 100%; padding: 12px; border: 2px solid var(--line); border-radius: 10px;
+             background: var(--cream); font-size: 16px; font-family: inherit; margin-top: 8px; }
+    .reco { background: var(--cream); border-radius: 10px; padding: 12px 16px; margin-top: 10px; }
     footer { background: var(--dark); color: #D9CBBB; padding: 32px 0; font-size: 15px; }
     footer a { color: var(--orange); }
     @media (max-width: 600px) { body { font-size: 17px; } }
@@ -77,6 +80,14 @@
       <label for="foto"><b>Foto de la hoja</b></label>
       <p class="note">Fotografíe <b>una sola hoja</b>, de cerca y llenando la foto. Un fondo liso (la mano, un papel) o a contraluz ayuda mucho.</p>
       <input type="file" id="foto" name="foto" accept="image/*" required>
+      <label for="variedad" style="display:block;margin-top:14px"><b>Variedad de café</b></label>
+      <p class="note">Las variedades resistentes (Castillo, Colombia, Cenicafé 1, Tabi) y las susceptibles
+        (Caturra, Típica, Borbón) se manejan distinto.</p>
+      <select id="variedad" name="variedad">
+        <option value="no_se" {{ 'selected' if variedad == 'no_se' }}>No sé</option>
+        <option value="resistente" {{ 'selected' if variedad == 'resistente' }}>Resistente a la roya</option>
+        <option value="susceptible" {{ 'selected' if variedad == 'susceptible' }}>Susceptible a la roya</option>
+      </select>
       <button type="submit">Revisar la hoja</button>
     </form>
 
@@ -100,9 +111,16 @@
           {% if resultado.afectada is not none %}Lo marcado en magenta son las partes con color de daño;
           es una estimación, no una medida exacta.{% endif %}</p>
         {% if resultado.enferma %}
-          <p class="note"><b>Qué hacer:</b> esta es una ayuda, no un diagnóstico. Revise más hojas
-            de la misma planta y consulte con un técnico del Comité de Cafeteros o de Cenicafé
-            antes de aplicar cualquier producto.</p>
+          <h3 style="margin-top:14px">Qué hacer</h3>
+          <p class="note">Si es roya, y con un nivel estimado de <b>{{ resultado.nivel_roya }}</b> (aproximado):</p>
+          {% for r in resultado.recomendaciones %}
+            <div class="reco">
+              <b>Variedad {{ r.variedad }}: {{ r.accion }}.</b><br>{{ r.texto }}
+            </div>
+          {% endfor %}
+          <p class="note" style="margin-top:10px">Esta recomendación sale de una simulación con supuestos
+            y la guía de Cenicafé. Es una ayuda, no un diagnóstico: revise más hojas de la misma planta
+            y consulte con un técnico del Comité de Cafeteros o de Cenicafé antes de aplicar cualquier producto.</p>
         {% endif %}
       </div>
     {% endif %}
