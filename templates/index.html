@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ojo al Cafetal</title>
+  <style>
+    :root { --oscuro:#2B1D16; --crema:#F6F1E9; --verde:#2F6B47; --roya:#A5531A; --linea:#E4D9C8; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', Arial, sans-serif; background: var(--crema); color: var(--oscuro);
+           line-height: 1.6; font-size: 18px; }
+    header { background: var(--oscuro); color: var(--crema); padding: 28px 16px; text-align: center; }
+    header h1 { font-family: Georgia, serif; font-size: 34px; }
+    header p { color: #D9CBBB; margin-top: 6px; }
+    main { max-width: 640px; margin: 0 auto; padding: 24px 16px 48px; }
+    .tarjeta { background: #FFFDF8; border: 1px solid var(--linea); border-radius: 14px;
+               padding: 22px; margin-bottom: 18px; }
+    input[type=file] { width: 100%; padding: 14px; border: 2px dashed var(--linea);
+                       border-radius: 10px; background: var(--crema); font-size: 16px; }
+    button { margin-top: 14px; width: 100%; padding: 14px; border: 0; border-radius: 10px;
+             background: var(--verde); color: #fff; font-size: 18px; font-weight: 700; cursor: pointer; }
+    .error { background: #FBEFE1; border-left: 6px solid var(--roya); padding: 14px 18px;
+             border-radius: 0 10px 10px 0; margin-bottom: 18px; }
+    .sana { border-left: 8px solid var(--verde); }
+    .enferma { border-left: 8px solid var(--roya); }
+    .resultado h2 { font-family: Georgia, serif; font-size: 28px; margin-bottom: 6px; }
+    .nota { color: #5A4A40; font-size: 16px; }
+    img { width: 100%; border-radius: 10px; margin: 12px 0; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Ojo al Cafetal</h1>
+    <p>Suba la foto de una hoja de café y vea si está sana o enferma</p>
+  </header>
+  <main>
+    {% if error %}
+      <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <form class="tarjeta" action="/predecir" method="post" enctype="multipart/form-data">
+      <label for="foto"><b>Foto de la hoja</b></label>
+      <p class="nota">Tómela de cerca, con la hoja bien a la vista y en el centro de la foto.</p>
+      <input type="file" id="foto" name="foto" accept="image/*" required>
+      <button type="submit">Revisar la hoja</button>
+    </form>
+
+    {% if resultado %}
+      <div class="tarjeta resultado {{ 'enferma' if resultado.enferma else 'sana' }}">
+        {% if resultado.enferma %}
+          <h2>La hoja parece enferma</h2>
+        {% else %}
+          <h2>La hoja parece sana</h2>
+        {% endif %}
+        <p>Seguridad del modelo: <b>{{ resultado.porcentaje }}%</b></p>
+        {% if resultado.dudosa %}
+          <p class="nota">El resultado es dudoso. Pruebe con otra foto, más cerca y con buena luz.</p>
+        {% endif %}
+        <img src="data:image/jpeg;base64,{{ resultado.imagen }}" alt="Zona analizada">
+        <p class="nota">La línea amarilla muestra la zona que la app analizó. Si no cubre la hoja,
+          el resultado no es confiable.</p>
+        {% if resultado.enferma %}
+          <p class="nota"><b>Qué hacer:</b> esta es una ayuda, no un diagnóstico. Revise más hojas
+            de la misma planta y consulte con un técnico del Comité de Cafeteros o de Cenicafé
+            antes de aplicar cualquier producto.</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <p class="nota">Proyecto de Machine Learning, UDEC. Modelo entrenado con el dataset RoCoLe
+      (hojas de café robusta). En otras variedades el resultado puede ser menos preciso.</p>
+  </main>
+</body>
+</html>
