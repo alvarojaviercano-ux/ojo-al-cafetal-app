@@ -88,12 +88,17 @@
           <h2>La hoja parece sana</h2>
         {% endif %}
         <p>Confianza del modelo: <b>{{ resultado.nivel }}</b> ({{ resultado.porcentaje }}%)</p>
+        {% if resultado.afectada is not none %}
+          <p>Zona con señales de daño (en magenta): aprox. <b>{{ resultado.afectada }}%</b> de la hoja.</p>
+        {% endif %}
         {% if resultado.nivel == "baja" %}
           <p class="note">La confianza es baja. Pruebe con otra foto de una sola hoja, más cerca y con buena luz.</p>
         {% endif %}
         <img src="data:image/jpeg;base64,{{ resultado.imagen }}" alt="Zona analizada">
         <p class="note">La línea amarilla muestra la zona que la app analizó. Si no cubre la hoja,
-          el resultado no es confiable.</p>
+          el resultado no es confiable.
+          {% if resultado.afectada is not none %}Lo marcado en magenta son las partes con color de daño;
+          es una estimación, no una medida exacta.{% endif %}</p>
         {% if resultado.enferma %}
           <p class="note"><b>Qué hacer:</b> esta es una ayuda, no un diagnóstico. Revise más hojas
             de la misma planta y consulte con un técnico del Comité de Cafeteros o de Cenicafé

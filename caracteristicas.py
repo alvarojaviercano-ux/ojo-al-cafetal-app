@@ -58,6 +58,50 @@ def mascara_grabcut(imagen_rgb):
     return hoja
 
 
+
+
+
+def segmentar_manchas(imagen_rgb, mascara, k=5, voto_minimo=0.3, espacio="lab"):
+    """
+    K-Means sobre el color de la hoja. Devuelve (mapa, porcentaje):
+    mapa = True en los píxeles de grupos de color afectado (amarillo, naranja o café);
+    porcentaje = qué parte de la hoja ocupa esa zona.
+
+    espacio="lab": agrupa solo por tono (canales a y b), sin mirar el brillo, para que
+                   las sombras y el sol no armen los grupos. Es lo que usa la app.
+    espacio="rgb": agrupa por RGB (versión anterior, para comparar).
+    Un grupo se marca como afectado si al menos `voto_minimo` de sus píxeles
+    son amarillos, naranjas o café.
+    """
+    rgb = np.asarray(imagen_rgb)
+    if espacio == "lab":
+        datos = cv2.cvtColor(rgb, cv2.COLOR_RGB2LAB).astype(float)[mascara][:, 1:3]
+    else:
+        datos = rgb.astype(float)[mascara]
+
+    rng = np.random.RandomState(42)
+    muestra = datos[rng.choice(len(datos), size=min(5000, len(datos)), replace=False)]
+    kmeans = KMeans(n_clusters=k, n_init=3, random_state=42).fit(muestra)
+    etiquetas = kmeans.predict(datos)
+
+    # Qué píxeles tienen color de zona afectada (la misma regla de las características)
+    hsv = np.asarray(imagen_rgb.convert("HSV"), dtype=float)[mascara]
+    tono, saturacion, brillo = hsv.T
+    color_afectado = (tono >= 10) & (tono <= 45) & (saturacion > 64) & (brillo > 50)
+
+    # Cada grupo "vota": si suficientes píxeles son de color afectado, el grupo es afectado
+    afectado = np.array([color_afectado[etiquetas == g].mean() >= voto_minimo
+                         if (etiquetas == g).any() else False for g in range(k)])
+
+    mapa = np.zeros(mascara.shape, dtype=bool)
+    mapa[mascara] = afectado[etiquetas]
+    return mapa, mapa.sum() / mascara.sum() * 100
+
+
+
+
+
+
 def extraer(imagen_rgb, mascara):
     """
     Calcula las características de los píxeles de la hoja.

@@ -25,9 +25,13 @@ modelo = paquete["modelo"]
 columnas = paquete["columnas"]
 
 
-def foto_con_contorno(imagen, mascara):
-    """Devuelve la foto con la zona analizada marcada, como texto base64."""
+def foto_con_contorno(imagen, mascara, mapa=None):
+    """Devuelve la foto con la zona analizada (línea amarilla) y, si se da,
+    la zona afectada (magenta), como texto base64."""
     arreglo = np.asarray(imagen).copy()
+    if mapa is not None:
+        magenta = np.array([255, 0, 255], dtype=float)
+        arreglo[mapa] = (0.55 * arreglo[mapa] + 0.45 * magenta).astype(np.uint8)
     contornos, _ = cv2.findContours(mascara.astype(np.uint8), cv2.RETR_EXTERNAL,
                                     cv2.CHAIN_APPROX_SIMPLE)
     cv2.drawContours(arreglo, contornos, -1, (255, 255, 0), 4)
@@ -68,11 +72,17 @@ def predecir():
         nivel = "media"
     else:
         nivel = "baja"
+    # Si la hoja parece enferma, K-Means marca la zona con señales de daño
+    mapa, afectada = (None, None)
+    if enferma:
+        mapa, afectada = car.segmentar_manchas(imagen, mascara)
+        afectada = round(afectada, 1)
     resultado = {
         "enferma": enferma,
         "porcentaje": round(seguridad * 100),
         "nivel": nivel,
-        "imagen": foto_con_contorno(imagen, mascara),
+        "afectada": afectada,
+        "imagen": foto_con_contorno(imagen, mascara, mapa),
     }
     return render_template("index.html", resultado=resultado, error=None)
 
