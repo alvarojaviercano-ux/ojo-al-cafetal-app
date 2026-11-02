@@ -88,4 +88,4 @@ def foto_con_contorno(imagen, mascara, mapa=None):
     contornos, _ = cv2.findContours(mascara.astype(np.uint8), cv2.RETR_EXTERNAL,
                                     cv2.CHAIN_APPROX_SIMPLE)
     cv2.drawContours(arreglo, contornos, -1, (255, 255, 0), 4)
-    marcada =
+marcada = Image.fromarray(arreglo)
