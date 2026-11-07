@@ -63,14 +63,14 @@
 <body>
   <nav><div class="wrap">
     <b>Ojo al Cafetal</b>
-    <a href="https://ojo-al-cafetal.onrender.com">Investigación</a>
+    <a href="https://ojo-al-cafetal.onrender.com">Research</a>
     <a href="/">App</a>
   </div></nav>
 
   <header class="hero"><div class="wrap">
-    <div class="kicker">Detector de enfermedades</div>
-    <h1>Revise una hoja de café</h1>
-    <p class="sub">Suba la foto de una hoja y vea si está sana o enferma.</p>
+    <div class="kicker">Disease detector</div>
+    <h1>Check a coffee leaf</h1>
+    <p class="sub">Upload a photo of a leaf and see if it looks healthy or sick.</p>
   </div></header>
 
   <main>
@@ -79,72 +79,72 @@
     {% endif %}
 
     <form class="card" action="/predecir" method="post" enctype="multipart/form-data">
-      <label for="foto"><b>Foto de la hoja</b></label>
-      <p class="note">Fotografíe <b>una sola hoja</b>, de cerca y llenando la foto. Un fondo liso (la mano, un papel) o a contraluz ayuda mucho.</p>
+      <label for="foto"><b>Photo of the leaf</b></label>
+      <p class="note">Take a photo of <b>one single leaf</b>, up close and filling the photo. A plain background (your hand, a sheet of paper) or backlight helps a lot.</p>
       <input type="file" id="foto" name="foto" accept="image/*" required>
-      <label for="variedad" style="display:block;margin-top:14px"><b>Variedad de café</b></label>
-      <p class="note">Las variedades resistentes (Castillo, Colombia, Cenicafé 1, Tabi) y las susceptibles
-        (Caturra, Típica, Borbón) se manejan distinto.</p>
+      <label for="variedad" style="display:block;margin-top:14px"><b>Coffee variety</b></label>
+      <p class="note">Rust-resistant varieties (Castillo, Colombia, Cenicafé 1, Tabi) and susceptible ones
+        (Caturra, Typica, Bourbon) are managed in different ways.</p>
       <select id="variedad" name="variedad">
-        <option value="no_se" {{ 'selected' if variedad == 'no_se' }}>No sé</option>
-        <option value="resistente" {{ 'selected' if variedad == 'resistente' }}>Resistente a la roya</option>
-        <option value="susceptible" {{ 'selected' if variedad == 'susceptible' }}>Susceptible a la roya</option>
+        <option value="no_se" {{ 'selected' if variedad == 'no_se' }}>I do not know</option>
+        <option value="resistente" {{ 'selected' if variedad == 'resistente' }}>Resistant to rust</option>
+        <option value="susceptible" {{ 'selected' if variedad == 'susceptible' }}>Susceptible to rust</option>
       </select>
-      <button type="submit">Revisar la hoja</button>
+      <button type="submit">Check the leaf</button>
     </form>
 
     {% if resultado %}
       <div class="card resultado {{ 'enferma' if resultado.enferma else 'sana' }}">
         {% if resultado.dudosa %}
           <p class="aviso">
-            <strong>Esta foto puede no ser adecuada.</strong>
-            El recorte parece incluir más de una hoja o parte del fondo, así que el resultado
-            no es confiable. Tome la foto de una sola hoja, centrada y con fondo liso
-            (una mano o un papel detrás).
+            <strong>This photo may not be suitable.</strong>
+            The cut seems to include more than one leaf or part of the background, so the result
+            is not reliable. Take a photo of a single leaf, centered, on a plain background
+            (your hand or a sheet of paper behind it).
           </p>
         {% endif %}
         {% if resultado.enferma %}
-          <h2>La hoja parece enferma</h2>
+          <h2>The leaf looks sick</h2>
         {% else %}
-          <h2>La hoja parece sana</h2>
+          <h2>The leaf looks healthy</h2>
         {% endif %}
-        <p>Confianza del modelo: <b>{{ resultado.nivel }}</b> ({{ resultado.porcentaje }}%)</p>
+        <p>Model confidence: <b>{{ resultado.nivel }}</b> ({{ resultado.porcentaje }}%)</p>
         {% if resultado.afectada is not none %}
-          <p>Zona con señales de daño (en magenta): aprox. <b>{{ resultado.afectada }}%</b> de la hoja.</p>
+          <p>Zone with signs of damage (in magenta): about <b>{{ resultado.afectada }}%</b> of the leaf.</p>
         {% endif %}
-        {% if resultado.nivel == "baja" %}
-          <p class="note">La confianza es baja. Pruebe con otra foto de una sola hoja, más cerca y con buena luz.</p>
+        {% if resultado.nivel == "low" %}
+          <p class="note">The confidence is low. Try another photo of a single leaf, closer and with good light.</p>
         {% endif %}
-        <img src="data:image/jpeg;base64,{{ resultado.imagen }}" alt="Zona analizada">
-        <p class="note">La línea amarilla muestra la zona que la app analizó. Si no cubre la hoja,
-          el resultado no es confiable.
-          {% if resultado.afectada is not none %}Lo marcado en magenta son las partes con color de daño;
-          es una estimación, no una medida exacta.{% endif %}</p>
+        <img src="data:image/jpeg;base64,{{ resultado.imagen }}" alt="Analyzed zone">
+        <p class="note">The yellow line shows the zone the app analyzed. If it does not cover the leaf,
+          the result is not reliable.
+          {% if resultado.afectada is not none %}The magenta parts have the color of damage;
+          it is an estimate, not an exact measure.{% endif %}</p>
         {% if resultado.enferma %}
-          <h3 style="margin-top:14px">Qué hacer</h3>
-          <p class="note">Si es roya, y con un nivel estimado de <b>{{ resultado.nivel_roya }}</b> (aproximado):</p>
+          <h3 style="margin-top:14px">What to do</h3>
+          <p class="note">If it is rust, with an estimated level of <b>{{ resultado.nivel_roya }}</b> (approximate):</p>
           {% for r in resultado.recomendaciones %}
             <div class="reco">
-              <b>Variedad {{ r.variedad }}: {{ r.accion }}.</b><br>{{ r.texto }}
+              <b>{{ r.variedad|capitalize }} variety: {{ r.accion }}.</b><br>{{ r.texto }}
             </div>
           {% endfor %}
-          <p class="note" style="margin-top:10px">Esta recomendación sale de una simulación con supuestos
-            y la guía de Cenicafé. Es una ayuda, no un diagnóstico: revise más hojas de la misma planta
-            y consulte con un técnico del Comité de Cafeteros o de Cenicafé antes de aplicar cualquier producto.</p>
+          <p class="note" style="margin-top:10px">This advice comes from a simulation with assumptions
+            and Cenicafé's guidance. It is a help, not a diagnosis: check more leaves from the same plant
+            and talk to a technician from the Coffee Growers Committee or Cenicafé before applying any product.</p>
         {% endif %}
         <p class="aviso">
-          La app solo reconoce roya y mancha por ácaro (dataset RoCoLe).
-          Otros problemas, como hongos blancos o manchas de otro origen,
-          pueden aparecer como falsos positivos.
+          The app only recognizes rust and red spider mite (RoCoLe dataset).
+          Other problems, like white mold or spots from other causes,
+          may show up as false positives.
         </p>
       </div>
     {% endif %}
   </main>
 
   <footer><div class="wrap">
-    Proyecto final de Machine Learning, UDEC · Álvaro Javier Cano.<br>
-    Modelo entrenado con el dataset RoCoLe (hojas de café robusta); en otras variedades el resultado
-    puede ser menos preciso. <a href="https://ojo-al-cafetal.onrender.com">Ver la investigación</a>.
+    Final project, Machine Learning, UDEC · Álvaro Javier Cano.<br>
+    Model trained with the RoCoLe dataset (robusta coffee leaves); for other varieties the result
+    may be less accurate. <a href="https://ojo-al-cafetal.onrender.com">See the research</a>.
   </div></footer>
 </body>
-</html> 
+</html>
