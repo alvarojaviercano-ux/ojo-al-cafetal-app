@@ -5,7 +5,7 @@
     {% endif %}
 
     {% if usuario %}
-    <form class="card" action="/predecir" method="post" enctype="multipart/form-data">
+    <form id="form-foto" class="card" action="/predecir" method="post" enctype="multipart/form-data">
       <input type="hidden" name="csrf" value="{{ csrf_token() }}">
       <label for="foto"><b>Photo of the leaf</b></label>
       <p class="note">Take a photo of <b>one single leaf</b>, up close and filling the photo. A plain background (your hand, a sheet of paper) or backlight helps a lot.</p>
@@ -18,7 +18,7 @@
         <option value="resistente" {{ 'selected' if variedad == 'resistente' }}>Resistant to rust</option>
         <option value="susceptible" {{ 'selected' if variedad == 'susceptible' }}>Susceptible to rust</option>
       </select>
-      <button type="submit">Check the leaf</button>
+      <button id="btn-revisar" type="submit">Check the leaf</button>
     </form>
     {% else %}
     <div class="card">
@@ -75,4 +75,44 @@
         </p>
       </div>
     {% endif %}
+
+<script>
+(function () {
+  var form = document.getElementById('form-foto');
+  var btn = document.getElementById('btn-revisar');
+  var inp = document.getElementById('foto');
+  if (!form || !btn || !inp) return;
+
+  // 1) Shrink the photo on the phone before sending it (same width the app already uses)
+  if (window.createImageBitmap && window.DataTransfer) {
+    inp.addEventListener('change', async function () {
+      var f = inp.files[0];
+      if (!f) return;
+      try {
+        var bmp = await createImageBitmap(f, { imageOrientation: 'from-image' });
+        if (bmp.width <= 1024) return;                      // already small
+        var escala = 1024 / bmp.width;
+        var c = document.createElement('canvas');
+        c.width = 1024; c.height = Math.round(bmp.height * escala);
+        c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+        var blob = await new Promise(function (ok) { c.toBlob(ok, 'image/jpeg', 0.92); });
+        if (!blob) return;
+        var dt = new DataTransfer();
+        dt.items.add(new File([blob], 'leaf.jpg', { type: 'image/jpeg' }));
+        inp.files = dt.files;
+      } catch (e) { /* if anything fails, the original photo is sent */ }
+    });
+  }
+
+  // 2) Tell the user the app is working
+  form.addEventListener('submit', function () {
+    btn.disabled = true;
+    btn.textContent = 'Analyzing… this can take about 10 seconds';
+  });
+  window.addEventListener('pageshow', function () {        // when the user comes back with the Back button
+    btn.disabled = false;
+    btn.textContent = 'Check the leaf';
+  });
+})();
+</script>
 {% endblock %}
