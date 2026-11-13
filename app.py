@@ -1,24 +1,154 @@
 # Ojo al Cafetal - web app (Flask)
 # Receives a photo of a coffee leaf and says if it looks healthy or sick.
 # The model was trained on a computer; here it is only loaded and used.
+# Analyzing a photo needs an account (sign up / log in).
 
 import base64
 import io
+import os
+import re
+import secrets
+import sqlite3
 from pathlib import Path
 
 import cv2
 import joblib
 import numpy as np
 import pandas as pd
-from flask import Flask, render_template, request
+from flask import (Flask, abort, flash, redirect, render_template, request,
+                   session, url_for)
 from PIL import Image, ImageOps
+from werkzeug.security import check_password_hash, generate_password_hash
 
 import caracteristicas as car
 
 RAIZ = Path(__file__).resolve().parent
+DB_PATH = RAIZ / "usuarios.db"
+
 app = Flask(__name__)
 app.config["MAX_CONTENT_LENGTH"] = 10 * 1024 * 1024  # photos up to 10 MB
+app.config["SESSION_COOKIE_HTTPONLY"] = True
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+app.config["SESSION_COOKIE_SECURE"] = bool(os.environ.get("RENDER"))  # https on Render
 
+
+# ---------------------------------------------------------------- accounts
+def db():
+    conexion = sqlite3.connect(DB_PATH, timeout=10)
+    conexion.row_factory = sqlite3.Row
+    return conexion
+
+
+def iniciar_db():
+    with db() as c:
+        c.execute("""CREATE TABLE IF NOT EXISTS usuarios (
+                         id INTEGER PRIMARY KEY AUTOINCREMENT,
+                         usuario TEXT NOT NULL UNIQUE COLLATE NOCASE,
+                         clave TEXT NOT NULL,
+                         creado TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP)""")
+        c.execute("CREATE TABLE IF NOT EXISTS ajustes (nombre TEXT PRIMARY KEY, valor TEXT NOT NULL)")
+        # The secret key lives in the database, so every worker uses the same one
+        c.execute("INSERT OR IGNORE INTO ajustes (nombre, valor) VALUES ('secret_key', ?)",
+                  (secrets.token_hex(32),))
+        fila = c.execute("SELECT valor FROM ajustes WHERE nombre = 'secret_key'").fetchone()
+    app.secret_key = os.environ.get("SECRET_KEY") or fila["valor"]
+
+
+iniciar_db()
+
+USUARIO_VALIDO = re.compile(r"^[A-Za-z0-9_]{3,30}$")
+
+
+def usuario_actual():
+    uid = session.get("uid")
+    if uid is None:
+        return None
+    with db() as c:
+        return c.execute("SELECT id, usuario FROM usuarios WHERE id = ?", (uid,)).fetchone()
+
+
+def token_csrf():
+    if "csrf" not in session:
+        session["csrf"] = secrets.token_hex(16)
+    return session["csrf"]
+
+
+@app.context_processor
+def datos_comunes():
+    usuario = usuario_actual()
+    return {"usuario": usuario["usuario"] if usuario else None, "csrf_token": token_csrf}
+
+
+@app.before_request
+def revisar_csrf():
+    if request.method == "POST":
+        enviado = request.form.get("csrf", "")
+        if not enviado or not secrets.compare_digest(enviado, session.get("csrf", "")):
+            abort(400, "Invalid or expired form. Go back, reload the page and try again.")
+
+
+@app.errorhandler(400)
+def error_400(e):
+    return render_template("index.html", resultado=None, variedad="no_se",
+                           error=str(e.description)), 400
+
+
+@app.errorhandler(413)
+def error_413(e):
+    return render_template("index.html", resultado=None, variedad="no_se",
+                           error="That photo is too big. Use one smaller than 10 MB."), 413
+
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        nombre = request.form.get("usuario", "").strip()
+        clave = request.form.get("clave", "")
+        repetir = request.form.get("repetir", "")
+        if not USUARIO_VALIDO.match(nombre):
+            error = "The username must have 3 to 30 characters: letters, numbers or _."
+        elif len(clave) < 8:
+            error = "The password must have at least 8 characters."
+        elif clave != repetir:
+            error = "The two passwords are not the same."
+        else:
+            try:
+                with db() as c:
+                    cur = c.execute("INSERT INTO usuarios (usuario, clave) VALUES (?, ?)",
+                                    (nombre, generate_password_hash(clave)))
+                    nuevo_id = cur.lastrowid
+            except sqlite3.IntegrityError:
+                error = "That username is already taken."
+            else:
+                session.clear()
+                session["uid"] = nuevo_id
+                return redirect(url_for("inicio"))
+        return render_template("register.html", error=error, nombre=nombre), 400
+    return render_template("register.html", error=None, nombre="")
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        nombre = request.form.get("usuario", "").strip()
+        clave = request.form.get("clave", "")
+        with db() as c:
+            fila = c.execute("SELECT id, clave FROM usuarios WHERE usuario = ?", (nombre,)).fetchone()
+        if fila is not None and check_password_hash(fila["clave"], clave):
+            session.clear()
+            session["uid"] = fila["id"]
+            return redirect(url_for("inicio"))
+        return render_template("login.html", error="Wrong username or password.", nombre=nombre), 401
+    return render_template("login.html", error=None, nombre="")
+
+
+@app.route("/logout", methods=["POST"])
+def logout():
+    session.clear()
+    return redirect(url_for("inicio"))
+
+
+# ------------------------------------------------------------------- model
 # Load the model once, when the app starts
 paquete = joblib.load(RAIZ / "models" / "modelo_app.joblib")
 modelo = paquete["modelo"]
@@ -109,6 +239,9 @@ def inicio():
 
 @app.route("/predecir", methods=["POST"])
 def predecir():
+    if usuario_actual() is None:
+        flash("Log in to analyze a photo.")
+        return redirect(url_for("login"))
     archivo = request.files.get("foto")
     variedad = request.form.get("variedad", "no_se")
     if variedad not in ("no_se", "resistente", "susceptible"):

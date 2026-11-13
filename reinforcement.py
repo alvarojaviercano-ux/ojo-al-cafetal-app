@@ -1,9 +1,4 @@
 # Paso 13 - Q-Learning: ¿qué hacer según el estado de la hoja?
-# Mismo esquema del ejemplo del profesor (reinforcement.py): estados, acciones,
-# step(), encode(), SGDRegressor con partial_fit y política epsilon-greedy.
-#
-# IMPORTANTE: es una SIMULACIÓN. Las probabilidades y recompensas son supuestos
-# (no medidos). Las reglas de decisión siguen la guía de Cenicafé sobre roya:
 #  - variedades resistentes (Castillo, Colombia, Cenicafé 1, Tabi): no se recomienda control químico
 #  - variedades susceptibles (Caturra, Típica, Borbón): controlar antes de que la roya avance,
 #    con fungicida sistémico (2 o 3 aplicaciones por ciclo)
