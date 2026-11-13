@@ -4,6 +4,8 @@
       <div class="error">{{ error }}</div>
     {% endif %}
 
+    <div class="split">
+    <div class="col">
     {% if usuario %}
     <form id="form-foto" class="card" action="/predecir" method="post" enctype="multipart/form-data">
       <input type="hidden" name="csrf" value="{{ csrf_token() }}">
@@ -28,7 +30,8 @@
       <a class="btn second" href="{{ url_for('register') }}">Create an account</a>
     </div>
     {% endif %}
-
+    </div>
+    <div class="col">
     {% if resultado %}
       <div class="card resultado {{ 'enferma' if resultado.enferma else 'sana' }}">
         {% if resultado.dudosa %}
@@ -74,7 +77,20 @@
           may show up as false positives.
         </p>
       </div>
+    {% else %}
+      <div class="card side">
+        <h2>How it works</h2>
+        <p class="note">Four quick steps, about 10 seconds in total.</p>
+        <ol class="steps">
+          <li><div><b>Take a photo.</b><br><span class="note">One single leaf, close up, on a plain background.</span></div></li>
+          <li><div><b>The app cuts out the leaf.</b><br><span class="note">It separates the leaf from the background.</span></div></li>
+          <li><div><b>The model decides.</b><br><span class="note">Healthy or sick, and how sure it is.</span></div></li>
+          <li><div><b>You get advice.</b><br><span class="note">The damaged zone is marked in magenta, with a suggested action.</span></div></li>
+        </ol>
+      </div>
     {% endif %}
+    </div>
+    </div>
 
 <script>
 (function () {

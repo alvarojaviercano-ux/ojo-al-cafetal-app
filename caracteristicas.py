@@ -41,19 +41,19 @@ def mascara_centro(alto, ancho):
 
 def mascara_grabcut(imagen_rgb):
     cv2.setRNGSeed(0)
-    arreglo = np.asarray(imagen_rgb)
-    alto, ancho = arreglo.shape[:2]
-    chica = cv2.resize(arreglo, (512, int(alto * 512 / ancho)))
+    arreglo = np.asarray(imagen_rgb); alto, ancho = arreglo.shape[:2]
+    escala = 384 / max(alto, ancho)
+    tam = (max(1, int(ancho * escala)), max(1, int(alto * escala))) if escala < 1 else (ancho, alto)
+    chica = cv2.resize(arreglo, tam, interpolation=cv2.INTER_AREA)
     chica = cv2.cvtColor(chica, cv2.COLOR_RGB2BGR)
     h, w = chica.shape[:2]
     resultado = np.zeros((h, w), np.uint8)
-    fondo = np.zeros((1, 65))
-    frente = np.zeros((1, 65))
+    fondo = np.zeros((1, 65)); frente = np.zeros((1, 65))
     rectangulo = (int(w * 0.1), int(h * 0.1), int(w * 0.8), int(h * 0.8))
     cv2.grabCut(chica, resultado, rectangulo, fondo, frente, 3, cv2.GC_INIT_WITH_RECT)
-    hoja = ((resultado == cv2.GC_FGD) | (resultado == cv2.GC_PR_FGD)).astype(np.uint8)
-    hoja = cv2.resize(hoja, (ancho, alto), interpolation=cv2.INTER_NEAREST).astype(bool)
-    if hoja.mean() < 0.05 or hoja.mean() > 0.9:   # falló: usar el centro
+    hoja = ((resultado == cv2.GC_FGD) | (resultado == cv2.GC_PR_FGD)).astype(np.float32)
+    hoja = cv2.resize(hoja, (ancho, alto), interpolation=cv2.INTER_LINEAR) > 0.5
+    if hoja.mean() < 0.05 or hoja.mean() > 0.9:
         return mascara_centro(alto, ancho)
     return hoja
 
