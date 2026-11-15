@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% from "_m.html" import csrf with context %}
+{% block title %}Users – Eye on the Coffee Farm{% endblock %}
+{% block kicker %}Administration{% endblock %}
+{% block heading %}Users and roles{% endblock %}
+{% block content %}
+<div class="bar"><h2>Accounts</h2><a class="btn sm" href="{{ url_for('admin_usuario_nuevo') }}">Create an account</a><a class="btn sm second" href="{{ url_for('admin_registro') }}">Event log</a></div>
+<div class="tw"><table class="t"><tr><th>User</th><th>Name</th><th>Created</th><th>Last login</th><th>Role and status</th></tr>
+{% for u in filas %}
+  <tr><td><b>{{ u.username }}</b></td><td>{{ u.full_name }}</td><td>{{ u.created_at|dt }}</td><td>{{ u.last_login|dt }}</td>
+    <td><form method="post" action="{{ url_for('admin_usuario_actualizar', uid=u.id) }}" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">{{ csrf() }}
+      <select name="rol" style="width:auto;margin:0">{% for k, v in ROLE_TEXT.items() %}<option value="{{ k }}" {{ 'selected' if u.role == k }}>{{ v }}</option>{% endfor %}</select>
+      <label style="margin:0;font-weight:400"><input type="checkbox" name="activo" value="1" {{ 'checked' if u.active }}> active</label>
+      <button class="sm" type="submit">Save</button></form></td></tr>
+{% endfor %}
+</table></div>
+{% endblock %}

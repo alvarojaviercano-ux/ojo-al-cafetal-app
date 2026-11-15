@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}{{ titulo }} – Eye on the Coffee Farm{% endblock %}
+{% block kicker %}Error {{ codigo }}{% endblock %}
+{% block heading %}{{ titulo }}{% endblock %}
+{% block content %}
+<div class="card"><p>{{ mensaje }}</p>
+<p style="margin-top:14px"><a class="btn sm" href="{{ url_for('resumen') }}">Go to the home page</a></p></div>
+{% endblock %}

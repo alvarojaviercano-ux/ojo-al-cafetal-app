@@ -1,8 +1,8 @@
 {% extends "base.html" %}
-{% block title %}Log in – Ojo al Cafetal{% endblock %}
+{% block title %}Log in – Eye on the Coffee Farm{% endblock %}
 {% block kicker %}Your account{% endblock %}
 {% block heading %}Log in{% endblock %}
-{% block sub %}Log in to analyze photos of coffee leaves.{% endblock %}
+{% block sub %}Log in to manage your farms and check leaves.{% endblock %}
 {% block content %}
     {% if error %}
       <div class="error">{{ error }}</div>
@@ -21,11 +21,11 @@
     </div>
       <div class="col">
       <div class="card side">
-        <h2>Check a leaf in 3 steps</h2>
+        <h2>Your account decides what you see</h2>
         <ol class="steps">
-          <li><div><b>Sign in</b><br><span class="note">Free account, only a username and a password.</span></div></li>
-          <li><div><b>Upload one leaf photo</b><br><span class="note">Taken with your phone, close up, on a plain background.</span></div></li>
-          <li><div><b>Read the result</b><br><span class="note">Healthy or sick, the damaged zone and what to do.</span></div></li>
+          <li><div><b>Coffee grower</b><br><span class="note">Your own farms, plots, inspections and actions.</span></div></li>
+          <li><div><b>Technician</b><br><span class="note">Reviews results from all farms and confirms what was found.</span></div></li>
+          <li><div><b>Administrator</b><br><span class="note">Manages users and watches the monitoring of the model.</span></div></li>
         </ol>
       </div>
       </div>

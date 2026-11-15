@@ -1,0 +1,7 @@
+modelo,parametros,exactitud_train,cv_media,exactitud_test,precision_enferma,recall_enferma,f1_enferma,auc
+Baseline (always the majority class),-,50.16,,52.88,0.0,0.0,0.0,
+Logistic Regression,C=10,79.09,78.53,76.92,77.4,72.1,74.6,0.852
+KNN,k=5,80.93,71.23,73.08,70.9,72.8,71.8,0.798
+Random Forest,"trees=300, max_depth=None, min_leaf=3",96.71,83.4,82.69,80.4,83.7,82.0,0.907
+Gradient Boosting,"learning_rate=0.05, max_depth=None",99.76,83.65,83.01,79.4,86.4,82.7,0.91
+Random Forest (app model),"trees=300, defaults",100.0,83.25,83.01,79.7,85.7,82.6,0.906

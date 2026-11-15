@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}Deployment – Eye on the Coffee Farm{% endblock %}
+{% block mainclass %}doc-main{% endblock %}
+{% block herocls %}{% endblock %}
+{% block kicker %}Phase 5 of 6 · CRISP-ML{% endblock %}
+{% block heading %}Deployment{% endblock %}
+{% block sub %}From my computer to a web page a farmer can open.{% endblock %}
+{% block content %}
+<div class="doc">
+<section><div class="wrap">
+  <h2>Implementation in production</h2>
+  <ol class="steps">
+    <li><b>Train on my computer.</b> All training runs locally. Render only loads the trained models and uses them.</li>
+    <li><b>Save the models.</b> The trained models are saved as files (<code>models/</code>) and kept in the project.</li>
+    <li><b>Flask app.</b> The page receives a photo, cuts the leaf, takes the 26 numbers, and gives the answer, the magenta zone and the advice.</li>
+    <li><b>Publish on Render.</b> The app runs as a web service (gunicorn) with a PostgreSQL database for users, farms, plots, inspections and logs. Each push to GitHub updates it.</li>
+  </ol>
+  <p style="margin-top:18px"><a class="btn" href="{{ url_for('panel') }}">Open the system →</a></p>
+  <p class="note" style="margin-top:12px">The free plan sleeps after a while without visits. The first visit can take about a minute to wake it up.</p>
+</div></section>
+
+<section class="alt"><div class="wrap">
+  <h2>What the user sees</h2>
+  <ol class="steps">
+    <li><b>Upload.</b> The user takes a photo of one leaf with a phone and sends it, and says the variety if they know it.</li>
+    <li><b>Analyze.</b> The app checks the color and the spots and marks the zone it analyzed (yellow line).</li>
+    <li><b>Receive.</b> The user gets: healthy or sick, how sure the model is, the zone with signs of damage in magenta, and what to do for resistant or susceptible varieties.</li>
+  </ol>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Documentation and training for users</h2>
+  <ul>
+    <li>The page explains how to take a good photo: one leaf, up close, plain background, good light.</li>
+    <li>The page shows a warning when the confidence is low or when the cut does not look like a single leaf.</li>
+    <li>The page says what the app can and cannot do: it only knows rust and red spider mite, it is an estimate, and it is not a diagnosis.</li>
+    <li>These pages explain the method and the limits for anyone who wants to check the work.</li>
+  </ul>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Inputs and outputs</h2>
+  <div class="table-wrap"><table>
+    <tr><th></th><th>What</th><th>Details</th></tr>
+    <tr><td><b>Input</b></td><td>One photo of one coffee leaf</td><td>Image file (JPEG or PNG), up to 10 MB. The browser shrinks it to 1,024 pixels wide before sending.</td></tr>
+    <tr><td><b>Input</b></td><td>Variety (optional)</td><td>“I do not know”, “resistant to rust” or “susceptible to rust”. It only changes the advice.</td></tr>
+    <tr><td><b>Input</b></td><td>A user account</td><td>Username and password. The user must be logged in to analyze a photo.</td></tr>
+    <tr><td><b>Output</b></td><td>Healthy or sick</td><td>With the confidence of the model (high, medium or low) and its percent.</td></tr>
+    <tr><td><b>Output</b></td><td>Zone with signs of damage</td><td>The photo with the analyzed zone (yellow line) and the damaged pixels in magenta, with the percent of the leaf.</td></tr>
+    <tr><td><b>Output</b></td><td>Advice</td><td>One recommendation per variety, from the Q-Learning table and the estimated rust level.</td></tr>
+    <tr><td><b>Output</b></td><td>Warnings</td><td>“This photo may not be suitable” when the cut looks like more than one leaf; low confidence; the scope warning (only rust and red spider mite).</td></tr>
+  </table></div>
+</div></section>
+
+<section class="alt"><div class="wrap">
+  <h2>Saved model and files</h2>
+  <ul>
+    <li><code>models/modelo_app.joblib</code>: the selected Random Forest and the list of its 26 columns.</li>
+    <li><code>models/qlearning.joblib</code>: the Q-Learning tables (resistant and susceptible).</li>
+    <li><code>models/referencia_monitoreo.json</code>: the mean and spread of every feature in the training photos. The monitoring uses it as the reference (Phase 6).</li>
+    <li><b>Preprocessing.</b> The Random Forest needs no scaler. The preprocessing is the code in <code>caracteristicas.py</code> (leaf cut and 26 numbers), shared by training and by the app, so both do exactly the same.</li>
+  </ul>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Dependencies and how to run it</h2>
+  <p>Python libraries are listed in <code>requirements.txt</code>. To reproduce the project from the repository:</p>
+  <ol class="steps">
+    <li><b>Install.</b> <code>pip install -r requirements.txt</code></li>
+    <li><b>Download RoCoLe</b> (CC BY 4.0, link in Phase 1) and put it in the <code>data/</code> folder. The photos are not in the repository.</li>
+    <li><b>Make the tables.</b> <code>python extraer_caracteristicas.py</code> and then <code>python probar_mascara_automatica.py</code></li>
+    <li><b>Train the app model.</b> <code>python entrenar_modelo_app.py</code></li>
+    <li><b>Make the evidence.</b> <code>python generar_evidencia.py</code> (tables and figures in <code>evidencia/</code>)</li>
+    <li><b>Run the app.</b> <code>python app.py</code> and open <code>http://127.0.0.1:5000</code>. On Render it runs with gunicorn.</li>
+  </ol>
+</div></section>
+
+<section class="alt"><div class="wrap">
+  <h2>Protocols</h2>
+  <ul>
+    <li><b>Confidence levels.</b> The answer comes with a confidence level: high (80% or more), medium (65–80%) or low.</li>
+    <li><b>Safe advice.</b> The advice always asks the user to check more leaves and to talk to a technician before applying any product.</li>
+    <li><b>Incidents.</b> Any user can report a wrong answer or an error from the page <i>Feedback</i> (or from the inspection itself). The message is saved with the user, the date and the inspection. A technician or the administrator answers it and marks it as resolved. If it needs a fix or new training data, I note it for the next model version.</li>
+    <li><b>Feedback.</b> Under every result there is a “Was this result right?” question. The answer is saved and counted in the monitoring page.</li>
+    <li><b>Review by a technician.</b> A technician can confirm what is really on the leaf. That label is used to measure how often the model is right.</li>
+  </ul>
+</div></section>
+
+<section><div class="wrap"><div class="pager"><a href="{{ url_for('fase', slug='evaluation') }}">← Model Evaluation</a><a href="{{ url_for('fase', slug='monitoring') }}">Monitoring and Maintenance →</a></div></div></section>
+</div>
+{% endblock %}

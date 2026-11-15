@@ -1,8 +1,8 @@
 {% extends "base.html" %}
-{% block title %}Sign up – Ojo al Cafetal{% endblock %}
+{% block title %}Sign up – Eye on the Coffee Farm{% endblock %}
 {% block kicker %}Your account{% endblock %}
 {% block heading %}Create an account{% endblock %}
-{% block sub %}It is free. You only need a username and a password.{% endblock %}
+{% block sub %}New accounts are coffee growers. A technician or administrator account is created by an administrator.{% endblock %}
 {% block content %}
     {% if error %}
       <div class="error">{{ error }}</div>
@@ -11,11 +11,13 @@
     <div class="col">
     <form class="card formcard" action="{{ url_for('register') }}" method="post">
       <input type="hidden" name="csrf" value="{{ csrf_token() }}">
+      <label for="nombre">Full name (optional)</label>
+      <input type="text" id="nombre" name="nombre" value="{{ completo }}" maxlength="80" autocomplete="name">
       <label for="usuario">Username</label>
       <p class="note">3 to 30 characters: letters, numbers or _.</p>
       <input type="text" id="usuario" name="usuario" value="{{ nombre }}" autocomplete="username" required autofocus>
       <label for="clave">Password</label>
-      <p class="note">At least 8 characters.</p>
+      <p class="note">At least 8 characters, with letters and numbers.</p>
       <input type="password" id="clave" name="clave" autocomplete="new-password" minlength="8" required>
       <label for="repetir">Repeat the password</label>
       <input type="password" id="repetir" name="repetir" autocomplete="new-password" minlength="8" required>
@@ -25,11 +27,11 @@
     </div>
       <div class="col">
       <div class="card side">
-        <h2>Check a leaf in 3 steps</h2>
+        <h2>What you can do</h2>
         <ol class="steps">
-          <li><div><b>Sign in</b><br><span class="note">Free account, only a username and a password.</span></div></li>
-          <li><div><b>Upload one leaf photo</b><br><span class="note">Taken with your phone, close up, on a plain background.</span></div></li>
-          <li><div><b>Read the result</b><br><span class="note">Healthy or sick, the damaged zone and what to do.</span></div></li>
+          <li><div><b>Add your farm and plots</b><br><span class="note">Name, place, variety and area.</span></div></li>
+          <li><div><b>Check leaves with a photo</b><br><span class="note">Each result is saved with its date and model version.</span></div></li>
+          <li><div><b>Follow the actions</b><br><span class="note">A technician reviews the result and you track what was done.</span></div></li>
         </ol>
       </div>
       </div>

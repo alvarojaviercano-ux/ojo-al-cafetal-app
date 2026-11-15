@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Monitoring – Eye on the Coffee Farm{% endblock %}
+{% block kicker %}Phase 6 · operation{% endblock %}
+{% block heading %}Model monitoring{% endblock %}
+{% block sub %}Model in use: {{ MODEL_VERSION }}{% endblock %}
+{% block content %}
+<h2 style="font-size:22px;margin-bottom:8px">Use and speed</h2>
+<div class="cards4">
+  <div class="kpi"><b>{{ ind.total }}</b><span>Inspections ({{ ind.ultimos7 }} in the last 7 days)</span></div>
+  <div class="kpi"><b>{{ ind.ms_media if ind.ms_media is not none else '–' }}</b><span>Mean response time (ms)</span></div>
+  <div class="kpi"><b>{{ ind.ms_p95 if ind.ms_p95 is not none else '–' }}</b><span>95th percentile (ms). Alarm above 5000</span></div>
+  <div class="kpi"><b>{{ ind.errores7 }}</b><span>Errors in the last 7 days</span></div>
+  <div class="kpi"><b>{{ ind.fallos_login7 }}</b><span>Failed logins, last 7 days</span></div>
+</div>
+<h2 style="font-size:22px;margin:18px 0 8px">Model quality</h2>
+<div class="cards4">
+  <div class="kpi"><b>{{ (ind.exactitud ~ '%') if ind.exactitud is not none else '–' }}</b><span>Agreement with technicians ({{ ind.n_revisadas }} reviewed). Alarm below 80% when there are 20 or more.</span></div>
+  <div class="kpi"><b>{{ ind.fp if ind.fp is not none else '–' }} / {{ ind.fn if ind.fn is not none else '–' }}</b><span>False alarms / missed sick leaves</span></div>
+  <div class="kpi"><b>{{ (ind.pct_fb_correcta ~ '%') if ind.pct_fb_correcta is not none else '–' }}</b><span>Users who said the result was right ({{ ind.n_fb }} answers)</span></div>
+  <div class="kpi"><b>{{ (ind.pct_baja ~ '%') if ind.pct_baja is not none else '–' }}</b><span>Low-confidence answers</span></div>
+  <div class="kpi"><b>{{ (ind.pct_dudosa ~ '%') if ind.pct_dudosa is not none else '–' }}</b><span>Photos with a doubtful leaf cut</span></div>
+  <div class="kpi"><b>{{ (ind.pct_enferma ~ '%') if ind.pct_enferma is not none else '–' }}</b><span>Judged sick</span></div>
+  <div class="kpi"><b>{{ ind.abiertos }}</b><span>Open feedback / incidents</span></div>
+</div>
+{% if ind.exactitud is not none and ind.n_revisadas >= 20 and ind.exactitud < 80 %}
+<div class="error"><b>Alarm:</b> agreement with technicians is below 80%. Review the cases and consider retraining.</div>
+{% endif %}
+<h2 style="font-size:22px;margin:18px 0 8px">Change in the input data (drift)</h2>
+{% if ind.deriva %}
+  <p class="note">Mean of each feature in the last {{ ind.deriva_n }} inspections, compared with the training data, in training standard deviations. An alarm is raised when the shift is above 0.5.
+  {% if ind.deriva_alarmas %}<b>{{ ind.deriva_alarmas }} feature(s) in alarm.</b>{% else %}No feature is in alarm.{% endif %}</p>
+  <div class="tw"><table class="t"><tr><th>Feature</th><th>Training mean</th><th>Recent mean</th><th>Shift (sd)</th><th></th></tr>
+  {% for d in ind.deriva[:10] %}<tr><td>{{ d.nombre }}</td><td>{{ d.media_ref }}</td><td>{{ d.media_nueva }}</td><td>{{ d.z }}</td><td>{% if d.alarma %}<span class="badge bad">alarm</span>{% else %}<span class="badge">ok</span>{% endif %}</td></tr>{% endfor %}
+  </table></div>
+{% else %}
+  <p class="note">Not enough data yet: at least {{ ind.deriva_minimo }} inspections are needed (there are {{ ind.deriva_n }}), and the file <code>models/referencia_monitoreo.json</code> must exist.</p>
+{% endif %}
+<h2 style="font-size:22px;margin:18px 0 8px">Model versions used</h2>
+<p>{% for v in ind.versiones %}<span class="badge grey">{{ v }}</span> {% else %}<span class="note">None yet.</span>{% endfor %}</p>
+{% if rol == 'admin' %}<p style="margin-top:16px"><a class="btn sm" href="{{ url_for('admin_registro') }}">Open the event log</a></p>{% endif %}
+{% endblock %}

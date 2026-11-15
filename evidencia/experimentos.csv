@@ -1,0 +1,28 @@
+id,familia,parametros,cv_media,cv_desv,segundos
+E01,Logistic Regression,C=0.01,74.84,3.4,0.1
+E02,Logistic Regression,C=0.1,76.21,2.85,0.1
+E03,Logistic Regression,C=1,77.17,2.74,0.2
+E04,Logistic Regression,C=10,78.53,2.5,0.3
+E05,Logistic Regression,C=100,78.13,2.11,0.4
+E06,KNN,k=3,70.27,1.34,0.3
+E07,KNN,k=5,71.23,1.45,0.2
+E08,KNN,k=7,70.58,2.73,0.2
+E09,KNN,k=11,71.23,1.91,0.2
+E10,KNN,k=15,70.43,2.24,0.2
+E11,KNN,k=25,70.58,1.53,0.1
+E12,Random Forest,"trees=100, max_depth=None, min_leaf=1",83.09,2.18,1.6
+E13,Random Forest,"trees=100, max_depth=None, min_leaf=3",82.84,2.3,1.4
+E14,Random Forest,"trees=100, max_depth=6, min_leaf=1",82.52,2.28,1.4
+E15,Random Forest,"trees=100, max_depth=6, min_leaf=3",81.96,2.48,1.4
+E16,Random Forest,"trees=100, max_depth=12, min_leaf=1",83.17,1.78,1.3
+E17,Random Forest,"trees=100, max_depth=12, min_leaf=3",83.32,2.35,1.3
+E18,Random Forest,"trees=300, max_depth=None, min_leaf=1",83.25,2.44,3.1
+E19,Random Forest,"trees=300, max_depth=None, min_leaf=3",83.4,2.59,2.9
+E20,Random Forest,"trees=300, max_depth=6, min_leaf=1",82.52,2.38,2.9
+E21,Random Forest,"trees=300, max_depth=6, min_leaf=3",82.12,2.02,2.8
+E22,Random Forest,"trees=300, max_depth=12, min_leaf=1",83.17,1.58,2.8
+E23,Random Forest,"trees=300, max_depth=12, min_leaf=3",83.32,2.63,2.9
+E24,Gradient Boosting,"learning_rate=0.05, max_depth=None",83.65,1.89,1.4
+E25,Gradient Boosting,"learning_rate=0.05, max_depth=4",83.33,1.7,0.7
+E26,Gradient Boosting,"learning_rate=0.1, max_depth=None",83.65,1.76,1.4
+E27,Gradient Boosting,"learning_rate=0.1, max_depth=4",83.01,1.44,0.6

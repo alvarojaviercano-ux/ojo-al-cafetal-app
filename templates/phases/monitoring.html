@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Monitoring and Maintenance – Eye on the Coffee Farm{% endblock %}
+{% block mainclass %}doc-main{% endblock %}
+{% block herocls %}{% endblock %}
+{% block kicker %}Phase 6 of 6 · CRISP-ML{% endblock %}
+{% block heading %}Monitoring and Maintenance{% endblock %}
+{% block sub %}How the system is watched and improved while it is in use.{% endblock %}
+{% block content %}
+<div class="doc">
+<section><div class="wrap">
+  <div class="callout"><b>Status:</b> the system now keeps every inspection, every login and every error in its database. The page <a href="{{ url_for('monitoring') }}">Monitoring</a> (technician and administrator) shows the indicators below. The numbers are only as good as the real use so far, which is small.</div>
+</div></section>
+
+<section class="alt"><div class="wrap">
+  <h2>Continuous supervision</h2>
+  <p>Each inspection saves the date, the user, the plot, the result, the confidence, the model version, the response time and the 26 numbers taken from the photo. The event log keeps logins, failed logins, forbidden attempts, errors and slow requests (more than 5 seconds).</p>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Indicators and alarms</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Indicator</th><th>What it tells</th><th>Alarm</th></tr>
+    <tr><td>Response time (mean and 95th percentile)</td><td>Speed of the analysis</td><td>95th percentile above 5 s</td></tr>
+    <tr><td>Errors and failed logins (7 days)</td><td>Technical problems or attacks</td><td>Any rise; review the event log</td></tr>
+    <tr><td>Agreement with technicians</td><td>How often the model matches the technician (and false alarms / missed sick leaves)</td><td>Below 80% with at least 20 reviewed leaves</td></tr>
+    <tr><td>Users who say the result was right</td><td>Perceived quality</td><td>A steady fall</td></tr>
+    <tr><td>Low-confidence answers and doubtful cuts</td><td>Photos the model cannot handle</td><td>A rise over time</td></tr>
+    <tr><td>Drift of the 26 features</td><td>Whether new photos look different from the training photos</td><td>Mean shift above 0.5 training standard deviations (at least 20 inspections)</td></tr>
+  </table></div>
+  <p class="note" style="margin-top:10px">The drift in the app is a simple mean shift. The Population Stability Index (PSI) is calculated offline with <code>generar_evidencia.py</code>.</p>
+</div></section>
+
+<section class="alt"><div class="wrap">
+  <h2>Maintenance and model versions</h2>
+  <ul>
+    <li>Every result stores the model version (package version plus the first 8 characters of the hash of <code>modelo_app.joblib</code>). So an old result can always be traced to the model that made it.</li>
+    <li>To update the model: train again on my computer with the new reviewed photos, check the results by plant, replace the files in <code>models/</code>, push to GitHub and check the Monitoring page. The old results keep their old version label.</li>
+    <li>Add photos of Colombian arabica (Castillo, Caturra) and of other diseases (Cercospora, Phoma) so they stop showing up as false positives.</li>
+    <li>Replace my assumed Q-Learning costs and rewards with real ones when I have them, and check the advice with a coffee technician.</li>
+  </ul>
+</div></section>
+
+<section><div class="wrap"><div class="pager"><a href="{{ url_for('fase', slug='deployment') }}">← Deployment</a><a href="{{ url_for('resumen') }}#phases">All phases →</a></div></div></section>
+</div>
+{% endblock %}

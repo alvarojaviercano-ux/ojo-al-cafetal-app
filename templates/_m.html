@@ -1,0 +1,3 @@
+{% macro csrf() %}<input type="hidden" name="csrf" value="{{ csrf_token() }}">{% endmacro %}
+{% macro state(v) %}{% if v == 'closed' %}<span class="badge">Closed</span>{% elif v == 'pending_review' %}<span class="badge wait">Waiting for review</span>{% else %}<span class="badge bad">Action required</span>{% endif %}{% endmacro %}
+{% macro result(sick) %}{% if sick %}<span class="badge bad">Sick</span>{% else %}<span class="badge">Healthy</span>{% endif %}{% endmacro %}

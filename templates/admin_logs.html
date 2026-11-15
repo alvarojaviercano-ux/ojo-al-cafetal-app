@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Event log – Eye on the Coffee Farm{% endblock %}
+{% block kicker %}Administration{% endblock %}
+{% block heading %}Event log{% endblock %}
+{% block content %}
+<form class="bar" method="get"><h2>Last 300 events</h2>
+  <select name="level" style="width:auto;margin:0" onchange="this.form.submit()"><option value="">All levels</option>
+  {% for l in ('info','warning','error') %}<option value="{{ l }}" {{ 'selected' if nivel == l }}>{{ l }}</option>{% endfor %}</select></form>
+<div class="tw"><table class="t"><tr><th>Time</th><th>Level</th><th>Event</th><th>User id</th><th>Detail</th><th>ms</th></tr>
+{% for r in filas %}<tr><td>{{ r.ts|dt }}</td><td><span class="badge {{ 'bad' if r.level == 'error' else 'wait' if r.level == 'warning' else 'grey' }}">{{ r.level }}</span></td><td>{{ r.event }}</td><td>{{ r.user_id or '-' }}</td><td>{{ r.detail }}</td><td>{{ r.ms if r.ms is not none else '' }}</td></tr>
+{% else %}<tr><td colspan="6" class="muted">Empty.</td></tr>{% endfor %}
+</table></div>
+{% endblock %}

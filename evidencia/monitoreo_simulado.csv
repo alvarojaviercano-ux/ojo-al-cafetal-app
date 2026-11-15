@@ -1,0 +1,625 @@
+escenario,simulado,archivo,prob_enferma,prediccion,confianza
+A: held-out test photos (real),False,C1P3E1.jpg,0.32,0,0.68
+A: held-out test photos (real),False,C1P3E2.jpg,0.9767,1,0.9767
+A: held-out test photos (real),False,C1P3H1.jpg,0.0333,0,0.9667
+A: held-out test photos (real),False,C1P3H2.jpg,0.9667,1,0.9667
+A: held-out test photos (real),False,C1P7E1.jpg,0.5467,1,0.5467
+A: held-out test photos (real),False,C1P7H1.jpg,0.0133,0,0.9867
+A: held-out test photos (real),False,C1P20E2.jpg,0.94,1,0.94
+A: held-out test photos (real),False,C1P20H2.jpg,0.99,1,0.99
+A: held-out test photos (real),False,C1P22H1.jpg,0.0533,0,0.9467
+A: held-out test photos (real),False,C1P22H2.jpg,0.6067,1,0.6067
+A: held-out test photos (real),False,C1P26H1.jpg,0.4867,0,0.5133
+A: held-out test photos (real),False,C1P28E1.jpg,0.6167,1,0.6167
+A: held-out test photos (real),False,C1P28H1.jpg,0.0267,0,0.9733
+A: held-out test photos (real),False,C1P28H2.jpg,0.99,1,0.99
+A: held-out test photos (real),False,C1P35E1.jpg,0.2067,0,0.7933
+A: held-out test photos (real),False,C1P35H1.jpg,0.09,0,0.91
+A: held-out test photos (real),False,C1P35H2.jpg,0.75,1,0.75
+A: held-out test photos (real),False,C1P39H1.jpg,0.01,0,0.99
+A: held-out test photos (real),False,C1P39H2.jpg,0.7867,1,0.7867
+A: held-out test photos (real),False,C2P12E1.jpg,0.3133,0,0.6867
+A: held-out test photos (real),False,C2P12E2.jpg,0.83,1,0.83
+A: held-out test photos (real),False,C2P12H1.jpg,0.01,0,0.99
+A: held-out test photos (real),False,C2P12H2.jpg,0.6933,1,0.6933
+A: held-out test photos (real),False,C2P15E1.jpg,0.0333,0,0.9667
+A: held-out test photos (real),False,C2P15E2.jpg,0.8,1,0.8
+A: held-out test photos (real),False,C2P15H1.jpg,0.3133,0,0.6867
+A: held-out test photos (real),False,C2P15H2.jpg,0.2367,0,0.7633
+A: held-out test photos (real),False,C2P25H2.jpg,0.5967,1,0.5967
+A: held-out test photos (real),False,C2P25E1.jpg,0.4833,0,0.5167
+A: held-out test photos (real),False,C2P25E2.jpg,0.9467,1,0.9467
+A: held-out test photos (real),False,C2P25H1.jpg,0.0167,0,0.9833
+A: held-out test photos (real),False,C2P31E1.jpg,0.5167,1,0.5167
+A: held-out test photos (real),False,C2P31E2.jpg,0.9433,1,0.9433
+A: held-out test photos (real),False,C2P31H1.jpg,0.6033,1,0.6033
+A: held-out test photos (real),False,C2P31H2.jpg,0.6133,1,0.6133
+A: held-out test photos (real),False,C2P35E1.jpg,0.4733,0,0.5267
+A: held-out test photos (real),False,C2P35H1.jpg,0.1233,0,0.8767
+A: held-out test photos (real),False,C2P35H2.jpg,0.9167,1,0.9167
+A: held-out test photos (real),False,C3P8H1.jpg,0.2467,0,0.7533
+A: held-out test photos (real),False,C3P8E1.jpg,0.16,0,0.84
+A: held-out test photos (real),False,C3P8E2.jpg,0.7767,1,0.7767
+A: held-out test photos (real),False,C3P12E2.jpg,0.9033,1,0.9033
+A: held-out test photos (real),False,C3P12H1.jpg,0.8767,1,0.8767
+A: held-out test photos (real),False,C3P12H2.jpg,0.6567,1,0.6567
+A: held-out test photos (real),False,C3P12E1.jpg,0.0867,0,0.9133
+A: held-out test photos (real),False,C3P28E1.jpg,0.3067,0,0.6933
+A: held-out test photos (real),False,C3P28E2.jpg,0.1333,0,0.8667
+A: held-out test photos (real),False,C3P29E1.jpg,0.1633,0,0.8367
+A: held-out test photos (real),False,C3P29E2.jpg,0.8633,1,0.8633
+A: held-out test photos (real),False,C3P29H1.jpg,0.6633,1,0.6633
+A: held-out test photos (real),False,C4P4E1.jpg,0.2333,0,0.7667
+A: held-out test photos (real),False,C4P4H1.jpg,0.0433,0,0.9567
+A: held-out test photos (real),False,C4P4H2.jpg,0.8933,1,0.8933
+A: held-out test photos (real),False,C3P20E1.jpg,0.3367,0,0.6633
+A: held-out test photos (real),False,C3P20E2.jpg,0.74,1,0.74
+A: held-out test photos (real),False,C3P20H1.jpg,0.4567,0,0.5433
+A: held-out test photos (real),False,C3P20H2.jpg,0.6967,1,0.6967
+A: held-out test photos (real),False,C4P16E1.jpg,0.2233,0,0.7767
+A: held-out test photos (real),False,C4P16E2.jpg,0.56,1,0.56
+A: held-out test photos (real),False,C4P16H2.jpg,0.7833,1,0.7833
+A: held-out test photos (real),False,C9P34E2.jpg,0.12,0,0.88
+A: held-out test photos (real),False,C9P34H2.jpg,0.0433,0,0.9567
+A: held-out test photos (real),False,C1P7E2.jpg,0.9733,1,0.9733
+A: held-out test photos (real),False,C1P7H2.jpg,0.9833,1,0.9833
+A: held-out test photos (real),False,C1P20E1.jpg,0.8033,1,0.8033
+A: held-out test photos (real),False,C1P20H1.jpg,0.7267,1,0.7267
+A: held-out test photos (real),False,C1P22E1.jpg,0.5667,1,0.5667
+A: held-out test photos (real),False,C1P25E1.jpg,0.0367,0,0.9633
+A: held-out test photos (real),False,C1P22E2.jpg,0.9333,1,0.9333
+A: held-out test photos (real),False,C1P25E2.jpg,0.65,1,0.65
+A: held-out test photos (real),False,C1P28E2.jpg,0.88,1,0.88
+A: held-out test photos (real),False,C1P25H1.jpg,0.0133,0,0.9867
+A: held-out test photos (real),False,C1P25H2.jpg,0.7033,1,0.7033
+A: held-out test photos (real),False,C1P26E1.jpg,0.0167,0,0.9833
+A: held-out test photos (real),False,C1P26E2.jpg,0.98,1,0.98
+A: held-out test photos (real),False,C1P26H2.jpg,0.89,1,0.89
+A: held-out test photos (real),False,C1P39E1.jpg,0.13,0,0.87
+A: held-out test photos (real),False,C1P39E2.jpg,0.7533,1,0.7533
+A: held-out test photos (real),False,C1P35E2.jpg,0.2933,0,0.7067
+A: held-out test photos (real),False,C2P35E2.jpg,0.3567,0,0.6433
+A: held-out test photos (real),False,C3P28H1.jpg,0.01,0,0.99
+A: held-out test photos (real),False,C3P8H2.jpg,0.4767,0,0.5233
+A: held-out test photos (real),False,C3P28H2.jpg,0.5333,1,0.5333
+A: held-out test photos (real),False,C3P29H2.jpg,0.87,1,0.87
+A: held-out test photos (real),False,C4P4E2.jpg,0.6033,1,0.6033
+A: held-out test photos (real),False,C4P16H1.jpg,0.27,0,0.73
+A: held-out test photos (real),False,C5P4E2.jpg,0.93,1,0.93
+A: held-out test photos (real),False,C5P4H1.jpg,0.04,0,0.96
+A: held-out test photos (real),False,C5P4H2.jpg,0.9433,1,0.9433
+A: held-out test photos (real),False,C5P11E1.jpg,0.3,0,0.7
+A: held-out test photos (real),False,C5P11E2.jpg,0.5067,1,0.5067
+A: held-out test photos (real),False,C5P11H1.jpg,0.4567,0,0.5433
+A: held-out test photos (real),False,C5P11H2.jpg,0.3,0,0.7
+A: held-out test photos (real),False,C5P4E1.jpg,0.6967,1,0.6967
+A: held-out test photos (real),False,C5P19E1.jpg,0.1,0,0.9
+A: held-out test photos (real),False,C5P19E2.jpg,0.8133,1,0.8133
+A: held-out test photos (real),False,C5P19H1.jpg,0.95,1,0.95
+A: held-out test photos (real),False,C5P19H2.jpg,0.7633,1,0.7633
+A: held-out test photos (real),False,C5P28E2.jpg,0.53,1,0.53
+A: held-out test photos (real),False,C5P28H1.jpg,0.32,0,0.68
+A: held-out test photos (real),False,C5P27E1.jpg,0.31,0,0.69
+A: held-out test photos (real),False,C5P27H1.jpg,0.0367,0,0.9633
+A: held-out test photos (real),False,C5P27H2.jpg,0.1433,0,0.8567
+A: held-out test photos (real),False,C5P28E1.jpg,0.3667,0,0.6333
+A: held-out test photos (real),False,C5P38E1.jpg,0.45,0,0.55
+A: held-out test photos (real),False,C5P38E2.jpg,0.8667,1,0.8667
+A: held-out test photos (real),False,C5P38H1.jpg,0.9233,1,0.9233
+A: held-out test photos (real),False,C5P38H2.jpg,0.6433,1,0.6433
+A: held-out test photos (real),False,C6P12E1.jpg,0.2933,0,0.7067
+A: held-out test photos (real),False,C6P12E2.jpg,0.1633,0,0.8367
+A: held-out test photos (real),False,C6P12H1.jpg,0.3467,0,0.6533
+A: held-out test photos (real),False,C6P12H2.jpg,0.7167,1,0.7167
+A: held-out test photos (real),False,C6P16E1.jpg,0.6167,1,0.6167
+A: held-out test photos (real),False,C6P16E2.jpg,0.57,1,0.57
+A: held-out test photos (real),False,C6P16H1.jpg,0.0133,0,0.9867
+A: held-out test photos (real),False,C6P16H2.jpg,0.39,0,0.61
+A: held-out test photos (real),False,C6P22E1.jpg,0.2733,0,0.7267
+A: held-out test photos (real),False,C6P24E2.jpg,0.8067,1,0.8067
+A: held-out test photos (real),False,C6P22E2.jpg,0.69,1,0.69
+A: held-out test photos (real),False,C6P24H1.jpg,0.2967,0,0.7033
+A: held-out test photos (real),False,C6P22H1.jpg,0.17,0,0.83
+A: held-out test photos (real),False,C6P24H2.jpg,0.96,1,0.96
+A: held-out test photos (real),False,C6P22H2.jpg,0.9267,1,0.9267
+A: held-out test photos (real),False,C6P24E1.jpg,0.2833,0,0.7167
+A: held-out test photos (real),False,C6P31E1.jpg,0.7433,1,0.7433
+A: held-out test photos (real),False,C6P31E2.jpg,0.2767,0,0.7233
+A: held-out test photos (real),False,C6P34E1.jpg,0.7833,1,0.7833
+A: held-out test photos (real),False,C6P34E2.jpg,0.7033,1,0.7033
+A: held-out test photos (real),False,C6P34H1.jpg,0.7533,1,0.7533
+A: held-out test photos (real),False,C6P34H2.jpg,0.4167,0,0.5833
+A: held-out test photos (real),False,C5P28H2.jpg,0.1467,0,0.8533
+A: held-out test photos (real),False,C7P2E1.jpg,0.41,0,0.59
+A: held-out test photos (real),False,C7P2E2.jpg,0.2933,0,0.7067
+A: held-out test photos (real),False,C7P2H1.jpg,0.7567,1,0.7567
+A: held-out test photos (real),False,C7P2H2.jpg,0.0167,0,0.9833
+A: held-out test photos (real),False,C6P31H1.jpg,0.8367,1,0.8367
+A: held-out test photos (real),False,C6P31H2.jpg,0.0633,0,0.9367
+A: held-out test photos (real),False,C7P30E1.jpg,0.6667,1,0.6667
+A: held-out test photos (real),False,C7P30E2.jpg,0.2467,0,0.7533
+A: held-out test photos (real),False,C7P30H1.jpg,0.73,1,0.73
+A: held-out test photos (real),False,C7P30H2.jpg,0.06,0,0.94
+A: held-out test photos (real),False,C7P38E1.jpg,0.51,1,0.51
+A: held-out test photos (real),False,C7P38E2.jpg,0.4667,0,0.5333
+A: held-out test photos (real),False,C7P38H1.jpg,0.04,0,0.96
+A: held-out test photos (real),False,C7P38H2.jpg,0.8167,1,0.8167
+A: held-out test photos (real),False,C7P40E1.jpg,0.0133,0,0.9867
+A: held-out test photos (real),False,C7P40E2.jpg,0.7933,1,0.7933
+A: held-out test photos (real),False,C7P40H1.jpg,0.0267,0,0.9733
+A: held-out test photos (real),False,C7P40H2.jpg,0.8633,1,0.8633
+A: held-out test photos (real),False,C8P1E1.jpg,0.03,0,0.97
+A: held-out test photos (real),False,C8P1E2.jpg,0.5833,1,0.5833
+A: held-out test photos (real),False,C8P1H1.jpg,0.0067,0,0.9933
+A: held-out test photos (real),False,C8P1H2.jpg,0.0133,0,0.9867
+A: held-out test photos (real),False,C8P10E1.jpg,0.1933,0,0.8067
+A: held-out test photos (real),False,C8P10E2.jpg,0.38,0,0.62
+A: held-out test photos (real),False,C8P10H1.jpg,0.42,0,0.58
+A: held-out test photos (real),False,C8P10H2.jpg,0.1833,0,0.8167
+A: held-out test photos (real),False,C8P22E1.jpg,0.9633,1,0.9633
+A: held-out test photos (real),False,C8P22E2.jpg,0.29,0,0.71
+A: held-out test photos (real),False,C8P22H1.jpg,0.66,1,0.66
+A: held-out test photos (real),False,C8P22H2.jpg,0.89,1,0.89
+A: held-out test photos (real),False,C8P31E1.jpg,0.81,1,0.81
+A: held-out test photos (real),False,C8P31E2.jpg,0.4233,0,0.5767
+A: held-out test photos (real),False,C8P31H1.jpg,0.0533,0,0.9467
+A: held-out test photos (real),False,C8P31H2.jpg,0.02,0,0.98
+A: held-out test photos (real),False,C8P38E1.jpg,0.51,1,0.51
+A: held-out test photos (real),False,C8P38E2.jpg,0.2633,0,0.7367
+A: held-out test photos (real),False,C8P38H1.jpg,0.7133,1,0.7133
+A: held-out test photos (real),False,C8P38H2.jpg,0.06,0,0.94
+A: held-out test photos (real),False,C9P22E2.jpg,0.98,1,0.98
+A: held-out test photos (real),False,C9P22H1.jpg,0.9933,1,0.9933
+A: held-out test photos (real),False,C9P21E1.jpg,0.9167,1,0.9167
+A: held-out test photos (real),False,C9P22H2.jpg,0.0667,0,0.9333
+A: held-out test photos (real),False,C9P21E2.jpg,0.8467,1,0.8467
+A: held-out test photos (real),False,C9P21H1.jpg,0.89,1,0.89
+A: held-out test photos (real),False,C9P23E1.jpg,0.8367,1,0.8367
+A: held-out test photos (real),False,C9P21H2.jpg,0.0167,0,0.9833
+A: held-out test photos (real),False,C9P23E2.jpg,0.61,1,0.61
+A: held-out test photos (real),False,C9P23H1.jpg,0.9967,1,0.9967
+A: held-out test photos (real),False,C9P22E1.jpg,0.8467,1,0.8467
+A: held-out test photos (real),False,C9P23H2.jpg,0.0667,0,0.9333
+A: held-out test photos (real),False,C9P24E1.jpg,0.83,1,0.83
+A: held-out test photos (real),False,C9P24E2.jpg,0.7467,1,0.7467
+A: held-out test photos (real),False,C9P24H1.jpg,0.0167,0,0.9833
+A: held-out test photos (real),False,C9P24H2.jpg,0.0367,0,0.9633
+A: held-out test photos (real),False,C9P29E1.jpg,0.9933,1,0.9933
+A: held-out test photos (real),False,C9P29E2.jpg,0.35,0,0.65
+A: held-out test photos (real),False,C9P29H1.jpg,0.8033,1,0.8033
+A: held-out test photos (real),False,C9P31E2.jpg,0.4367,0,0.5633
+A: held-out test photos (real),False,C9P29H2.jpg,0.0233,0,0.9767
+A: held-out test photos (real),False,C9P31H1.jpg,0.9567,1,0.9567
+A: held-out test photos (real),False,C9P30E1.jpg,0.9667,1,0.9667
+A: held-out test photos (real),False,C9P31H2.jpg,0.0633,0,0.9367
+A: held-out test photos (real),False,C9P34E1.jpg,0.3767,0,0.6233
+A: held-out test photos (real),False,C9P30E2.jpg,0.5067,1,0.5067
+A: held-out test photos (real),False,C9P30H1.jpg,0.65,1,0.65
+A: held-out test photos (real),False,C9P34H1.jpg,0.6633,1,0.6633
+A: held-out test photos (real),False,C9P30H2.jpg,0.1267,0,0.8733
+A: held-out test photos (real),False,C9P31E1.jpg,0.9667,1,0.9667
+A: held-out test photos (real),False,C9P36E1.jpg,0.99,1,0.99
+A: held-out test photos (real),False,C9P36E2.jpg,0.0567,0,0.9433
+A: held-out test photos (real),False,C9P36H1.jpg,0.9433,1,0.9433
+A: held-out test photos (real),False,C10P1E1.jpg,0.8933,1,0.8933
+A: held-out test photos (real),False,C10P1E2.jpg,0.8933,1,0.8933
+A: held-out test photos (real),False,C9P36H2.jpg,0.03,0,0.97
+A: held-out test photos (real),False,C10P1H1.jpg,0.6133,1,0.6133
+A: held-out test photos (real),False,C10P1H2.jpg,0.0533,0,0.9467
+A: held-out test photos (real),False,C10P4H1.jpg,0.9633,1,0.9633
+A: held-out test photos (real),False,C10P4H2.jpg,0.04,0,0.96
+A: held-out test photos (real),False,C10P7E1.jpg,0.4933,0,0.5067
+A: held-out test photos (real),False,C10P7E2.jpg,0.9867,1,0.9867
+A: held-out test photos (real),False,C10P4E1.jpg,0.9333,1,0.9333
+A: held-out test photos (real),False,C10P7H1.jpg,0.0533,0,0.9467
+A: held-out test photos (real),False,C10P7H2.jpg,0.7733,1,0.7733
+A: held-out test photos (real),False,C10P4E2.jpg,0.8667,1,0.8667
+A: held-out test photos (real),False,C10P12H1.jpg,0.04,0,0.96
+A: held-out test photos (real),False,C10P12H2.jpg,0.83,1,0.83
+A: held-out test photos (real),False,C10P12E1.jpg,0.2533,0,0.7467
+A: held-out test photos (real),False,C10P12E2.jpg,0.73,1,0.73
+A: held-out test photos (real),False,C10P14E1.jpg,0.7367,1,0.7367
+A: held-out test photos (real),False,C10P14E2.jpg,0.9633,1,0.9633
+A: held-out test photos (real),False,C10P14H1.jpg,0.0633,0,0.9367
+A: held-out test photos (real),False,C10P14H2.jpg,0.9967,1,0.9967
+A: held-out test photos (real),False,C10P19E1.jpg,0.48,0,0.52
+A: held-out test photos (real),False,C10P19E2.jpg,0.99,1,0.99
+A: held-out test photos (real),False,C10P19H1.jpg,0.0533,0,0.9467
+A: held-out test photos (real),False,C10P19H2.jpg,0.8033,1,0.8033
+A: held-out test photos (real),False,C10P24H2.jpg,0.49,0,0.51
+A: held-out test photos (real),False,C10P24E1.jpg,0.3,0,0.7
+A: held-out test photos (real),False,C10P24E2.jpg,0.4567,0,0.5433
+A: held-out test photos (real),False,C10P24H1.jpg,0.02,0,0.98
+A: held-out test photos (real),False,C10P27E1.jpg,0.4233,0,0.5767
+A: held-out test photos (real),False,C10P27E2.jpg,0.9633,1,0.9633
+A: held-out test photos (real),False,C10P27H1.jpg,0.0167,0,0.9833
+A: held-out test photos (real),False,C10P27H2.jpg,0.7333,1,0.7333
+A: held-out test photos (real),False,C10P30E1.jpg,0.4133,0,0.5867
+A: held-out test photos (real),False,C10P30E2.jpg,0.8,1,0.8
+A: held-out test photos (real),False,C10P30H1.jpg,0.2767,0,0.7233
+A: held-out test photos (real),False,C10P30H2.jpg,0.5533,1,0.5533
+A: held-out test photos (real),False,C10P35H1.jpg,0.0967,0,0.9033
+A: held-out test photos (real),False,C10P35H2.jpg,0.7567,1,0.7567
+A: held-out test photos (real),False,C10P35E1.jpg,0.0367,0,0.9633
+A: held-out test photos (real),False,C10P35E2.jpg,0.8167,1,0.8167
+A: held-out test photos (real),False,C10P40E1.jpg,0.5833,1,0.5833
+A: held-out test photos (real),False,C10P40E2.jpg,0.9567,1,0.9567
+A: held-out test photos (real),False,C10P40H2.jpg,0.8267,1,0.8267
+A: held-out test photos (real),False,C10P40H1.jpg,0.0067,0,0.9933
+A: held-out test photos (real),False,C11P13E1.jpg,0.49,0,0.51
+A: held-out test photos (real),False,C11P13E2.jpg,0.7333,1,0.7333
+A: held-out test photos (real),False,C11P13H1.jpg,0.0633,0,0.9367
+A: held-out test photos (real),False,C11P18E1.jpg,0.2233,0,0.7767
+A: held-out test photos (real),False,C11P13H2.jpg,0.9367,1,0.9367
+A: held-out test photos (real),False,C11P18E2.jpg,0.9933,1,0.9933
+A: held-out test photos (real),False,C11P18H1.jpg,0.24,0,0.76
+A: held-out test photos (real),False,C11P18H2.jpg,0.99,1,0.99
+A: held-out test photos (real),False,C11P21H1.jpg,0.0533,0,0.9467
+A: held-out test photos (real),False,C11P21H2.jpg,0.9867,1,0.9867
+A: held-out test photos (real),False,C11P20E1.jpg,0.1067,0,0.8933
+A: held-out test photos (real),False,C11P20E2.jpg,0.8833,1,0.8833
+A: held-out test photos (real),False,C11P20H1.jpg,0.14,0,0.86
+A: held-out test photos (real),False,C11P20H2.jpg,0.9133,1,0.9133
+A: held-out test photos (real),False,C11P21E1.jpg,0.0167,0,0.9833
+A: held-out test photos (real),False,C11P21E2.jpg,0.8533,1,0.8533
+A: held-out test photos (real),False,C11P34E1.jpg,0.4967,0,0.5033
+A: held-out test photos (real),False,C11P35H2.jpg,0.64,1,0.64
+A: held-out test photos (real),False,C11P34E2.jpg,0.7933,1,0.7933
+A: held-out test photos (real),False,C11P34H1.jpg,0.8567,1,0.8567
+A: held-out test photos (real),False,C11P34H2.jpg,0.6467,1,0.6467
+A: held-out test photos (real),False,C11P35E1.jpg,0.06,0,0.94
+A: held-out test photos (real),False,C11P35E2.jpg,0.16,0,0.84
+A: held-out test photos (real),False,C11P35H1.jpg,0.0167,0,0.9833
+A: held-out test photos (real),False,C12P2E1.jpg,0.0167,0,0.9833
+A: held-out test photos (real),False,C12P2E2.jpg,0.7767,1,0.7767
+A: held-out test photos (real),False,C12P6E1.jpg,0.8133,1,0.8133
+A: held-out test photos (real),False,C12P6E2.jpg,0.9933,1,0.9933
+A: held-out test photos (real),False,C12P6H1.jpg,0.0533,0,0.9467
+A: held-out test photos (real),False,C12P2H1.jpg,0.06,0,0.94
+A: held-out test photos (real),False,C12P6H2.jpg,0.9833,1,0.9833
+A: held-out test photos (real),False,C12P2H2.jpg,0.37,0,0.63
+A: held-out test photos (real),False,C12P15H2.jpg,0.5867,1,0.5867
+A: held-out test photos (real),False,C12P16E1.jpg,0.0833,0,0.9167
+A: held-out test photos (real),False,C12P16E2.jpg,0.9567,1,0.9567
+A: held-out test photos (real),False,C12P15E1.jpg,0.01,0,0.99
+A: held-out test photos (real),False,C12P15E2.jpg,0.4633,0,0.5367
+A: held-out test photos (real),False,C12P16H1.jpg,0.0967,0,0.9033
+A: held-out test photos (real),False,C12P15H1.jpg,0.0333,0,0.9667
+A: held-out test photos (real),False,C12P16H2.jpg,0.9867,1,0.9867
+A: held-out test photos (real),False,C12P19E2.jpg,0.0433,0,0.9567
+A: held-out test photos (real),False,C12P19H1.jpg,0.9833,1,0.9833
+A: held-out test photos (real),False,C11P32E1.jpg,0.2233,0,0.7767
+A: held-out test photos (real),False,C12P19H2.jpg,0.0467,0,0.9533
+A: held-out test photos (real),False,C11P32E2.jpg,0.69,1,0.69
+A: held-out test photos (real),False,C12P20E1.jpg,0.2933,0,0.7067
+A: held-out test photos (real),False,C12P20E2.jpg,0.91,1,0.91
+A: held-out test photos (real),False,C11P32H1.jpg,0.0433,0,0.9567
+A: held-out test photos (real),False,C11P32H2.jpg,0.2733,0,0.7267
+A: held-out test photos (real),False,C12P25E1.jpg,0.1267,0,0.8733
+A: held-out test photos (real),False,C12P25E2.jpg,0.9467,1,0.9467
+A: held-out test photos (real),False,C12P25H1.jpg,0.0067,0,0.9933
+A: held-out test photos (real),False,C12P25H2.jpg,0.9633,1,0.9633
+A: held-out test photos (real),False,C12P19E1.jpg,0.97,1,0.97
+A: held-out test photos (real),False,C12P20H1.jpg,0.01,0,0.99
+A: held-out test photos (real),False,C12P20H2.jpg,0.99,1,0.99
+A: held-out test photos (real),False,C12P36E1.jpg,0.0967,0,0.9033
+A: held-out test photos (real),False,C12P36E2.jpg,0.9633,1,0.9633
+A: held-out test photos (real),False,C12P36H1.jpg,0.0833,0,0.9167
+A: held-out test photos (real),False,C12P36H2.jpg,0.9867,1,0.9867
+A: held-out test photos (real),False,C12P40E1.jpg,0.4433,0,0.5567
+A: held-out test photos (real),False,C12P40E2.jpg,0.77,1,0.77
+A: held-out test photos (real),False,C12P40H1.jpg,0.28,0,0.72
+A: held-out test photos (real),False,C12P40H2.jpg,0.5533,1,0.5533
+A: held-out test photos (real),False,C5P27E2.jpg,0.2133,0,0.7867
+B: shifted batch (SIMULATED),True,C1P3E1.jpg,0.7567,1,0.7567
+B: shifted batch (SIMULATED),True,C1P3E2.jpg,0.8767,1,0.8767
+B: shifted batch (SIMULATED),True,C1P3H1.jpg,0.8067,1,0.8067
+B: shifted batch (SIMULATED),True,C1P3H2.jpg,0.8833,1,0.8833
+B: shifted batch (SIMULATED),True,C1P7E1.jpg,0.7667,1,0.7667
+B: shifted batch (SIMULATED),True,C1P7H1.jpg,0.7733,1,0.7733
+B: shifted batch (SIMULATED),True,C1P20E2.jpg,0.81,1,0.81
+B: shifted batch (SIMULATED),True,C1P20H2.jpg,0.9033,1,0.9033
+B: shifted batch (SIMULATED),True,C1P22H1.jpg,0.7467,1,0.7467
+B: shifted batch (SIMULATED),True,C1P22H2.jpg,0.8633,1,0.8633
+B: shifted batch (SIMULATED),True,C1P26H1.jpg,0.88,1,0.88
+B: shifted batch (SIMULATED),True,C1P28E1.jpg,0.6133,1,0.6133
+B: shifted batch (SIMULATED),True,C1P28H1.jpg,0.7533,1,0.7533
+B: shifted batch (SIMULATED),True,C1P28H2.jpg,0.9267,1,0.9267
+B: shifted batch (SIMULATED),True,C1P35E1.jpg,0.7567,1,0.7567
+B: shifted batch (SIMULATED),True,C1P35H1.jpg,0.7267,1,0.7267
+B: shifted batch (SIMULATED),True,C1P35H2.jpg,0.8,1,0.8
+B: shifted batch (SIMULATED),True,C1P39H1.jpg,0.7767,1,0.7767
+B: shifted batch (SIMULATED),True,C1P39H2.jpg,0.73,1,0.73
+B: shifted batch (SIMULATED),True,C2P12E1.jpg,0.63,1,0.63
+B: shifted batch (SIMULATED),True,C2P12E2.jpg,0.78,1,0.78
+B: shifted batch (SIMULATED),True,C2P12H1.jpg,0.6767,1,0.6767
+B: shifted batch (SIMULATED),True,C2P12H2.jpg,0.8067,1,0.8067
+B: shifted batch (SIMULATED),True,C2P15E1.jpg,0.5933,1,0.5933
+B: shifted batch (SIMULATED),True,C2P15E2.jpg,0.7933,1,0.7933
+B: shifted batch (SIMULATED),True,C2P15H1.jpg,0.78,1,0.78
+B: shifted batch (SIMULATED),True,C2P15H2.jpg,0.8733,1,0.8733
+B: shifted batch (SIMULATED),True,C2P25H2.jpg,0.8833,1,0.8833
+B: shifted batch (SIMULATED),True,C2P25E1.jpg,0.81,1,0.81
+B: shifted batch (SIMULATED),True,C2P25E2.jpg,0.9033,1,0.9033
+B: shifted batch (SIMULATED),True,C2P25H1.jpg,0.58,1,0.58
+B: shifted batch (SIMULATED),True,C2P31E1.jpg,0.78,1,0.78
+B: shifted batch (SIMULATED),True,C2P31E2.jpg,0.8967,1,0.8967
+B: shifted batch (SIMULATED),True,C2P31H1.jpg,0.7767,1,0.7767
+B: shifted batch (SIMULATED),True,C2P31H2.jpg,0.68,1,0.68
+B: shifted batch (SIMULATED),True,C2P35E1.jpg,0.7267,1,0.7267
+B: shifted batch (SIMULATED),True,C2P35H1.jpg,0.7367,1,0.7367
+B: shifted batch (SIMULATED),True,C2P35H2.jpg,0.8633,1,0.8633
+B: shifted batch (SIMULATED),True,C3P8H1.jpg,0.58,1,0.58
+B: shifted batch (SIMULATED),True,C3P8E1.jpg,0.52,1,0.52
+B: shifted batch (SIMULATED),True,C3P8E2.jpg,0.7833,1,0.7833
+B: shifted batch (SIMULATED),True,C3P12E2.jpg,0.8433,1,0.8433
+B: shifted batch (SIMULATED),True,C3P12H1.jpg,0.8433,1,0.8433
+B: shifted batch (SIMULATED),True,C3P12H2.jpg,0.77,1,0.77
+B: shifted batch (SIMULATED),True,C3P12E1.jpg,0.8733,1,0.8733
+B: shifted batch (SIMULATED),True,C3P28E1.jpg,0.7,1,0.7
+B: shifted batch (SIMULATED),True,C3P28E2.jpg,0.8367,1,0.8367
+B: shifted batch (SIMULATED),True,C3P29E1.jpg,0.5233,1,0.5233
+B: shifted batch (SIMULATED),True,C3P29E2.jpg,0.87,1,0.87
+B: shifted batch (SIMULATED),True,C3P29H1.jpg,0.82,1,0.82
+B: shifted batch (SIMULATED),True,C4P4E1.jpg,0.4833,0,0.5167
+B: shifted batch (SIMULATED),True,C4P4H1.jpg,0.72,1,0.72
+B: shifted batch (SIMULATED),True,C4P4H2.jpg,0.8767,1,0.8767
+B: shifted batch (SIMULATED),True,C3P20E1.jpg,0.64,1,0.64
+B: shifted batch (SIMULATED),True,C3P20E2.jpg,0.7167,1,0.7167
+B: shifted batch (SIMULATED),True,C3P20H1.jpg,0.74,1,0.74
+B: shifted batch (SIMULATED),True,C3P20H2.jpg,0.85,1,0.85
+B: shifted batch (SIMULATED),True,C4P16E1.jpg,0.8133,1,0.8133
+B: shifted batch (SIMULATED),True,C4P16E2.jpg,0.6533,1,0.6533
+B: shifted batch (SIMULATED),True,C4P16H2.jpg,0.7467,1,0.7467
+B: shifted batch (SIMULATED),True,C9P34E2.jpg,0.5033,1,0.5033
+B: shifted batch (SIMULATED),True,C9P34H2.jpg,0.8067,1,0.8067
+B: shifted batch (SIMULATED),True,C1P7E2.jpg,0.8733,1,0.8733
+B: shifted batch (SIMULATED),True,C1P7H2.jpg,0.9367,1,0.9367
+B: shifted batch (SIMULATED),True,C1P20E1.jpg,0.8,1,0.8
+B: shifted batch (SIMULATED),True,C1P20H1.jpg,0.8667,1,0.8667
+B: shifted batch (SIMULATED),True,C1P22E1.jpg,0.7967,1,0.7967
+B: shifted batch (SIMULATED),True,C1P25E1.jpg,0.63,1,0.63
+B: shifted batch (SIMULATED),True,C1P22E2.jpg,0.8533,1,0.8533
+B: shifted batch (SIMULATED),True,C1P25E2.jpg,0.8867,1,0.8867
+B: shifted batch (SIMULATED),True,C1P28E2.jpg,0.8267,1,0.8267
+B: shifted batch (SIMULATED),True,C1P25H1.jpg,0.7267,1,0.7267
+B: shifted batch (SIMULATED),True,C1P25H2.jpg,0.8567,1,0.8567
+B: shifted batch (SIMULATED),True,C1P26E1.jpg,0.6467,1,0.6467
+B: shifted batch (SIMULATED),True,C1P26E2.jpg,0.8867,1,0.8867
+B: shifted batch (SIMULATED),True,C1P26H2.jpg,0.79,1,0.79
+B: shifted batch (SIMULATED),True,C1P39E1.jpg,0.64,1,0.64
+B: shifted batch (SIMULATED),True,C1P39E2.jpg,0.7,1,0.7
+B: shifted batch (SIMULATED),True,C1P35E2.jpg,0.6033,1,0.6033
+B: shifted batch (SIMULATED),True,C2P35E2.jpg,0.5767,1,0.5767
+B: shifted batch (SIMULATED),True,C3P28H1.jpg,0.6967,1,0.6967
+B: shifted batch (SIMULATED),True,C3P8H2.jpg,0.8167,1,0.8167
+B: shifted batch (SIMULATED),True,C3P28H2.jpg,0.6967,1,0.6967
+B: shifted batch (SIMULATED),True,C3P29H2.jpg,0.83,1,0.83
+B: shifted batch (SIMULATED),True,C4P4E2.jpg,0.7,1,0.7
+B: shifted batch (SIMULATED),True,C4P16H1.jpg,0.66,1,0.66
+B: shifted batch (SIMULATED),True,C5P4E2.jpg,0.88,1,0.88
+B: shifted batch (SIMULATED),True,C5P4H1.jpg,0.82,1,0.82
+B: shifted batch (SIMULATED),True,C5P4H2.jpg,0.92,1,0.92
+B: shifted batch (SIMULATED),True,C5P11E1.jpg,0.5033,1,0.5033
+B: shifted batch (SIMULATED),True,C5P11E2.jpg,0.7,1,0.7
+B: shifted batch (SIMULATED),True,C5P11H1.jpg,0.8267,1,0.8267
+B: shifted batch (SIMULATED),True,C5P11H2.jpg,0.8333,1,0.8333
+B: shifted batch (SIMULATED),True,C5P4E1.jpg,0.8367,1,0.8367
+B: shifted batch (SIMULATED),True,C5P19E1.jpg,0.5933,1,0.5933
+B: shifted batch (SIMULATED),True,C5P19E2.jpg,0.8,1,0.8
+B: shifted batch (SIMULATED),True,C5P19H1.jpg,0.87,1,0.87
+B: shifted batch (SIMULATED),True,C5P19H2.jpg,0.7767,1,0.7767
+B: shifted batch (SIMULATED),True,C5P28E2.jpg,0.6267,1,0.6267
+B: shifted batch (SIMULATED),True,C5P28H1.jpg,0.71,1,0.71
+B: shifted batch (SIMULATED),True,C5P27E1.jpg,0.6233,1,0.6233
+B: shifted batch (SIMULATED),True,C5P27H1.jpg,0.71,1,0.71
+B: shifted batch (SIMULATED),True,C5P27H2.jpg,0.7,1,0.7
+B: shifted batch (SIMULATED),True,C5P28E1.jpg,0.5467,1,0.5467
+B: shifted batch (SIMULATED),True,C5P38E1.jpg,0.63,1,0.63
+B: shifted batch (SIMULATED),True,C5P38E2.jpg,0.7933,1,0.7933
+B: shifted batch (SIMULATED),True,C5P38H1.jpg,0.8533,1,0.8533
+B: shifted batch (SIMULATED),True,C5P38H2.jpg,0.7367,1,0.7367
+B: shifted batch (SIMULATED),True,C6P12E1.jpg,0.4033,0,0.5967
+B: shifted batch (SIMULATED),True,C6P12E2.jpg,0.7233,1,0.7233
+B: shifted batch (SIMULATED),True,C6P12H1.jpg,0.7933,1,0.7933
+B: shifted batch (SIMULATED),True,C6P12H2.jpg,0.79,1,0.79
+B: shifted batch (SIMULATED),True,C6P16E1.jpg,0.7233,1,0.7233
+B: shifted batch (SIMULATED),True,C6P16E2.jpg,0.6933,1,0.6933
+B: shifted batch (SIMULATED),True,C6P16H1.jpg,0.74,1,0.74
+B: shifted batch (SIMULATED),True,C6P16H2.jpg,0.7567,1,0.7567
+B: shifted batch (SIMULATED),True,C6P22E1.jpg,0.6,1,0.6
+B: shifted batch (SIMULATED),True,C6P24E2.jpg,0.7333,1,0.7333
+B: shifted batch (SIMULATED),True,C6P22E2.jpg,0.6633,1,0.6633
+B: shifted batch (SIMULATED),True,C6P24H1.jpg,0.69,1,0.69
+B: shifted batch (SIMULATED),True,C6P22H1.jpg,0.6967,1,0.6967
+B: shifted batch (SIMULATED),True,C6P24H2.jpg,0.91,1,0.91
+B: shifted batch (SIMULATED),True,C6P22H2.jpg,0.89,1,0.89
+B: shifted batch (SIMULATED),True,C6P24E1.jpg,0.4633,0,0.5367
+B: shifted batch (SIMULATED),True,C6P31E1.jpg,0.6867,1,0.6867
+B: shifted batch (SIMULATED),True,C6P31E2.jpg,0.4867,0,0.5133
+B: shifted batch (SIMULATED),True,C6P34E1.jpg,0.7267,1,0.7267
+B: shifted batch (SIMULATED),True,C6P34E2.jpg,0.6933,1,0.6933
+B: shifted batch (SIMULATED),True,C6P34H1.jpg,0.6967,1,0.6967
+B: shifted batch (SIMULATED),True,C6P34H2.jpg,0.75,1,0.75
+B: shifted batch (SIMULATED),True,C5P28H2.jpg,0.7167,1,0.7167
+B: shifted batch (SIMULATED),True,C7P2E1.jpg,0.6,1,0.6
+B: shifted batch (SIMULATED),True,C7P2E2.jpg,0.6533,1,0.6533
+B: shifted batch (SIMULATED),True,C7P2H1.jpg,0.9,1,0.9
+B: shifted batch (SIMULATED),True,C7P2H2.jpg,0.81,1,0.81
+B: shifted batch (SIMULATED),True,C6P31H1.jpg,0.8033,1,0.8033
+B: shifted batch (SIMULATED),True,C6P31H2.jpg,0.78,1,0.78
+B: shifted batch (SIMULATED),True,C7P30E1.jpg,0.6433,1,0.6433
+B: shifted batch (SIMULATED),True,C7P30E2.jpg,0.62,1,0.62
+B: shifted batch (SIMULATED),True,C7P30H1.jpg,0.7867,1,0.7867
+B: shifted batch (SIMULATED),True,C7P30H2.jpg,0.6467,1,0.6467
+B: shifted batch (SIMULATED),True,C7P38E1.jpg,0.8,1,0.8
+B: shifted batch (SIMULATED),True,C7P38E2.jpg,0.7867,1,0.7867
+B: shifted batch (SIMULATED),True,C7P38H1.jpg,0.7033,1,0.7033
+B: shifted batch (SIMULATED),True,C7P38H2.jpg,0.74,1,0.74
+B: shifted batch (SIMULATED),True,C7P40E1.jpg,0.5867,1,0.5867
+B: shifted batch (SIMULATED),True,C7P40E2.jpg,0.7533,1,0.7533
+B: shifted batch (SIMULATED),True,C7P40H1.jpg,0.8133,1,0.8133
+B: shifted batch (SIMULATED),True,C7P40H2.jpg,0.82,1,0.82
+B: shifted batch (SIMULATED),True,C8P1E1.jpg,0.6167,1,0.6167
+B: shifted batch (SIMULATED),True,C8P1E2.jpg,0.68,1,0.68
+B: shifted batch (SIMULATED),True,C8P1H1.jpg,0.75,1,0.75
+B: shifted batch (SIMULATED),True,C8P1H2.jpg,0.7433,1,0.7433
+B: shifted batch (SIMULATED),True,C8P10E1.jpg,0.6767,1,0.6767
+B: shifted batch (SIMULATED),True,C8P10E2.jpg,0.73,1,0.73
+B: shifted batch (SIMULATED),True,C8P10H1.jpg,0.8033,1,0.8033
+B: shifted batch (SIMULATED),True,C8P10H2.jpg,0.7933,1,0.7933
+B: shifted batch (SIMULATED),True,C8P22E1.jpg,0.8367,1,0.8367
+B: shifted batch (SIMULATED),True,C8P22E2.jpg,0.3567,0,0.6433
+B: shifted batch (SIMULATED),True,C8P22H1.jpg,0.7967,1,0.7967
+B: shifted batch (SIMULATED),True,C8P22H2.jpg,0.7933,1,0.7933
+B: shifted batch (SIMULATED),True,C8P31E1.jpg,0.7767,1,0.7767
+B: shifted batch (SIMULATED),True,C8P31E2.jpg,0.76,1,0.76
+B: shifted batch (SIMULATED),True,C8P31H1.jpg,0.6267,1,0.6267
+B: shifted batch (SIMULATED),True,C8P31H2.jpg,0.7667,1,0.7667
+B: shifted batch (SIMULATED),True,C8P38E1.jpg,0.7267,1,0.7267
+B: shifted batch (SIMULATED),True,C8P38E2.jpg,0.52,1,0.52
+B: shifted batch (SIMULATED),True,C8P38H1.jpg,0.82,1,0.82
+B: shifted batch (SIMULATED),True,C8P38H2.jpg,0.7267,1,0.7267
+B: shifted batch (SIMULATED),True,C9P22E2.jpg,0.87,1,0.87
+B: shifted batch (SIMULATED),True,C9P22H1.jpg,0.9067,1,0.9067
+B: shifted batch (SIMULATED),True,C9P21E1.jpg,0.88,1,0.88
+B: shifted batch (SIMULATED),True,C9P22H2.jpg,0.8,1,0.8
+B: shifted batch (SIMULATED),True,C9P21E2.jpg,0.7733,1,0.7733
+B: shifted batch (SIMULATED),True,C9P21H1.jpg,0.89,1,0.89
+B: shifted batch (SIMULATED),True,C9P23E1.jpg,0.84,1,0.84
+B: shifted batch (SIMULATED),True,C9P21H2.jpg,0.81,1,0.81
+B: shifted batch (SIMULATED),True,C9P23E2.jpg,0.77,1,0.77
+B: shifted batch (SIMULATED),True,C9P23H1.jpg,0.8767,1,0.8767
+B: shifted batch (SIMULATED),True,C9P22E1.jpg,0.7767,1,0.7767
+B: shifted batch (SIMULATED),True,C9P23H2.jpg,0.7833,1,0.7833
+B: shifted batch (SIMULATED),True,C9P24E1.jpg,0.8333,1,0.8333
+B: shifted batch (SIMULATED),True,C9P24E2.jpg,0.8633,1,0.8633
+B: shifted batch (SIMULATED),True,C9P24H1.jpg,0.6733,1,0.6733
+B: shifted batch (SIMULATED),True,C9P24H2.jpg,0.7233,1,0.7233
+B: shifted batch (SIMULATED),True,C9P29E1.jpg,0.8233,1,0.8233
+B: shifted batch (SIMULATED),True,C9P29E2.jpg,0.8033,1,0.8033
+B: shifted batch (SIMULATED),True,C9P29H1.jpg,0.88,1,0.88
+B: shifted batch (SIMULATED),True,C9P31E2.jpg,0.68,1,0.68
+B: shifted batch (SIMULATED),True,C9P29H2.jpg,0.8133,1,0.8133
+B: shifted batch (SIMULATED),True,C9P31H1.jpg,0.8733,1,0.8733
+B: shifted batch (SIMULATED),True,C9P30E1.jpg,0.8867,1,0.8867
+B: shifted batch (SIMULATED),True,C9P31H2.jpg,0.7533,1,0.7533
+B: shifted batch (SIMULATED),True,C9P34E1.jpg,0.71,1,0.71
+B: shifted batch (SIMULATED),True,C9P30E2.jpg,0.6567,1,0.6567
+B: shifted batch (SIMULATED),True,C9P30H1.jpg,0.7367,1,0.7367
+B: shifted batch (SIMULATED),True,C9P34H1.jpg,0.8633,1,0.8633
+B: shifted batch (SIMULATED),True,C9P30H2.jpg,0.8133,1,0.8133
+B: shifted batch (SIMULATED),True,C9P31E1.jpg,0.9033,1,0.9033
+B: shifted batch (SIMULATED),True,C9P36E1.jpg,0.8367,1,0.8367
+B: shifted batch (SIMULATED),True,C9P36E2.jpg,0.6733,1,0.6733
+B: shifted batch (SIMULATED),True,C9P36H1.jpg,0.8267,1,0.8267
+B: shifted batch (SIMULATED),True,C10P1E1.jpg,0.8167,1,0.8167
+B: shifted batch (SIMULATED),True,C10P1E2.jpg,0.84,1,0.84
+B: shifted batch (SIMULATED),True,C9P36H2.jpg,0.8233,1,0.8233
+B: shifted batch (SIMULATED),True,C10P1H1.jpg,0.9033,1,0.9033
+B: shifted batch (SIMULATED),True,C10P1H2.jpg,0.82,1,0.82
+B: shifted batch (SIMULATED),True,C10P4H1.jpg,0.8667,1,0.8667
+B: shifted batch (SIMULATED),True,C10P4H2.jpg,0.73,1,0.73
+B: shifted batch (SIMULATED),True,C10P7E1.jpg,0.7533,1,0.7533
+B: shifted batch (SIMULATED),True,C10P7E2.jpg,0.9233,1,0.9233
+B: shifted batch (SIMULATED),True,C10P4E1.jpg,0.9,1,0.9
+B: shifted batch (SIMULATED),True,C10P7H1.jpg,0.83,1,0.83
+B: shifted batch (SIMULATED),True,C10P7H2.jpg,0.79,1,0.79
+B: shifted batch (SIMULATED),True,C10P4E2.jpg,0.8733,1,0.8733
+B: shifted batch (SIMULATED),True,C10P12H1.jpg,0.79,1,0.79
+B: shifted batch (SIMULATED),True,C10P12H2.jpg,0.91,1,0.91
+B: shifted batch (SIMULATED),True,C10P12E1.jpg,0.78,1,0.78
+B: shifted batch (SIMULATED),True,C10P12E2.jpg,0.81,1,0.81
+B: shifted batch (SIMULATED),True,C10P14E1.jpg,0.7633,1,0.7633
+B: shifted batch (SIMULATED),True,C10P14E2.jpg,0.8833,1,0.8833
+B: shifted batch (SIMULATED),True,C10P14H1.jpg,0.82,1,0.82
+B: shifted batch (SIMULATED),True,C10P14H2.jpg,0.9033,1,0.9033
+B: shifted batch (SIMULATED),True,C10P19E1.jpg,0.7367,1,0.7367
+B: shifted batch (SIMULATED),True,C10P19E2.jpg,0.86,1,0.86
+B: shifted batch (SIMULATED),True,C10P19H1.jpg,0.7467,1,0.7467
+B: shifted batch (SIMULATED),True,C10P19H2.jpg,0.8033,1,0.8033
+B: shifted batch (SIMULATED),True,C10P24H2.jpg,0.8333,1,0.8333
+B: shifted batch (SIMULATED),True,C10P24E1.jpg,0.67,1,0.67
+B: shifted batch (SIMULATED),True,C10P24E2.jpg,0.8,1,0.8
+B: shifted batch (SIMULATED),True,C10P24H1.jpg,0.7667,1,0.7667
+B: shifted batch (SIMULATED),True,C10P27E1.jpg,0.6633,1,0.6633
+B: shifted batch (SIMULATED),True,C10P27E2.jpg,0.9133,1,0.9133
+B: shifted batch (SIMULATED),True,C10P27H1.jpg,0.7167,1,0.7167
+B: shifted batch (SIMULATED),True,C10P27H2.jpg,0.7233,1,0.7233
+B: shifted batch (SIMULATED),True,C10P30E1.jpg,0.6533,1,0.6533
+B: shifted batch (SIMULATED),True,C10P30E2.jpg,0.8167,1,0.8167
+B: shifted batch (SIMULATED),True,C10P30H1.jpg,0.7867,1,0.7867
+B: shifted batch (SIMULATED),True,C10P30H2.jpg,0.81,1,0.81
+B: shifted batch (SIMULATED),True,C10P35H1.jpg,0.81,1,0.81
+B: shifted batch (SIMULATED),True,C10P35H2.jpg,0.7367,1,0.7367
+B: shifted batch (SIMULATED),True,C10P35E1.jpg,0.78,1,0.78
+B: shifted batch (SIMULATED),True,C10P35E2.jpg,0.79,1,0.79
+B: shifted batch (SIMULATED),True,C10P40E1.jpg,0.85,1,0.85
+B: shifted batch (SIMULATED),True,C10P40E2.jpg,0.9,1,0.9
+B: shifted batch (SIMULATED),True,C10P40H2.jpg,0.8,1,0.8
+B: shifted batch (SIMULATED),True,C10P40H1.jpg,0.7,1,0.7
+B: shifted batch (SIMULATED),True,C11P13E1.jpg,0.7933,1,0.7933
+B: shifted batch (SIMULATED),True,C11P13E2.jpg,0.7233,1,0.7233
+B: shifted batch (SIMULATED),True,C11P13H1.jpg,0.6033,1,0.6033
+B: shifted batch (SIMULATED),True,C11P18E1.jpg,0.7433,1,0.7433
+B: shifted batch (SIMULATED),True,C11P13H2.jpg,0.8667,1,0.8667
+B: shifted batch (SIMULATED),True,C11P18E2.jpg,0.9133,1,0.9133
+B: shifted batch (SIMULATED),True,C11P18H1.jpg,0.7,1,0.7
+B: shifted batch (SIMULATED),True,C11P18H2.jpg,0.8833,1,0.8833
+B: shifted batch (SIMULATED),True,C11P21H1.jpg,0.81,1,0.81
+B: shifted batch (SIMULATED),True,C11P21H2.jpg,0.8967,1,0.8967
+B: shifted batch (SIMULATED),True,C11P20E1.jpg,0.8333,1,0.8333
+B: shifted batch (SIMULATED),True,C11P20E2.jpg,0.7667,1,0.7667
+B: shifted batch (SIMULATED),True,C11P20H1.jpg,0.8033,1,0.8033
+B: shifted batch (SIMULATED),True,C11P20H2.jpg,0.8533,1,0.8533
+B: shifted batch (SIMULATED),True,C11P21E1.jpg,0.7567,1,0.7567
+B: shifted batch (SIMULATED),True,C11P21E2.jpg,0.7933,1,0.7933
+B: shifted batch (SIMULATED),True,C11P34E1.jpg,0.6567,1,0.6567
+B: shifted batch (SIMULATED),True,C11P35H2.jpg,0.7467,1,0.7467
+B: shifted batch (SIMULATED),True,C11P34E2.jpg,0.8067,1,0.8067
+B: shifted batch (SIMULATED),True,C11P34H1.jpg,0.8933,1,0.8933
+B: shifted batch (SIMULATED),True,C11P34H2.jpg,0.7367,1,0.7367
+B: shifted batch (SIMULATED),True,C11P35E1.jpg,0.7033,1,0.7033
+B: shifted batch (SIMULATED),True,C11P35E2.jpg,0.7667,1,0.7667
+B: shifted batch (SIMULATED),True,C11P35H1.jpg,0.7433,1,0.7433
+B: shifted batch (SIMULATED),True,C12P2E1.jpg,0.6767,1,0.6767
+B: shifted batch (SIMULATED),True,C12P2E2.jpg,0.7733,1,0.7733
+B: shifted batch (SIMULATED),True,C12P6E1.jpg,0.8967,1,0.8967
+B: shifted batch (SIMULATED),True,C12P6E2.jpg,0.8433,1,0.8433
+B: shifted batch (SIMULATED),True,C12P6H1.jpg,0.6933,1,0.6933
+B: shifted batch (SIMULATED),True,C12P2H1.jpg,0.63,1,0.63
+B: shifted batch (SIMULATED),True,C12P6H2.jpg,0.88,1,0.88
+B: shifted batch (SIMULATED),True,C12P2H2.jpg,0.7233,1,0.7233
+B: shifted batch (SIMULATED),True,C12P15H2.jpg,0.7333,1,0.7333
+B: shifted batch (SIMULATED),True,C12P16E1.jpg,0.7067,1,0.7067
+B: shifted batch (SIMULATED),True,C12P16E2.jpg,0.87,1,0.87
+B: shifted batch (SIMULATED),True,C12P15E1.jpg,0.7667,1,0.7667
+B: shifted batch (SIMULATED),True,C12P15E2.jpg,0.6367,1,0.6367
+B: shifted batch (SIMULATED),True,C12P16H1.jpg,0.6633,1,0.6633
+B: shifted batch (SIMULATED),True,C12P15H1.jpg,0.6533,1,0.6533
+B: shifted batch (SIMULATED),True,C12P16H2.jpg,0.8567,1,0.8567
+B: shifted batch (SIMULATED),True,C12P19E2.jpg,0.7133,1,0.7133
+B: shifted batch (SIMULATED),True,C12P19H1.jpg,0.88,1,0.88
+B: shifted batch (SIMULATED),True,C11P32E1.jpg,0.5533,1,0.5533
+B: shifted batch (SIMULATED),True,C12P19H2.jpg,0.7033,1,0.7033
+B: shifted batch (SIMULATED),True,C11P32E2.jpg,0.7567,1,0.7567
+B: shifted batch (SIMULATED),True,C12P20E1.jpg,0.4733,0,0.5267
+B: shifted batch (SIMULATED),True,C12P20E2.jpg,0.8567,1,0.8567
+B: shifted batch (SIMULATED),True,C11P32H1.jpg,0.7433,1,0.7433
+B: shifted batch (SIMULATED),True,C11P32H2.jpg,0.77,1,0.77
+B: shifted batch (SIMULATED),True,C12P25E1.jpg,0.7133,1,0.7133
+B: shifted batch (SIMULATED),True,C12P25E2.jpg,0.8233,1,0.8233
+B: shifted batch (SIMULATED),True,C12P25H1.jpg,0.7067,1,0.7067
+B: shifted batch (SIMULATED),True,C12P25H2.jpg,0.85,1,0.85
+B: shifted batch (SIMULATED),True,C12P19E1.jpg,0.91,1,0.91
+B: shifted batch (SIMULATED),True,C12P20H1.jpg,0.7133,1,0.7133
+B: shifted batch (SIMULATED),True,C12P20H2.jpg,0.83,1,0.83
+B: shifted batch (SIMULATED),True,C12P36E1.jpg,0.6633,1,0.6633
+B: shifted batch (SIMULATED),True,C12P36E2.jpg,0.8467,1,0.8467
+B: shifted batch (SIMULATED),True,C12P36H1.jpg,0.7967,1,0.7967
+B: shifted batch (SIMULATED),True,C12P36H2.jpg,0.8467,1,0.8467
+B: shifted batch (SIMULATED),True,C12P40E1.jpg,0.65,1,0.65
+B: shifted batch (SIMULATED),True,C12P40E2.jpg,0.8233,1,0.8233
+B: shifted batch (SIMULATED),True,C12P40H1.jpg,0.7933,1,0.7933
+B: shifted batch (SIMULATED),True,C12P40H2.jpg,0.81,1,0.81
+B: shifted batch (SIMULATED),True,C5P27E2.jpg,0.53,1,0.53

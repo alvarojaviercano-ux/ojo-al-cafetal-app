@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% block title %}Model Evaluation – Eye on the Coffee Farm{% endblock %}
+{% block mainclass %}doc-main{% endblock %}
+{% block herocls %}{% endblock %}
+{% block kicker %}Phase 4 of 6 · CRISP-ML{% endblock %}
+{% block heading %}Model Evaluation{% endblock %}
+{% block sub %}How well the models work, and where they fail.{% endblock %}
+{% block content %}
+<div class="doc">
+<section class="alt"><div class="wrap">
+  <h2>Metrics and why</h2>
+  <ul>
+    <li><b>Accuracy</b> is the main number. After grouping, the two classes are almost equal (50.7% healthy, 49.3% sick), so accuracy is not fooled by one big class. The goal from Phase 1 was <b>more than 80%</b>.</li>
+    <li><b>Recall of the sick class.</b> Missing a sick leaf costs more than a false alarm, so I check how many sick leaves are found.</li>
+    <li><b>Precision, F1 and ROC AUC</b> complete the view: how many alarms are real, the balance of both, and how well the model ranks sick above healthy.</li>
+    <li><b>Confusion matrix and accuracy per class</b> show where the mistakes are.</li>
+    <li><b>R² and mean error</b> for the rust level (regression).</li>
+  </ul>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Model comparison</h2>
+  <p class="lead">The best setting of each family from Phase 3, trained on the training photos and measured <b>once</b> on the independent test set (312 photos from 78 plants that were not used for training or choosing).</p>
+  <div class="table-wrap"><table>
+    <tr><th>Model</th><th class="num">Train</th><th class="num">Cross-val.</th><th class="num">Test accuracy</th><th class="num">Precision (sick)</th><th class="num">Recall (sick)</th><th class="num">F1 (sick)</th><th class="num">AUC</th></tr>
+    <tr><td>Baseline: always the majority class</td><td class="num">50.2%</td><td class="num">–</td><td class="num">52.9%</td><td class="num">0.0%</td><td class="num">0.0%</td><td class="num">0.0%</td><td class="num">–</td></tr>
+    <tr><td>Logistic Regression (C = 10)</td><td class="num">79.1%</td><td class="num">78.5%</td><td class="num">76.9%</td><td class="num">77.4%</td><td class="num">72.1%</td><td class="num">74.6%</td><td class="num">0.852</td></tr>
+    <tr><td>KNN (k = 5)</td><td class="num">80.9%</td><td class="num">71.2%</td><td class="num">73.1%</td><td class="num">70.9%</td><td class="num">72.8%</td><td class="num">71.8%</td><td class="num">0.798</td></tr>
+    <tr><td>Random Forest (300 trees, min leaf 3)</td><td class="num">96.7%</td><td class="num">83.4%</td><td class="num">82.7%</td><td class="num">80.4%</td><td class="num">83.7%</td><td class="num">82.0%</td><td class="num">0.907</td></tr>
+    <tr><td>Gradient Boosting (rate 0.05)</td><td class="num">99.8%</td><td class="num">83.7%</td><td class="num">83.0%</td><td class="num">79.4%</td><td class="num">86.4%</td><td class="num">82.7%</td><td class="num">0.910</td></tr>
+    <tr class="best"><td>Random Forest of the app (300 trees, defaults)</td><td class="num">100%</td><td class="num">83.3%</td><td class="num">83.0%</td><td class="num">79.7%</td><td class="num">85.7%</td><td class="num">82.6%</td><td class="num">0.906</td></tr>
+  </table></div>
+  <figure><img src="{{ url_for('static', filename='evidencia/fig_comparacion.png') }}" alt="Accuracy by model: cross-validation on the training photos, and the independent test set. The dashed line is the 80% goal."><figcaption>Accuracy by model: cross-validation on the training photos, and the independent test set. The dashed line is the 80% goal.</figcaption></figure>
+</div></section>
+
+<section class="alt"><div class="wrap">
+  <h2>Selected model</h2>
+  <div class="callout" style="border-color:var(--green);background:#E8F2EA"><b>Random Forest, 300 trees, default settings</b> (the model in the app). <b>83.0% accuracy</b> on the independent test set, above the 80% goal.</div>
+  <p>The criterion was the mean accuracy in grouped cross-validation, and the test set was not used to choose. Gradient Boosting had the highest score (83.65% against 83.25%), but the gap is 0.4 points and the difference between folds is about 2 points, so the models are tied. On the test set both got 83.0%. I kept the Random Forest because it was already deployed and checked in the app, and because its score changed very little with its settings (12 settings between 81.96% and 83.40%). This is a decision I made after seeing the table, not a result of the test.</p>
+  <div class="two">
+    <div>
+      <div class="table-wrap"><table>
+        <tr><th>Class</th><th class="num">Precision</th><th class="num">Recall</th><th class="num">Photos</th></tr>
+        <tr><td>Healthy</td><td class="num">86.4%</td><td class="num">80.6%</td><td class="num">165</td></tr>
+        <tr><td>Sick</td><td class="num">79.7%</td><td class="num">85.7%</td><td class="num">147</td></tr>
+      </table></div>
+      <p class="note" style="margin-top:10px">Of 147 sick leaves, 126 were found and 21 were missed. Of 165 healthy leaves, 133 were right and 32 raised a false alarm.</p>
+    </div>
+    <figure><img src="{{ url_for('static', filename='evidencia/fig_matriz_confusion.png') }}" alt="Confusion matrix on the test set."><figcaption>Confusion matrix on the test set.</figcaption></figure>
+  </div>
+  <h3 style="margin:22px 0 8px">Accuracy by class (test set)</h3>
+  <div class="table-wrap"><table>
+    <tr><th>Class</th><th class="num">Test photos</th><th class="num">Correct</th></tr>
+    <tr><td>Healthy</td><td class="num">165</td><td class="num">80.6%</td></tr>
+    <tr><td>Red spider mite</td><td class="num">28</td><td class="num">92.9%</td></tr>
+    <tr><td>Rust level 1</td><td class="num">68</td><td class="num">76.5%</td></tr>
+    <tr><td>Rust level 2</td><td class="num">28</td><td class="num">89.3%</td></tr>
+    <tr><td>Rust level 3</td><td class="num">15</td><td class="num">100%</td></tr>
+    <tr><td>Rust level 4</td><td class="num">8</td><td class="num">100%</td></tr>
+  </table></div>
+  <p class="note" style="margin-top:10px">Levels 3 and 4 have only 15 and 8 test photos, so “100%” is not a strong claim.</p>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Overfitting, underfitting and bias</h2>
+  <div class="two">
+    <ul>
+      <li><b>Overfitting.</b> The Random Forest scores 100% on the photos it trained on, but 83.3% in cross-validation and 83.0% on the test set. The model memorizes its training photos, but cross-validation and test agree, so 83% is an honest estimate for new plants. The learning curve shows the gap between training and validation.</li>
+      <li><b>Underfitting.</b> Logistic Regression and KNN score only 79–81% even on the photos they trained on, so they are limited by what a simple model can do with these numbers, not by lack of data.</li>
+      <li><b>Bias.</b> The model catches more sick leaves (85.7%) than it clears healthy ones (80.6%), so it leans toward “sick”. For a farmer this is the safer mistake, but it means false alarms.</li>
+      <li><b>Data bias.</b> All photos are robusta. The result may be lower for arabica and for other cameras (see the risks below).</li>
+    </ul>
+    <figure><img src="{{ url_for('static', filename='evidencia/fig_curva_aprendizaje.png') }}" alt="Learning curve: accuracy on the training photos and on validation (grouped by plant)."><figcaption>Learning curve: accuracy on the training photos and on validation (grouped by plant).</figcaption></figure>
+  </div>
+</div></section>
+
+<section class="alt"><div class="wrap">
+  <h2>Other tasks</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Task</th><th>Model</th><th>Result on the test set</th><th>Reading</th></tr>
+    <tr><td>Healthy or sick, with the expert’s outline</td><td>Random Forest</td><td>85.9%</td><td>The upper limit if the leaf cut were perfect. The automatic cut loses about 3 points.</td></tr>
+    <tr><td>Which disease (6 classes)</td><td>KNN, k = 7</td><td>57.1%</td><td>Only 4 points above always answering “healthy” (52.9%). That is why the app does not name the disease.</td></tr>
+    <tr><td>How much is damaged (rust level 1–4)</td><td>Linear Regression</td><td>R² = 0.48, mean error 0.51 levels (119 rust photos)</td><td>It follows the trend but is off by half a level on average.</td></tr>
+  </table></div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>K-Means: where is the damage?</h2>
+  <p>K-Means groups the pixels of the leaf by color. A group counts as damage if most of its pixels are yellow, orange or brown. The app paints these pixels in magenta and gives the percent of the leaf.</p>
+  <div class="table-wrap"><table style="margin-top:12px">
+    <tr><th>Rust level in RoCoLe</th><th>Typical K-Means result</th></tr>
+    <tr><td>Level 2 (6–20% by the expert scale)</td><td>about 4.5%</td></tr>
+    <tr><td>Level 3 (21–50%)</td><td>about 7.8%</td></tr>
+    <tr><td>Level 4 (more than 50%)</td><td>about 17.1%</td></tr>
+  </table></div>
+  <p class="note" style="margin-top:10px">The order is right, but K-Means gives lower numbers than the expert scale. It also misses rust level 1. So the app calls it an <i>estimate of the zone with signs of damage</i>, not a measure of damage.</p>
+</div></section>
+
+<section class="alt"><div class="wrap">
+  <h2>Q-Learning: what to do?</h2>
+  <p>I made a simulation of one coffee plot. The agent can <i>keep watching</i>, <i>improve crop management</i>, or <i>apply fungicide</i>. The rewards follow Cenicafé’s guidance: resistant varieties (about 80% of the planted area) do not need chemical control, and susceptible ones like Caturra should be treated when the rust level grows.</p>
+  <div class="callout"><b>Honest note:</b> the simulation numbers (costs and rewards) are my assumptions. The advice is a help, not a diagnosis, and a technician should confirm it.</div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Risk analysis</h2>
+  <div class="grid">
+    <div class="card"><span class="tag warn">RISK</span><h3>Other diseases</h3><p>The model only knows rust and red spider mite. A leaf with white mold or other spots can still be called “sick”.</p></div>
+    <div class="card"><span class="tag warn">RISK</span><h3>Messy photos</h3><p>If there are several leaves in the photo, the automatic cut can include more than one. The app asks for one leaf on a plain background and warns when the cut looks wrong.</p></div>
+    <div class="card"><span class="tag warn">RISK</span><h3>Other coffee types</h3><p>The training photos are robusta. In a few tests with other photos the answers were right, but the confidence was only 60–70%. A real test with arabica is still needed.</p></div>
+    <div class="card"><span class="tag warn">RISK</span><h3>Rust level 1</h3><p>Very early rust is the hardest case (76.5% correct): the spots are small, and K-Means often finds almost nothing.</p></div>
+    <div class="card"><span class="tag warn">RISK</span><h3>False alarms</h3><p>32 of 165 healthy test leaves were called sick. The advice asks the user to check more leaves before acting.</p></div>
+  </div>
+</div></section>
+
+<section class="alt"><div class="wrap">
+  <h2>Expert review</h2>
+  <div class="callout"><b>Pending.</b> A person who knows coffee has not yet reviewed these results. Until then, the app tells the user to check more leaves and to talk to a technician before applying any product.</div>
+  <div class="table-wrap"><table>
+    <tr><th>Reviewer</th><th>Role</th><th>Date</th><th>What was shown</th><th>Feedback</th></tr>
+    <tr><td colspan="5" class="note">To be completed after the review.</td></tr>
+  </table></div>
+</div></section>
+
+<section><div class="wrap"><div class="pager"><a href="{{ url_for('fase', slug='model-engineering') }}">← Model Engineering</a><a href="{{ url_for('fase', slug='deployment') }}">Deployment →</a></div></div></section>
+</div>
+{% endblock %}

@@ -1,0 +1,7 @@
+caracteristica,antes_train_media,antes_train_desv,antes_test_media,antes_test_desv,despues_train_media,despues_train_desv,despues_test_media,despues_test_desv
+media_R,114.86,29.531,114.222,28.076,0.0,1.0,-0.022,0.951
+media_G,155.905,21.506,158.305,19.18,-0.0,1.0,0.112,0.892
+media_B,74.498,33.173,77.705,30.759,0.0,1.0,0.097,0.928
+std_R,39.858,13.772,38.914,13.413,-0.0,1.0,-0.069,0.974
+std_G,35.24,14.445,33.962,13.696,-0.0,1.0,-0.089,0.949
+std_B,39.746,12.692,39.056,12.253,-0.0,1.0,-0.054,0.966

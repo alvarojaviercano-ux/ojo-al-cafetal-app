@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% from "_m.html" import state, result with context %}
+{% block title %}Inspections – Eye on the Coffee Farm{% endblock %}
+{% block kicker %}Inference history{% endblock %}
+{% block heading %}Inspections{% endblock %}
+{% block content %}
+<form class="bar" method="get">
+  <h2>{{ 'All inspections' if rol != 'grower' else 'My inspections' }}</h2>
+  <select name="status" style="width:auto;margin:0" onchange="this.form.submit()">
+    <option value="">Any status</option>{% for k, v in ESTADOS.items() %}<option value="{{ k }}" {{ 'selected' if estado == k }}>{{ v }}</option>{% endfor %}
+  </select>
+  <select name="result" style="width:auto;margin:0" onchange="this.form.submit()">
+    <option value="">Any result</option><option value="sick" {{ 'selected' if resultado == 'sick' }}>Sick</option><option value="healthy" {{ 'selected' if resultado == 'healthy' }}>Healthy</option>
+  </select>
+  <a class="btn sm second" href="{{ url_for('informe_csv') }}">Download CSV</a>
+</form>
+<div class="tw"><table class="t"><tr><th>#</th><th>Date</th><th>Farm / plot</th><th>By</th><th>Model result</th><th>Technician</th><th>Status</th><th>Model version</th></tr>
+{% for r in filas %}
+  <tr><td><a href="{{ url_for('inspeccion', iid=r.id) }}">{{ r.id }}</a></td><td>{{ r.created_at|dt }}</td><td>{{ r.farm_name }} / {{ r.plot_name }}</td><td>{{ r.author_name }}</td>
+      <td>{{ result(r.sick) }} {{ r.confidence_pct }}%</td><td>{{ r.true_label or '-' }}</td><td>{{ state(r.status) }}</td><td class="muted">{{ r.model_version }}</td></tr>
+{% else %}<tr><td colspan="8" class="muted">No inspections found.</td></tr>{% endfor %}
+</table></div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% from "_m.html" import csrf with context %}
+{% block title %}Feedback – Eye on the Coffee Farm{% endblock %}
+{% block kicker %}Feedback and incidents{% endblock %}
+{% block heading %}Feedback{% endblock %}
+{% block content %}
+<div class="bar"><h2>{{ 'All messages' if rol != 'grower' else 'My messages' }}</h2><a class="btn sm" href="{{ url_for('comentario_nuevo') }}">Send a message</a></div>
+<div class="tw"><table class="t"><tr><th>Date</th><th>User</th><th>Type</th><th>Inspection</th><th>Was the result right?</th><th>Message</th><th>Status</th></tr>
+{% for r in filas %}
+  <tr><td>{{ r.created_at|dt }}</td><td>{{ r.username }}</td><td>{{ r.kind }}</td>
+      <td>{% if r.inspection_id %}<a href="{{ url_for('inspeccion', iid=r.inspection_id) }}">#{{ r.inspection_id }}</a>{% else %}-{% endif %}</td>
+      <td>{{ '-' if r.answer_correct is none else ('Yes' if r.answer_correct else 'No') }}</td><td>{{ r.message }}{% if r.response %}<br><span class="note">Answer: {{ r.response }}</span>{% endif %}</td>
+      <td><span class="badge {{ '' if r.status == 'resolved' else 'wait' }}">{{ r.status }}</span>
+      {% if r.status == 'open' and rol in ('technician','admin') %}
+        <form method="post" action="{{ url_for('comentario_resolver', cid=r.id) }}" style="margin-top:6px">{{ csrf() }}<input type="text" name="respuesta" placeholder="Answer" maxlength="500" style="margin-bottom:4px"><button class="sm" type="submit">Resolve</button></form>
+      {% endif %}</td></tr>
+{% else %}<tr><td colspan="7" class="muted">No messages yet.</td></tr>{% endfor %}
+</table></div>
+{% endblock %}

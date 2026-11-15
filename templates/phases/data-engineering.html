@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% block title %}Data Engineering – Eye on the Coffee Farm{% endblock %}
+{% block mainclass %}doc-main{% endblock %}
+{% block herocls %}{% endblock %}
+{% block kicker %}Phase 2 of 6 · CRISP-ML{% endblock %}
+{% block heading %}Data Engineering{% endblock %}
+{% block sub %}From photos to numbers a model can use.{% endblock %}
+{% block content %}
+<div class="doc">
+<section><div class="wrap">
+  <h2>Selection</h2>
+  <p class="lead">I used RoCoLe as the base: 1,560 photos of 390 coffee plants (4 photos per plant), with an expert label and the outline of each leaf. A second dataset of arabica leaves (JMuBEN) is a way to test later, after I check its license.</p>
+  <p>The model does not use the pixels directly. From each photo I take 26 numbers about color, spots and texture. I chose them because rust shows as yellow and orange spots that turn brown, so color and spot numbers describe the disease in a way a simple model can use.</p>
+</div></section>
+
+<section class="alt"><div class="wrap">
+  <h2>Data quality checks</h2>
+  <p class="lead">Checked on the table of 26 numbers per photo (script <code>generar_evidencia.py</code>).</p>
+  <div class="table-wrap"><table>
+    <tr><th>Check</th><th class="num">Result</th><th>What I did</th></tr>
+    <tr><td>Photos (rows)</td><td class="num">1,560</td><td>All used. 390 plants with 4 photos each.</td></tr>
+    <tr><td>Missing values</td><td class="num">0</td><td>Nothing to fill in.</td></tr>
+    <tr><td>Infinite values</td><td class="num">0</td><td>Nothing to fix.</td></tr>
+    <tr><td>Duplicate photos (same file name)</td><td class="num">0</td><td>Nothing to remove.</td></tr>
+    <tr><td>Rows with the same 26 numbers as another row</td><td class="num">2</td><td>Kept. They are different photos, and 2 of 1,560 rows cannot change the results.</td></tr>
+    <tr><td>Constant columns</td><td class="num">0</td><td>All 26 numbers carry information.</td></tr>
+    <tr><td>Leaf outline from the expert</td><td class="num">1,560 of 1,560</td><td>All outlines were read with no errors.</td></tr>
+  </table></div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Outliers</h2>
+  <p class="lead">I looked for extreme values with the 1.5 × IQR rule.</p>
+  <ul>
+    <li><b>594 photos (38.1%)</b> have at least one extreme value.</li>
+    <li>Of those, <b>57.6% are sick leaves</b>, against 49.3% in the whole data. So many “outliers” are real, strong cases of disease (a lot of brown, a very big spot), not mistakes.</li>
+    <li><b>Decision: I did not remove them.</b> Removing them would delete the sickest leaves. Random Forest does not depend on the size of a value. For Logistic Regression and KNN I standardize the numbers.</li>
+  </ul>
+  <div class="table-wrap"><table style="margin-top:12px">
+    <tr><th>Feature with most extreme values</th><th class="num">Photos</th><th class="num">Share</th></tr>
+    <tr><td>fraccion_marron (share of brown)</td><td class="num">221</td><td class="num">14.2%</td></tr>
+    <tr><td>area_mancha_mayor (largest spot)</td><td class="num">217</td><td class="num">13.9%</td></tr>
+    <tr><td>menos_verde_G (less green)</td><td class="num">186</td><td class="num">11.9%</td></tr>
+    <tr><td>fraccion_manchas (share with spots)</td><td class="num">179</td><td class="num">11.5%</td></tr>
+    <tr><td>fraccion_amarillo_naranja (share yellow-orange)</td><td class="num">166</td><td class="num">10.6%</td></tr>
+  </table></div>
+</div></section>
+
+<section class="alt"><div class="wrap">
+  <h2>Transformation</h2>
+  <p class="lead">From each photo I took 26 numbers, only from the leaf pixels.</p>
+  <div class="grid">
+    <div class="card"><span class="tag">COLOR</span><h3>Color numbers</h3><p>Mean and spread of the red, green and blue channels, and of hue, saturation and value. Share of yellow, orange and brown. The three main colors (K-Means with 3 groups).</p></div>
+    <div class="card"><span class="tag">SPOTS</span><h3>Spot numbers</h3><p>Number of spots, mean and largest spot size, share of the leaf with spots, share of brown, and texture.</p></div>
+    <div class="card"><span class="tag">SIZE</span><h3>Leaf size</h3><p>The share of the photo that the leaf covers.</p></div>
+  </div>
+  <h3 style="margin:28px 0 12px">Other steps</h3>
+  <ul>
+    <li><b>Target.</b> The 6 classes became one target: 0 = healthy (791 photos), 1 = sick (769 photos: red spider mite and the four rust levels). This also fixes the imbalance of the 6 classes. Rust levels were kept for the regression and for K-Means checks.</li>
+    <li><b>Plants.</b> RoCoLe has 4 photos of each plant. I read the plant name from the file name so photos of one plant stay together when I split the data.</li>
+    <li><b>Scaling.</b> Logistic Regression and KNN use standardized numbers (StandardScaler). Random Forest and Gradient Boosting do not need it.</li>
+    <li><b>Automatic outline.</b> The app has no expert, so it cuts the leaf by itself with GrabCut. This gave a different result from the expert’s outline, so I trained again with the automatic one (see Phase 4).</li>
+    <li><b>Same photo, same result.</b> GrabCut has a random part. I fixed its seed, so the same photo always gives the same answer.</li>
+    <li><b>Speed.</b> GrabCut works on a smaller copy of the photo (longest side 384 pixels) and the browser shrinks the photo before sending it. The analysis went from about 10 seconds to about 2 seconds on my computer, and the accuracy stayed the same.</li>
+  </ul>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Evidence: before and after</h2>
+  <figure><img src="{{ url_for('static', filename='evidencia/fig_clases.png') }}" alt="Classes before (6) and after (2) grouping: 791 healthy and 769 sick photos."><figcaption>Classes before (6) and after (2) grouping: 791 healthy and 769 sick photos.</figcaption></figure>
+  <figure><img src="{{ url_for('static', filename='evidencia/fig_antes_despues.png') }}" alt="Three features before (top) and after standardizing (bottom). The shape stays the same; the scale changes."><figcaption>Three features before (top) and after standardizing (bottom). The shape stays the same; the scale changes.</figcaption></figure>
+  <div class="table-wrap"><table>
+    <tr><th rowspan="2">Feature</th><th colspan="2">Before: training</th><th colspan="2">After: training</th><th colspan="2">After: test</th></tr>
+    <tr><th class="num">mean</th><th class="num">sd</th><th class="num">mean</th><th class="num">sd</th><th class="num">mean</th><th class="num">sd</th></tr>
+    <tr><td>media_R</td><td class="num">114.86</td><td class="num">29.53</td><td class="num">0.00</td><td class="num">1.00</td><td class="num">−0.02</td><td class="num">0.95</td></tr>
+    <tr><td>media_G</td><td class="num">155.91</td><td class="num">21.51</td><td class="num">0.00</td><td class="num">1.00</td><td class="num">0.11</td><td class="num">0.89</td></tr>
+    <tr><td>media_B</td><td class="num">74.50</td><td class="num">33.17</td><td class="num">0.00</td><td class="num">1.00</td><td class="num">0.10</td><td class="num">0.93</td></tr>
+    <tr><td>std_R</td><td class="num">39.86</td><td class="num">13.77</td><td class="num">0.00</td><td class="num">1.00</td><td class="num">−0.07</td><td class="num">0.97</td></tr>
+    <tr><td>std_G</td><td class="num">35.24</td><td class="num">14.45</td><td class="num">0.00</td><td class="num">1.00</td><td class="num">−0.09</td><td class="num">0.95</td></tr>
+    <tr><td>std_B</td><td class="num">39.75</td><td class="num">12.69</td><td class="num">0.00</td><td class="num">1.00</td><td class="num">−0.05</td><td class="num">0.97</td></tr>
+  </table></div>
+  <p class="note" style="margin-top:10px">The scaler learns the mean and the spread <b>only from the training photos</b>. That is why the test photos do not end at exactly 0 and 1. If they did, the test data would have leaked into the scaler.</p>
+</div></section>
+
+<section class="alt"><div class="wrap">
+  <h2>Training, validation and test</h2>
+  <div class="stats" style="color:var(--dark)">
+    <div class="stat"><b>1,248</b><span style="color:var(--muted)">training photos (312 plants)</span></div>
+    <div class="stat"><b>312</b><span style="color:var(--muted)">test photos (78 plants)</span></div>
+    <div class="stat"><b>0</b><span style="color:var(--muted)">plants in both groups</span></div>
+  </div>
+  <ul>
+    <li><b>Split by plant.</b> 80% of the plants for training and 20% for the final test (<code>GroupShuffleSplit</code>, <code>random_state = 42</code>). The 4 photos of a plant always stay together, so the model is tested on plants it has never seen.</li>
+    <li><b>Validation.</b> Inside the training set I use 5-fold cross-validation, also grouped by plant (<code>GroupKFold</code>). I use it to compare models and settings.</li>
+    <li><b>No leakage.</b> The scaler is inside a pipeline, so it is fitted again on the training part of each fold. The test set was not used to choose anything. It is used once, at the end (Phase 4).</li>
+  </ul>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Documentation</h2>
+  <p class="lead">Every step is a script, so anyone can run it again in the same order.</p>
+  <div class="table-wrap"><table>
+    <tr><th>Script</th><th>What it does</th></tr>
+    <tr><td>extraer_caracteristicas.py</td><td>Reads the photos and makes data.csv (26 numbers per photo, with the expert’s outline)</td></tr>
+    <tr><td>caracteristicas.py</td><td>Shared code: leaf cut, features, K-Means zone. Used by training and by the app, so both do the same thing</td></tr>
+    <tr><td>probar_mascara_automatica.py</td><td>Makes the same table with the automatic cut (data_grabcut.csv) and compares both outlines</td></tr>
+    <tr><td>entrenar_modelo_app.py</td><td>Splits by plant, trains the Random Forest of the app and saves it in models/</td></tr>
+    <tr><td>generar_evidencia.py</td><td>Quality checks, experiments, evaluation and the monitoring test. It writes tables and figures in evidencia/</td></tr>
+  </table></div>
+</div></section>
+<section><div class="wrap"><div class="pager"><a href="{{ url_for('fase', slug='understanding') }}">← Business and Data Understanding</a><a href="{{ url_for('fase', slug='model-engineering') }}">Model Engineering →</a></div></div></section>
+</div>
+{% endblock %}

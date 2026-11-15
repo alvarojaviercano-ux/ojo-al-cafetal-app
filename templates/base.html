@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}Ojo al Cafetal – App{% endblock %}</title>
+  <title>{% block title %}Eye on the Coffee Farm{% endblock %}</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -79,15 +79,74 @@
     footer { background: var(--dark); color: #D9CBBB; padding: 32px 0; font-size: 15px; }
     footer a { color: var(--orange); }
     @media (max-width: 600px) { body { font-size: 17px; } }
+    header.hero.compact { padding: 26px 0 22px; }
+    header.hero.compact h1 { font-size: clamp(28px, 4.5vw, 40px); margin: 6px 0; }
+    /* system pages */
+    .cards4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; margin-bottom: 18px; }
+    .kpi { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; }
+    .kpi b { display: block; font-family: 'Domine', Georgia, serif; font-size: 34px; line-height: 1.1; }
+    .kpi span { color: var(--muted); font-size: 15px; }
+    table.t { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--line);
+              border-radius: 12px; overflow: hidden; font-size: 16px; }
+    table.t th { text-align: left; background: #EFE6D6; padding: 10px 12px; font-size: 14px; }
+    table.t td { padding: 10px 12px; border-top: 1px solid var(--line); vertical-align: top; }
+    .tw { overflow-x: auto; margin-bottom: 18px; }
+    .badge { display: inline-block; padding: 2px 10px; border-radius: 99px; font-size: 14px; font-weight: 700;
+             background: #E8F2EA; color: var(--green); white-space: nowrap; }
+    .badge.bad { background: #FBE3D3; color: var(--rust); }
+    .badge.wait { background: #FBF0CF; color: #8A6A10; }
+    .badge.grey { background: #ECE6DB; color: var(--muted); }
+    .row2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; align-items: start; }
+    .bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 14px; }
+    .bar h2 { margin-right: auto; font-size: 26px; }
+    .btn.sm, button.sm { width: auto; display: inline-block; margin: 0; padding: 8px 16px; font-size: 16px; }
+    .btn.danger, button.danger { background: var(--rust); }
+    .inline { display: inline; }
+    .inline button { margin: 0; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+    @media (max-width: 700px) { .grid2 { grid-template-columns: 1fr; } }
+    textarea { width: 100%; padding: 12px; border: 2px solid var(--line); border-radius: 10px; background: var(--cream);
+               font-size: 16px; font-family: inherit; margin-top: 6px; min-height: 80px; }
+    input[type=number], input[type=email] { width: 100%; padding: 12px; border: 2px solid var(--line);
+               border-radius: 10px; background: var(--cream); font-size: 17px; font-family: inherit; margin-top: 6px; }
+    .muted { color: var(--muted); }
+    .doc2 h2 { font-size: 26px; margin: 26px 0 8px; } .doc2 h3 { font-size: 20px; margin: 18px 0 6px; font-family: 'DM Sans', Arial, sans-serif; }
+    .doc2 p, .doc2 li { max-width: 78ch; margin-bottom: 8px; } .doc2 ul, .doc2 ol { padding-left: 24px; margin-bottom: 10px; }
+    .doc2 code { background: #EFE6D6; padding: 1px 6px; border-radius: 4px; font-size: 15px; }
+    .doc2 table { margin: 8px 0 14px; }
   </style>
+  <link rel="stylesheet" href="{{ url_for('static', filename='doc.css') }}">
 </head>
 <body>
   <nav><div class="wrap">
-    <b>Ojo al Cafetal</b>
-    <a href="https://ojo-al-cafetal.onrender.com">Research</a>
-    <a href="{{ url_for('inicio') }}">App</a>
+    <a class="brand" href="{{ url_for('resumen') }}"><b>Eye on the Coffee Farm</b></a>
+    <a href="{{ url_for('resumen') }}#problem">Overview</a>
+    <details class="dd">
+      <summary>Project phases ▾</summary>
+      <div class="menu">
+        <a href="{{ url_for('resumen') }}#phases">All phases</a>
+        {% for s, nombre in FASES %}
+        <a href="{{ url_for('fase', slug=s) }}"{% if fase_actual == s %} class="on"{% endif %}>{{ loop.index }}. {{ nombre }}</a>
+        {% endfor %}
+      </div>
+    </details>
+    <details class="dd">
+      <summary>Manuals ▾</summary>
+      <div class="menu">
+        <a href="{{ url_for('manual', tipo='user') }}">User manual</a>
+        <a href="{{ url_for('manual', tipo='training') }}">Training guide</a>
+        <a href="{{ url_for('manual', tipo='technical') }}">Technical manual</a>
+      </div>
+    </details>
     {% if usuario %}
-      <span class="who">Signed in as <b>{{ usuario }}</b></span>
+      <a href="{{ url_for('panel') }}" style="color:var(--orange);font-weight:700">Dashboard</a>
+      <a href="{{ url_for('fincas') }}">Farms</a>
+      <a href="{{ url_for('inspecciones') }}">Inspections</a>
+      <a href="{{ url_for('informes') }}">Reports</a>
+      <a href="{{ url_for('comentarios') }}">Feedback</a>
+      {% if rol in ('admin', 'technician') %}<a href="{{ url_for('monitoreo') }}">Monitoring</a>{% endif %}
+      {% if rol == 'admin' %}<a href="{{ url_for('admin_usuarios') }}">Users</a>{% endif %}
+      <span class="who">{{ usuario }} · {{ ROLE_TEXT[rol] }}</span>
       <form action="{{ url_for('logout') }}" method="post">
         <input type="hidden" name="csrf" value="{{ csrf_token() }}">
         <button class="linkbtn" type="submit">Log out</button>
@@ -97,14 +156,19 @@
       <a href="{{ url_for('register') }}" style="color:var(--orange);font-weight:700">Sign up</a>
     {% endif %}
   </div></nav>
+  <script>
+  (function(){var d=document.querySelector('details.dd');if(!d)return;
+  document.addEventListener('click',function(e){if(!d.contains(e.target))d.removeAttribute('open');});})();
+  </script>
 
-  <header class="hero"><div class="wrap">
-    <div class="kicker">{% block kicker %}Disease detector{% endblock %}</div>
-    <h1>{% block heading %}Check a coffee leaf{% endblock %}</h1>
-    <p class="sub">{% block sub %}Upload a photo of a leaf and see if it looks healthy or sick.{% endblock %}</p>
+  <header class="hero {% block herocls %}compact{% endblock %}"><div class="wrap">
+    <div class="kicker">{% block kicker %}Information system{% endblock %}</div>
+    <h1>{% block heading %}Eye on the Coffee Farm{% endblock %}</h1>
+    {% set _sub %}{% block sub %}{% endblock %}{% endset %}{% if _sub|trim %}<p class="sub">{{ _sub }}</p>{% endif %}
+    {% block herox %}{% endblock %}
   </div></header>
 
-  <main>
+  <main class="{% block mainclass %}{% endblock %}">
     {% for mensaje in get_flashed_messages() %}
       <div class="flash">{{ mensaje }}</div>
     {% endfor %}
@@ -114,7 +178,7 @@
   <footer><div class="wrap">
     Final project, Machine Learning, UDEC · Álvaro Javier Cano.<br>
     Model trained with the RoCoLe dataset (robusta coffee leaves); for other varieties the result
-    may be less accurate. <a href="https://ojo-al-cafetal.onrender.com">See the research</a>.
+    may be less accurate. <a href="{{ url_for('resumen') }}">See the project phases</a>.
   </div></footer>
 </body>
 </html>

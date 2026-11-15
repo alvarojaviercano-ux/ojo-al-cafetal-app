@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% from "_m.html" import csrf, state, result with context %}
+{% block title %}{{ p.name }} – Eye on the Coffee Farm{% endblock %}
+{% block kicker %}{{ p.farm_name }}{% endblock %}
+{% block heading %}Plot: {{ p.name }}{% endblock %}
+{% block sub %}{{ VARIETIES[p.variety] }} · {{ p.area_ha }} ha{% if p.planted_year %} · planted {{ p.planted_year }}{% endif %}{% endblock %}
+{% block content %}
+<div class="bar"><h2>Inspections</h2>
+  <a class="btn sm" href="{{ url_for('inspeccionar', pid=p.id) }}">Check a leaf</a>
+  <a class="btn sm second" href="{{ url_for('finca', fid=p.farm_id) }}">Back to the farm</a>
+  {% if puede_editar %}
+  <a class="btn sm second" href="{{ url_for('lote_editar', pid=p.id) }}">Edit plot</a>
+  <form class="inline" method="post" action="{{ url_for('lote_borrar', pid=p.id) }}" onsubmit="return confirm('Delete this plot?')">{{ csrf() }}<button class="sm danger" type="submit">Delete plot</button></form>
+  {% endif %}</div>
+{% if p.notes %}<p class="note" style="margin-bottom:12px">{{ p.notes }}</p>{% endif %}
+<div class="tw"><table class="t"><tr><th>Date</th><th>By</th><th>Result</th><th>Damaged zone</th><th>Status</th></tr>
+{% for r in inspecciones %}
+  <tr><td><a href="{{ url_for('inspeccion', iid=r.id) }}">{{ r.created_at|dt }}</a></td><td>{{ r.author_name }}</td>
+      <td>{{ result(r.sick) }} {{ r.confidence_pct }}%</td><td>{{ (r.damaged_pct ~ '%') if r.damaged_pct is not none else '-' }}</td><td>{{ state(r.status) }}</td></tr>
+{% else %}<tr><td colspan="5" class="muted">No inspections yet. Check the first leaf of this plot.</td></tr>{% endfor %}
+</table></div>
+{% endblock %}

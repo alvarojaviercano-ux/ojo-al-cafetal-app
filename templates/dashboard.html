@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% from "_m.html" import state, result with context %}
+{% block title %}Dashboard – Eye on the Coffee Farm{% endblock %}
+{% block kicker %}{{ ROLE_TEXT[rol] }}{% endblock %}
+{% block heading %}Dashboard{% endblock %}
+{% block content %}
+<div class="cards4">
+  <div class="kpi"><b>{{ fincas }}</b><span>Farms</span></div>
+  <div class="kpi"><b>{{ lotes }}</b><span>Plots</span></div>
+  <div class="kpi"><b>{{ total }}</b><span>Inspections</span></div>
+  <div class="kpi"><b>{% if total %}{{ (100 * enfermas / total)|round(0)|int }}%{% else %}–{% endif %}</b><span>Judged sick by the model</span></div>
+  <div class="kpi"><b>{{ por_revisar }}</b><span>Waiting for technician review</span></div>
+  <div class="kpi"><b>{{ acciones }}</b><span>Open actions</span></div>
+  {% if extra.feedback_abierto is defined %}<div class="kpi"><b>{{ extra.feedback_abierto }}</b><span>Open feedback / incidents</span></div>{% endif %}
+  {% if extra.usuarios %}<div class="kpi"><b>{{ extra.usuarios.values()|sum }}</b><span>Users ({{ extra.usuarios.get('admin',0) }} admin · {{ extra.usuarios.get('technician',0) }} tech · {{ extra.usuarios.get('grower',0) }} growers)</span></div>{% endif %}
+</div>
+{% if rol == 'grower' and fincas == 0 %}
+<div class="card"><h2 style="font-size:24px">Start here</h2>
+  <p class="note">1. Add a farm. 2. Add a plot with its variety. 3. Open the plot and check a leaf.</p>
+  <a class="btn sm" href="{{ url_for('finca_nueva') }}">Add my first farm</a></div>
+{% endif %}
+<div class="row2">
+  <div>
+    <h2 style="font-size:22px;margin-bottom:8px">Latest inspections</h2>
+    <div class="tw"><table class="t"><tr><th>Date</th><th>Plot</th><th>Result</th><th>Status</th></tr>
+    {% for r in recientes %}
+      <tr><td><a href="{{ url_for('inspeccion', iid=r.id) }}">{{ r.created_at|dt }}</a></td><td>{{ r.farm_name }} / {{ r.plot_name }}</td>
+          <td>{{ result(r.sick) }} {{ r.confidence_pct }}%</td><td>{{ state(r.status) }}</td></tr>
+    {% else %}<tr><td colspan="4" class="muted">No inspections yet.</td></tr>{% endfor %}
+    </table></div>
+  </div>
+  <div>
+    <h2 style="font-size:22px;margin-bottom:8px">Open actions</h2>
+    <div class="tw"><table class="t"><tr><th>Plot</th><th>Action</th><th>Status</th></tr>
+    {% for a in pendientes %}
+      <tr><td>{{ a.farm_name }} / {{ a.plot_name }}</td><td><a href="{{ url_for('inspeccion', iid=a.inspection_id) }}">{{ a.action }}</a><br><span class="muted">{{ a.variety_type }}</span></td>
+          <td><span class="badge wait">{{ a.status|estado_accion }}</span></td></tr>
+    {% else %}<tr><td colspan="3" class="muted">Nothing pending.</td></tr>{% endfor %}
+    </table></div>
+  </div>
+</div>
+{% endblock %}

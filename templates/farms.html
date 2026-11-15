@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Farms – Eye on the Coffee Farm{% endblock %}
+{% block kicker %}Management{% endblock %}
+{% block heading %}Farms{% endblock %}
+{% block content %}
+<div class="bar"><h2>{{ 'All farms' if rol != 'grower' else 'My farms' }}</h2>
+  {% if rol in ('grower','admin') %}<a class="btn sm" href="{{ url_for('finca_nueva') }}">Add a farm</a>{% endif %}</div>
+<div class="tw"><table class="t"><tr><th>Farm</th><th>Place</th><th>Owner</th><th>Plots</th><th></th></tr>
+{% for f in fincas %}
+  <tr><td><a href="{{ url_for('finca', fid=f.id) }}"><b>{{ f.name }}</b></a></td><td>{{ f.municipality }}, {{ f.department }}</td>
+      <td>{{ f.owner_name }}</td><td>{{ conteo.get(f.id, 0) }}</td><td><a href="{{ url_for('finca', fid=f.id) }}">Open</a></td></tr>
+{% else %}<tr><td colspan="5" class="muted">No farms yet.</td></tr>{% endfor %}
+</table></div>
+{% endblock %}

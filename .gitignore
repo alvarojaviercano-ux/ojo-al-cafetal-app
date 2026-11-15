@@ -7,3 +7,7 @@ RoCoLe*
 *.zip
 data_centro.csv
 data_grabcut.csv
+.env
+sistema.db
+sis_package.zip
+_backup_antes_R3A3/

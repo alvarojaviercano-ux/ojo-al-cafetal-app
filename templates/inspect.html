@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% from "_m.html" import csrf with context %}
+{% block title %}Check a leaf – Eye on the Coffee Farm{% endblock %}
+{% block kicker %}{{ p.farm_name }} / {{ p.name }}{% endblock %}
+{% block heading %}Check a coffee leaf{% endblock %}
+{% block sub %}The result is saved in the history of this plot.{% endblock %}
+{% block content %}
+{% if error %}<div class="error">{{ error }}</div>{% endif %}
+<div class="split">
+<div class="col">
+<form id="form-foto" class="card" method="post" enctype="multipart/form-data">
+  {{ csrf() }}
+  <label for="foto"><b>Photo of the leaf</b></label>
+  <p class="note">One single leaf, up close and filling the photo. A plain background (your hand, a sheet of paper) or backlight helps a lot.</p>
+  <input type="file" id="foto" name="foto" accept="image/*" required>
+  <label for="notas" style="display:block;margin-top:14px"><b>Notes (optional)</b></label>
+  <textarea id="notas" name="notas" maxlength="500" placeholder="For example: lower branch, west side"></textarea>
+  <p class="note" style="margin-top:10px">Variety of this plot: <b>{{ VARIETIES[p.variety] }}</b>. It decides which advice is shown.</p>
+  <button id="btn-revisar" type="submit">Check the leaf</button>
+</form>
+</div>
+<div class="col"><div class="card side"><h2>How it works</h2>
+  <ol class="steps">
+    <li><div><b>The app cuts out the leaf.</b><br><span class="note">It separates the leaf from the background.</span></div></li>
+    <li><div><b>The model decides.</b><br><span class="note">Healthy or sick, and how sure it is.</span></div></li>
+    <li><div><b>An action is created.</b><br><span class="note">A technician reviews it and you follow the action.</span></div></li>
+  </ol></div></div>
+</div>
+<script>
+(function () {
+  var form = document.getElementById('form-foto'), btn = document.getElementById('btn-revisar'), inp = document.getElementById('foto');
+  if (!form || !btn || !inp) return;
+  if (window.createImageBitmap && window.DataTransfer) {
+    inp.addEventListener('change', async function () {
+      var f = inp.files[0]; if (!f) return;
+      try {
+        var bmp = await createImageBitmap(f, { imageOrientation: 'from-image' });
+        if (bmp.width <= 1024) return;
+        var c = document.createElement('canvas'); c.width = 1024; c.height = Math.round(bmp.height * 1024 / bmp.width);
+        c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+        var blob = await new Promise(function (ok) { c.toBlob(ok, 'image/jpeg', 0.92); });
+        if (!blob) return;
+        var dt = new DataTransfer(); dt.items.add(new File([blob], 'leaf.jpg', { type: 'image/jpeg' })); inp.files = dt.files;
+      } catch (e) {}
+    });
+  }
+  form.addEventListener('submit', function () { btn.disabled = true; btn.textContent = 'Analyzing… this can take a few seconds'; });
+  window.addEventListener('pageshow', function () { btn.disabled = false; btn.textContent = 'Check the leaf'; });
+})();
+</script>
+{% endblock %}

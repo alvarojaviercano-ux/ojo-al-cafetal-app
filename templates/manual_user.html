@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}User manual – Eye on the Coffee Farm{% endblock %}
+{% block mainclass %}doc-main{% endblock %}
+{% block herocls %}{% endblock %}
+{% block kicker %}Manuals · coffee growers{% endblock %}
+{% block heading %}User manual{% endblock %}
+{% block sub %}Step by step, for the person who owns the farm.{% endblock %}
+{% block content %}
+<div class="doc">
+<section><div class="wrap">
+  <h2>What this system is for</h2>
+  <p>Eye on the Coffee Farm helps you keep track of the health of the leaves in your coffee plots. You take a photo of one leaf, the system says if it looks healthy or sick, shows the damaged zone, and suggests what to do. Everything is saved, so you can see the history of each plot. The result is a help, not a diagnosis.</p>
+</div></section>
+<section class="alt"><div class="wrap">
+  <h2>1. Create your account</h2>
+  <ol class="steps">
+    <li>Open <b>Create account</b>, write a username (letters, numbers or _), your name, and a password of at least 8 characters with letters and numbers.</li>
+    <li>New accounts are always <b>coffee grower</b> accounts. If you are a technician, ask the administrator to create your account.</li>
+    <li>Log in with your username and password. Use <b>Log out</b> when you finish on a shared device.</li>
+  </ol>
+</div></section>
+<section><div class="wrap">
+  <h2>2. Add your farm and your plots</h2>
+  <ol class="steps">
+    <li>Go to <b>Farms → Add a farm</b>. Write the name, municipality and department.</li>
+    <li>Open the farm and press <b>Add a plot</b>. Write the plot name, the variety type (resistant or susceptible to rust), the area in hectares and, if you know it, the planting year.</li>
+    <li>The variety matters: the advice is different for resistant and susceptible varieties. If you do not know it, choose the closest option and ask a technician.</li>
+  </ol>
+  <p class="note">A plot with inspections cannot be deleted, and a farm with plots cannot be deleted, so that the history is not lost by mistake.</p>
+</div></section>
+<section class="alt"><div class="wrap">
+  <h2>3. Check a leaf</h2>
+  <ol class="steps">
+    <li>Open the plot and press <b>Check a leaf</b>.</li>
+    <li>Take a photo of <b>one single leaf</b>, close up, on a plain background (your hand or a white sheet) and with good light.</li>
+    <li>Send the photo. The analysis takes a few seconds. The result shows healthy or sick, the confidence, the zone with damage in magenta and an estimate of the rust level.</li>
+    <li>If you see the warning <i>This photo may not be suitable</i> or the confidence is low, take a new photo.</li>
+  </ol>
+</div></section>
+<section><div class="wrap">
+  <h2>4. Follow the actions</h2>
+  <p>If the leaf looks sick, the system creates one or more <b>actions</b> (for example, check more leaves, or talk to a technician). Open the inspection and mark each action as <i>in progress</i> or <i>done</i>. An inspection has one of three states:</p>
+  <ul>
+    <li><b>Waiting for review</b>: a technician should look at it (the leaf looked sick, the confidence was low, or the photo was doubtful).</li>
+    <li><b>Action required</b>: there are open actions.</li>
+    <li><b>Closed</b>: nothing is pending.</li>
+  </ul>
+  <p>A fungicide action can only be marked as done after a technician has reviewed the inspection. Only a technician can dismiss an action.</p>
+</div></section>
+<section class="alt"><div class="wrap">
+  <h2>5. Tell us if the result was wrong</h2>
+  <p>Under each result press <b>Send feedback or report a problem</b>. Say if the result was right, and write what happened. A technician answers and marks it as resolved. You can see your messages and the answers in <b>Feedback</b>.</p>
+</div></section>
+<section><div class="wrap">
+  <h2>What the system cannot do</h2>
+  <ul>
+    <li>It only knows <b>coffee rust</b> and <b>red spider mite</b> (RoCoLe dataset, robusta). Other problems can show up as false alarms.</li>
+    <li>The damaged zone and the rust level are estimates, not exact measures.</li>
+    <li>The advice comes from a simulation with assumptions and from Cenicafé's guidance. Always check more leaves and talk to a technician before using any product.</li>
+  </ul>
+</div></section>
+
+</div>
+{% endblock %}

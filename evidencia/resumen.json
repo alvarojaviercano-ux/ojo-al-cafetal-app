@@ -1,0 +1,351 @@
+{
+ "division": {
+  "fotos": 1560,
+  "train": 1248,
+  "test": 312,
+  "plantas_train": 312,
+  "plantas_test": 78,
+  "plantas_en_ambos": 0
+ },
+ "calidad": {
+  "filas": 1560,
+  "columnas_numericas": 26,
+  "valores_nulos": 0,
+  "valores_infinitos": 0,
+  "fotos_duplicadas_por_nombre": 0,
+  "filas_duplicadas_en_caracteristicas": 2,
+  "columnas_constantes": [],
+  "plantas": 390,
+  "fotos_por_planta_min_max": [
+   4,
+   4
+  ],
+  "nulos_en_data_experto": 0
+ },
+ "atipicos": {
+  "fotos_con_atipicos": 594,
+  "porcentaje": 38.1,
+  "enfermas_entre_atipicos_pct": 57.6,
+  "enfermas_en_total_pct": 49.3,
+  "top5": [
+   {
+    "caracteristica": "fraccion_marron",
+    "atipicos": 221,
+    "porcentaje": 14.2
+   },
+   {
+    "caracteristica": "area_mancha_mayor",
+    "atipicos": 217,
+    "porcentaje": 13.9
+   },
+   {
+    "caracteristica": "menos_verde_G",
+    "atipicos": 186,
+    "porcentaje": 11.9
+   },
+   {
+    "caracteristica": "fraccion_manchas",
+    "atipicos": 179,
+    "porcentaje": 11.5
+   },
+   {
+    "caracteristica": "fraccion_amarillo_naranja",
+    "atipicos": 166,
+    "porcentaje": 10.6
+   }
+  ]
+ },
+ "antes_despues": [
+  {
+   "caracteristica": "media_R",
+   "antes_train_media": 114.86,
+   "antes_train_desv": 29.531,
+   "antes_test_media": 114.222,
+   "antes_test_desv": 28.076,
+   "despues_train_media": 0.0,
+   "despues_train_desv": 1.0,
+   "despues_test_media": -0.022,
+   "despues_test_desv": 0.951
+  },
+  {
+   "caracteristica": "media_G",
+   "antes_train_media": 155.905,
+   "antes_train_desv": 21.506,
+   "antes_test_media": 158.305,
+   "antes_test_desv": 19.18,
+   "despues_train_media": -0.0,
+   "despues_train_desv": 1.0,
+   "despues_test_media": 0.112,
+   "despues_test_desv": 0.892
+  },
+  {
+   "caracteristica": "media_B",
+   "antes_train_media": 74.498,
+   "antes_train_desv": 33.173,
+   "antes_test_media": 77.705,
+   "antes_test_desv": 30.759,
+   "despues_train_media": 0.0,
+   "despues_train_desv": 1.0,
+   "despues_test_media": 0.097,
+   "despues_test_desv": 0.928
+  },
+  {
+   "caracteristica": "std_R",
+   "antes_train_media": 39.858,
+   "antes_train_desv": 13.772,
+   "antes_test_media": 38.914,
+   "antes_test_desv": 13.413,
+   "despues_train_media": -0.0,
+   "despues_train_desv": 1.0,
+   "despues_test_media": -0.069,
+   "despues_test_desv": 0.974
+  },
+  {
+   "caracteristica": "std_G",
+   "antes_train_media": 35.24,
+   "antes_train_desv": 14.445,
+   "antes_test_media": 33.962,
+   "antes_test_desv": 13.696,
+   "despues_train_media": -0.0,
+   "despues_train_desv": 1.0,
+   "despues_test_media": -0.089,
+   "despues_test_desv": 0.949
+  },
+  {
+   "caracteristica": "std_B",
+   "antes_train_media": 39.746,
+   "antes_train_desv": 12.692,
+   "antes_test_media": 39.056,
+   "antes_test_desv": 12.253,
+   "despues_train_media": -0.0,
+   "despues_train_desv": 1.0,
+   "despues_test_media": -0.054,
+   "despues_test_desv": 0.966
+  }
+ ],
+ "clases": {
+  "healthy": 791,
+  "red_spider_mite": 167,
+  "rust_level_1": 344,
+  "rust_level_2": 166,
+  "rust_level_3": 62,
+  "rust_level_4": 30
+ },
+ "binaria": {
+  "sana": 791,
+  "enferma": 769
+ },
+ "n_experimentos": 27,
+ "modelo_app_cv": 83.25,
+ "mejores": {
+  "Logistic Regression": {
+   "id": "E04",
+   "parametros": "C=10",
+   "cv": 78.53
+  },
+  "KNN": {
+   "id": "E07",
+   "parametros": "k=5",
+   "cv": 71.23
+  },
+  "Random Forest": {
+   "id": "E19",
+   "parametros": "trees=300, max_depth=None, min_leaf=3",
+   "cv": 83.4
+  },
+  "Gradient Boosting": {
+   "id": "E24",
+   "parametros": "learning_rate=0.05, max_depth=None",
+   "cv": 83.65
+  }
+ },
+ "comparacion": [
+  {
+   "modelo": "Baseline (always the majority class)",
+   "parametros": "-",
+   "exactitud_train": 50.16,
+   "cv_media": null,
+   "exactitud_test": 52.88,
+   "precision_enferma": 0.0,
+   "recall_enferma": 0.0,
+   "f1_enferma": 0.0,
+   "auc": null
+  },
+  {
+   "modelo": "Logistic Regression",
+   "parametros": "C=10",
+   "exactitud_train": 79.09,
+   "cv_media": 78.53,
+   "exactitud_test": 76.92,
+   "precision_enferma": 77.4,
+   "recall_enferma": 72.1,
+   "f1_enferma": 74.6,
+   "auc": 0.852
+  },
+  {
+   "modelo": "KNN",
+   "parametros": "k=5",
+   "exactitud_train": 80.93,
+   "cv_media": 71.23,
+   "exactitud_test": 73.08,
+   "precision_enferma": 70.9,
+   "recall_enferma": 72.8,
+   "f1_enferma": 71.8,
+   "auc": 0.798
+  },
+  {
+   "modelo": "Random Forest",
+   "parametros": "trees=300, max_depth=None, min_leaf=3",
+   "exactitud_train": 96.71,
+   "cv_media": 83.4,
+   "exactitud_test": 82.69,
+   "precision_enferma": 80.4,
+   "recall_enferma": 83.7,
+   "f1_enferma": 82.0,
+   "auc": 0.907
+  },
+  {
+   "modelo": "Gradient Boosting",
+   "parametros": "learning_rate=0.05, max_depth=None",
+   "exactitud_train": 99.76,
+   "cv_media": 83.65,
+   "exactitud_test": 83.01,
+   "precision_enferma": 79.4,
+   "recall_enferma": 86.4,
+   "f1_enferma": 82.7,
+   "auc": 0.91
+  },
+  {
+   "modelo": "Random Forest (app model)",
+   "parametros": "trees=300, defaults",
+   "exactitud_train": 100.0,
+   "cv_media": 83.25,
+   "exactitud_test": 83.01,
+   "precision_enferma": 79.7,
+   "recall_enferma": 85.7,
+   "f1_enferma": 82.6,
+   "auc": 0.906
+  }
+ ],
+ "ganador_validacion_cruzada": "Gradient Boosting",
+ "familia_seleccionada": "Random Forest (app model)",
+ "precision_recall": [
+  {
+   "clase": "Healthy",
+   "precision": 86.4,
+   "recall": 80.6,
+   "f1": 83.4,
+   "fotos": 165
+  },
+  {
+   "clase": "Sick",
+   "precision": 79.7,
+   "recall": 85.7,
+   "f1": 82.6,
+   "fotos": 147
+  }
+ ],
+ "matriz_confusion": [
+  [
+   133,
+   32
+  ],
+  [
+   21,
+   126
+  ]
+ ],
+ "acierto_por_clase": [
+  {
+   "clase": "healthy",
+   "acierto_pct": 80.6,
+   "fotos": 165
+  },
+  {
+   "clase": "red_spider_mite",
+   "acierto_pct": 92.9,
+   "fotos": 28
+  },
+  {
+   "clase": "rust_level_1",
+   "acierto_pct": 76.5,
+   "fotos": 68
+  },
+  {
+   "clase": "rust_level_2",
+   "acierto_pct": 89.3,
+   "fotos": 28
+  },
+  {
+   "clase": "rust_level_3",
+   "acierto_pct": 100.0,
+   "fotos": 15
+  },
+  {
+   "clase": "rust_level_4",
+   "acierto_pct": 100.0,
+   "fotos": 8
+  }
+ ],
+ "curva_aprendizaje": {
+  "tamanos": [
+   199,
+   398,
+   597,
+   796,
+   996
+  ],
+  "train": [
+   100.0,
+   100.0,
+   100.0,
+   100.0,
+   100.0
+  ],
+  "validacion": [
+   79.4,
+   81.6,
+   82.2,
+   82.1,
+   83.5
+  ]
+ },
+ "test_con_contorno_experto": 85.9,
+ "otras_tareas": {
+  "knn_6_clases_test": 57.1,
+  "regresion_r2": 0.48,
+  "regresion_mae": 0.51,
+  "fotos_roya_test": 119
+ },
+ "monitoreo": {
+  "filas": [
+   {
+    "escenario": "A: held-out test photos (real)",
+    "simulado": false,
+    "fotos": 312,
+    "psi_max": 0.099,
+    "caracteristicas_psi_mayor_0_2": 0,
+    "caracteristicas_ks_p_menor_0_01": 1,
+    "confianza_media": 0.812,
+    "exactitud": 83.0
+   },
+   {
+    "escenario": "B: shifted batch (SIMULATED)",
+    "simulado": true,
+    "fotos": 312,
+    "psi_max": 8.611,
+    "caracteristicas_psi_mayor_0_2": 5,
+    "caracteristicas_ks_p_menor_0_01": 6,
+    "confianza_media": 0.764,
+    "exactitud": 48.4
+   }
+  ],
+  "caracteristicas_movidas_simulacion": [
+   "fraccion_manchas",
+   "area_mancha_mayor",
+   "n_manchas",
+   "area_mancha_media",
+   "fraccion_marron"
+  ]
+ }
+}
