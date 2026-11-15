@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Ojo al Cafetal – App{% endblock %}</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Domine:wght@600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --dark:#2B1D16; --cream:#F6F1E9; --card:#FFFDF8; --green:#2F6B47; --rust:#A5531A;
+            --orange:#E39A55; --muted:#5A4A40; --line:#E4D9C8; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', Arial, sans-serif; background: var(--cream); color: var(--dark);
+           line-height: 1.65; font-size: 18px; }
+    h1, h2 { font-family: 'Domine', Georgia, serif; line-height: 1.15; }
+    a { color: var(--green); }
+    .wrap { max-width: 1680px; margin: 0 auto; padding: 0 48px; }
+
+    nav { position: sticky; top: 0; z-index: 5; background: var(--dark); color: var(--cream); }
+    nav .wrap { display: flex; gap: 6px 18px; align-items: center; flex-wrap: wrap; padding: 12px 48px; }
+    nav b { font-family: 'Domine', Georgia, serif; margin-right: auto; font-size: 19px; }
+    nav a, nav .who { color: #D9CBBB; text-decoration: none; font-size: 15px; }
+    nav a:hover { color: var(--orange); }
+    nav form { display: inline; }
+    nav .linkbtn { margin: 0; width: auto; padding: 0; background: none; border: 0; color: var(--orange);
+                   font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; }
+    nav .linkbtn:hover { background: none; text-decoration: underline; }
+
+    header.hero { background: var(--dark); color: var(--cream); padding: 56px 0 50px; position: relative; overflow: hidden; }
+    header.hero::before { content: ""; position: absolute; inset: 0; opacity: .07;
+      background-image: radial-gradient(ellipse 12px 17px at 30px 30px, #F6F1E9 98%, transparent 100%),
+                       radial-gradient(ellipse 22px 10px at 90px 80px, #F6F1E9 98%, transparent 100%);
+      background-size: 120px 120px; }
+    header.hero .wrap { position: relative; }
+    .kicker { letter-spacing: 2px; font-size: 14px; color: var(--orange); font-weight: 700; text-transform: uppercase; }
+    header.hero h1 { font-size: clamp(38px, 7vw, 64px); margin: 12px 0; }
+    header.hero p.sub { font-size: 21px; color: #E8DDCF; max-width: 640px; }
+
+    main { max-width: 1680px; margin: 0 auto; padding: 32px 48px 56px; }
+    .split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 24px; align-items: start; }
+    .split > .col { min-width: 0; }
+    .steps { list-style: none; counter-reset: paso; }
+    .steps li { counter-increment: paso; display: flex; gap: 14px; margin-top: 16px; align-items: flex-start; }
+    .steps li::before { content: counter(paso); flex: 0 0 34px; height: 34px; border-radius: 50%;
+      background: var(--green); color: #fff; font-weight: 700; display: grid; place-items: center; }
+    .side h2 { font-size: 26px; margin-bottom: 4px; }
+    @media (max-width: 900px) { .split { grid-template-columns: 1fr; } main, .wrap, nav .wrap { padding-left: 20px; padding-right: 20px; } }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 22px; margin-bottom: 18px; }
+    input[type=file] { width: 100%; padding: 14px; border: 2px dashed var(--line); border-radius: 10px;
+                       background: var(--cream); font-size: 16px; margin-top: 8px; }
+    input[type=text], input[type=password] { width: 100%; padding: 12px; border: 2px solid var(--line);
+                       border-radius: 10px; background: var(--cream); font-size: 17px; font-family: inherit; margin-top: 6px; }
+    input:focus, select:focus { outline: 3px solid #BFD9C8; border-color: var(--green); }
+    button, .btn { margin-top: 14px; width: 100%; padding: 14px; border: 0; border-radius: 10px;
+             background: var(--green); color: #fff; font-size: 18px; font-weight: 700; cursor: pointer;
+             font-family: inherit; display: block; text-align: center; text-decoration: none; }
+    button:hover, .btn:hover { background: #3E8A5B; }
+    .btn.second { background: var(--cream); color: var(--green); border: 2px solid var(--green); }
+    .btn.second:hover { background: #E8F2EA; }
+    .error { background: #FBEFE1; border-left: 6px solid var(--rust); padding: 14px 18px;
+             border-radius: 0 12px 12px 0; margin-bottom: 18px; }
+    .flash { background: #E8F2EA; border-left: 6px solid var(--green); padding: 14px 18px;
+             border-radius: 0 12px 12px 0; margin-bottom: 18px; }
+    .sana { border-left: 8px solid var(--green); }
+    .enferma { border-left: 8px solid var(--rust); }
+    .resultado h2 { font-size: 28px; margin-bottom: 6px; }
+    .note { color: var(--muted); font-size: 16px; }
+    .resultado img { width: 100%; border-radius: 10px; margin: 12px 0; }
+    .aviso { background: #FBEFE1; border-left: 6px solid var(--rust); padding: 12px 16px;
+             border-radius: 0 10px 10px 0; margin: 12px 0; font-size: 16px; }
+
+    select { width: 100%; padding: 12px; border: 2px solid var(--line); border-radius: 10px;
+             background: var(--cream); font-size: 16px; font-family: inherit; margin-top: 8px; }
+    .reco { background: var(--cream); border-radius: 10px; padding: 12px 16px; margin-top: 10px; }
+    .formcard h2 { font-size: 26px; margin-bottom: 8px; }
+    .formcard label { display: block; margin-top: 14px; font-weight: 700; }
+    footer { background: var(--dark); color: #D9CBBB; padding: 32px 0; font-size: 15px; }
+    footer a { color: var(--orange); }
+    @media (max-width: 600px) { body { font-size: 17px; } }
+  </style>
+</head>
+<body>
+  <nav><div class="wrap">
+    <b>Ojo al Cafetal</b>
+    <a href="https://ojo-al-cafetal.onrender.com">Research</a>
+    <a href="{{ url_for('inicio') }}">App</a>
+    {% if usuario %}
+      <span class="who">Signed in as <b>{{ usuario }}</b></span>
+      <form action="{{ url_for('logout') }}" method="post">
+        <input type="hidden" name="csrf" value="{{ csrf_token() }}">
+        <button class="linkbtn" type="submit">Log out</button>
+      </form>
+    {% else %}
+      <a href="{{ url_for('login') }}">Log in</a>
+      <a href="{{ url_for('register') }}" style="color:var(--orange);font-weight:700">Sign up</a>
+    {% endif %}
+  </div></nav>
+
+  <header class="hero"><div class="wrap">
+    <div class="kicker">{% block kicker %}Disease detector{% endblock %}</div>
+    <h1>{% block heading %}Check a coffee leaf{% endblock %}</h1>
+    <p class="sub">{% block sub %}Upload a photo of a leaf and see if it looks healthy or sick.{% endblock %}</p>
+  </div></header>
+
+  <main>
+    {% for mensaje in get_flashed_messages() %}
+      <div class="flash">{{ mensaje }}</div>
+    {% endfor %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer><div class="wrap">
+    Final project, Machine Learning, UDEC · Álvaro Javier Cano.<br>
+    Model trained with the RoCoLe dataset (robusta coffee leaves); for other varieties the result
+    may be less accurate. <a href="https://ojo-al-cafetal.onrender.com">See the research</a>.
+  </div></footer>
+</body>
+</html>

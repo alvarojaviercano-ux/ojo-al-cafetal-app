@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Sign up – Ojo al Cafetal{% endblock %}
+{% block kicker %}Your account{% endblock %}
+{% block heading %}Create an account{% endblock %}
+{% block sub %}It is free. You only need a username and a password.{% endblock %}
+{% block content %}
+    {% if error %}
+      <div class="error">{{ error }}</div>
+    {% endif %}
+    <div class="split">
+    <div class="col">
+    <form class="card formcard" action="{{ url_for('register') }}" method="post">
+      <input type="hidden" name="csrf" value="{{ csrf_token() }}">
+      <label for="usuario">Username</label>
+      <p class="note">3 to 30 characters: letters, numbers or _.</p>
+      <input type="text" id="usuario" name="usuario" value="{{ nombre }}" autocomplete="username" required autofocus>
+      <label for="clave">Password</label>
+      <p class="note">At least 8 characters.</p>
+      <input type="password" id="clave" name="clave" autocomplete="new-password" minlength="8" required>
+      <label for="repetir">Repeat the password</label>
+      <input type="password" id="repetir" name="repetir" autocomplete="new-password" minlength="8" required>
+      <button type="submit">Create account</button>
+      <p class="note" style="margin-top:14px">Already have an account? <a href="{{ url_for('login') }}">Log in</a>.</p>
+    </form>
+    </div>
+      <div class="col">
+      <div class="card side">
+        <h2>Check a leaf in 3 steps</h2>
+        <ol class="steps">
+          <li><div><b>Sign in</b><br><span class="note">Free account, only a username and a password.</span></div></li>
+          <li><div><b>Upload one leaf photo</b><br><span class="note">Taken with your phone, close up, on a plain background.</span></div></li>
+          <li><div><b>Read the result</b><br><span class="note">Healthy or sick, the damaged zone and what to do.</span></div></li>
+        </ol>
+      </div>
+      </div>
+    </div>
+{% endblock %}
