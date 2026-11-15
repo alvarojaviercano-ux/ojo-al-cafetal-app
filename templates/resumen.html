@@ -2,111 +2,33 @@
 {% block title %}Eye on the Coffee Farm{% endblock %}
 {% block mainclass %}doc-main{% endblock %}
 {% block herocls %}{% endblock %}
-{% block kicker %}Project title{% endblock %}
+{% block kicker %}Coffee farm inspection system{% endblock %}
 {% block heading %}Eye on the Coffee Farm{% endblock %}
-{% block sub %}Spot coffee leaf diseases from a photo. (In Spanish: Ojo al Cafetal.){% endblock %}
-{% block herox %}<p class="by">Álvaro Javier Cano · Machine Learning · UDEC · Final project</p><p style="margin-top:22px"><a class="btn" href="{{ url_for('panel') }}" style="display:inline-block;width:auto;padding:12px 22px">Open the system →</a></p>{% endblock %}
+{% block sub %}Check coffee leaves from a photo, keep the history of each plot and follow what to do. (In Spanish: Ojo al Cafetal.){% endblock %}
+{% block herox %}<p style="margin-top:22px">{% if usuario %}<a class="btn" href="{{ url_for('panel') }}">Open my dashboard →</a>{% else %}<a class="btn" href="{{ url_for('login') }}">Log in</a> <a class="btn second" href="{{ url_for('register') }}">Create account</a>{% endif %}</p>{% endblock %}
 {% block content %}
 <div class="doc">
-<section id="problem"><div class="wrap">
-  <h2>Problem statement and justification</h2>
-  <p class="lead">Coffee is a big part of Colombia. When a coffee plant gets sick, you see it on the leaf first. But we often find the disease too late.</p>
-  <div class="grid">
-    <div class="card"><h3>Leaf damage</h3><p>Rust and red spider mites leave spots and make the leaf weak.</p></div>
-    <div class="card"><h3>Little expert help</h3><p>Many farmers have no expert close by to check every plant.</p></div>
-    <div class="card"><h3>Late detection</h3><p>When we find the disease late, it spreads and the farmer loses coffee.</p></div>
-  </div>
-  <div class="callout"><b>Guiding question:</b> can we find the disease with just one photo?</div>
-
-  <h3 style="margin:34px 0 12px">The solution</h3>
-  <p class="lead" style="margin-bottom:16px">A simple web page. It checks a photo of a leaf and tells the farmer what to do.</p>
+<section><div class="wrap">
+  <h2>How it works</h2>
   <ol class="steps">
-    <li><b>Upload.</b> The user takes a photo of one leaf with a phone and sends it.</li>
-    <li><b>Analyze.</b> The model looks at the leaf. It checks the color and the spots.</li>
-    <li><b>Receive.</b> The user gets a clear answer: if the leaf looks sick, how bad it is, and what to do.</li>
-  </ol>
-
-  <h3 style="margin:34px 0 12px">Why it is worth doing</h3>
-  <ul>
-    <li>It helps the farmer act on time and lose less coffee.</li>
-    <li>It only needs a phone and the internet. No expert visit is needed for a first check.</li>
-    <li>I can do it: I already use Flask, scikit-learn, and Render in my earlier modules, so I do not need new tools.</li>
-  </ul>
-  <p class="note" style="margin-top:14px">The name comes from a Colombian saying. “Ojo al cafetal” means “keep an eye on the coffee farm.”</p>
-</div></section>
-
-<section id="objectives" class="alt"><div class="wrap">
-  <h2>Project objectives</h2>
-  <div class="callout" style="border-color:var(--green);background:#E8F2EA"><b>General objective:</b> build a web app that finds coffee leaf diseases from a photo, so farmers can act on time.</div>
-  <h3 style="margin:26px 0 12px">Specific objectives</h3>
-  <ol class="steps">
-    <li>Check that the RoCoLe data is good enough for the project: its quality, its use, and its size.</li>
-    <li>Prepare the photos: clean them, group the classes, and (next step) add my own photos of arabica leaves.</li>
-    <li>Build and compare the models: K-Means, Linear Regression, Logistic Regression, KNN, and Q-Learning.</li>
-    <li>Measure how well the models work, and test them with real photos.</li>
-    <li>Put the web app online on Render, so farmers can use it from a phone.</li>
+    <li><b>Register your farm and plots.</b> Say where the farm is and which variety each plot has.</li>
+    <li><b>Check a leaf.</b> Take a photo of one leaf. The model says if it looks healthy or sick, marks the damaged zone and suggests what to do.</li>
+    <li><b>A technician reviews.</b> Sick or doubtful results are confirmed by a technician, and you follow the actions until the case is closed.</li>
   </ol>
 </div></section>
-
-<section id="phases"><div class="wrap">
-  <h2>Project phases</h2>
-  <p class="lead">I followed the CRISP-ML method from our course. It has six phases. Each phase has its own page.</p>
-  <div class="grid phase-grid">
-    <a class="card phase-card" href="{{ url_for('fase', slug='understanding') }}"><span class="tag">PHASE 1</span><h3>Business and Data Understanding</h3><p>Goals, key questions, the RoCoLe data and what could go wrong.</p><p class="note">Open this phase →</p></a>
-    <a class="card phase-card" href="{{ url_for('fase', slug='data-engineering') }}"><span class="tag">PHASE 2</span><h3>Data Engineering</h3><p>Leaf cut, 26 features, classes and the scripts that make the data.</p><p class="note">Open this phase →</p></a>
-    <a class="card phase-card" href="{{ url_for('fase', slug='model-engineering') }}"><span class="tag">PHASE 3</span><h3>Model Engineering</h3><p>The five course models plus Random Forest, training and validation.</p><p class="note">Open this phase →</p></a>
-    <a class="card phase-card" href="{{ url_for('fase', slug='evaluation') }}"><span class="tag">PHASE 4</span><h3>Model Evaluation</h3><p>Accuracy, K-Means zone, Q-Learning, risks and expert review.</p><p class="note">Open this phase →</p></a>
-    <a class="card phase-card" href="{{ url_for('fase', slug='deployment') }}"><span class="tag">PHASE 5</span><h3>Deployment</h3><p>Train locally, publish on Render, what the user sees.</p><p class="note">Open this phase →</p></a>
-    <a class="card phase-card" href="{{ url_for('fase', slug='monitoring') }}"><span class="tag">PHASE 6</span><h3>Monitoring and Maintenance</h3><p>A plan to supervise, detect problems and update the model.</p><p class="note">Open this phase →</p></a>
-  </div>
+<section class="alt"><div class="wrap">
+  <h2>Who uses it</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Role</th><th>What they do</th></tr>
+    <tr><td><b>Coffee grower</b></td><td>Registers farms and plots, checks leaves, follows actions, sends feedback.</td></tr>
+    <tr><td><b>Technician</b></td><td>Reviews inspections, answers feedback, reads reports and monitoring.</td></tr>
+    <tr><td><b>Administrator</b></td><td>Manages users and watches the system and the model.</td></tr>
+  </table></div>
 </div></section>
-
-<section id="framework" class="alt"><div class="wrap">
-  <h2>Reference framework</h2>
-  <p class="lead">The work and ideas my project is based on.</p>
-
-  <h3 style="margin-bottom:12px">1. Background: related work</h3>
-  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
-    <div class="card"><span class="tag">SMARTPHONE APP</span><h3>Manso et al.</h3>
-      <p>They built a phone app to find coffee leaf miner and rust. It cuts the leaf from the background, finds the damaged area (with thresholds or k-means), and then classifies the damage. It also gives the percent of leaf damaged. They got about 96% accuracy. A white background worked best.</p>
-      <p class="note"><b>What I take from it:</b> k-means for the damaged area, a percent of damage, and a plain background for the photo.</p></div>
-    <div class="card"><span class="tag">RUST SEVERITY</span><h3>Zuñiga Cajas et al. (2025)</h3>
-      <p>They trained thirteen convolutional neural networks to tell how severe the rust is. They say it is a good option when there is little data, but it does not work well yet on other datasets.</p>
-      <p class="note"><b>What I take from it:</b> severity matters, and I must test the model on photos from other sources.</p></div>
-    <div class="card"><span class="tag">DATASET</span><h3>RoCoLe (2019)</h3>
-      <p>Parraga-Alava and colleagues made a public dataset of robusta leaves, with an expert’s labels and rust levels.</p>
-      <p class="note"><b>What I take from it:</b> this is my main data.</p></div>
-    <div class="card"><span class="tag">DATASET</span><h3>JMuBEN</h3>
-      <p>A public dataset of arabica leaves with 22,591 images. It has rust, Cercospora, Phoma, miner, and healthy leaves.</p>
-      <p class="note"><b>What I take from it:</b> a way to test with arabica. I must check its license first.</p></div>
-  </div>
-
-  <h3 style="margin:34px 0 12px">2. Conceptual framework</h3>
-  <table>
-    <tr><th>Term</th><th>What it means</th></tr>
-    <tr><td>Coffee leaf rust</td><td>A fungus disease. It makes orange spots on the leaf. I measure it in four levels, by how much of the leaf has spots.</td></tr>
-    <tr><td>Red spider mite</td><td>A very small pest that damages the leaf.</td></tr>
-    <tr><td>Robusta and arabica</td><td>Two types of coffee. My data is robusta, but Colombia grows mostly arabica.</td></tr>
-    <tr><td>Castillo and Caturra</td><td>Arabica varieties grown in Colombia. Cenicafé reports that the Castillo varieties resist rust. Caturra is one I want to photograph.</td></tr>
-    <tr><td>Class</td><td>A group in the data, like “healthy” or “rust level 1”.</td></tr>
-  </table>
-
-  <h3 style="margin:34px 0 12px">3. Methodology</h3>
-  <p>The project follows <b>CRISP-ML</b>, a method for machine learning projects (Schmid, Wurst &amp; Wirth, 2020). See the six phases above.</p>
-</div></section>
-
-<section id="references"><div class="wrap">
-  <h2>References</h2>
-  <ul>
-    <li>Parraga-Alava, J., Cusme, K., Loor, A. &amp; Santander, E. (2019). <i>RoCoLe: A robusta coffee leaf images dataset for evaluation of machine learning based methods in plant diseases recognition.</i> Data in Brief. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6727496/">Article</a> · Dataset: Mendeley Data, V2, doi <a href="https://doi.org/10.17632/c5yvn32dzg.2">10.17632/c5yvn32dzg.2</a>.</li>
-    <li>Manso, G. L., Knidel, H., Krohling, R. A. &amp; Ventura, J. A. <i>A smartphone application to detection and classification of coffee leaf miner and coffee leaf rust.</i> arXiv:1904.00742. <a href="https://arxiv.org/abs/1904.00742">arxiv.org/abs/1904.00742</a></li>
-    <li>Zuñiga Cajas, J. J., Peña Ramos, O. D., Lasso, E., Avelino, J., Corrales, J. C. &amp; Figueroa, C. (2025). <i>Estimating the severity of coffee leaf rust using deep learning and image processing.</i> Inteligencia Artificial, 28(76). <a href="https://journal.iberamia.org/index.php/intartif/article/view/1833">Link</a></li>
-    <li>Jepkoech, J., Kenduiywo, B., Mugo, D. &amp; Chebet, E. <i>JMuBEN (Arabica coffee leaf dataset).</i> Mendeley Data, doi <a href="https://doi.org/10.17632/t2r6rszp5c.1">10.17632/t2r6rszp5c.1</a>.</li>
-    <li>Cenicafé. <i>Variedades Castillo® Zonales: resistencia a la roya con mayor productividad</i> (Avance Técnico 489). <a href="https://www.researchgate.net/publication/330320913_Variedades_CastilloR_Zonales_resistencia_a_la_roya_con_mayor_productividad_avt0489">Link</a></li>
-    <li>Schmid, S., Wurst, S. &amp; Wirth, R. (2020). <i>Towards CRISP-ML(Q): A Machine Learning Process Model with Quality Assurance Methodology.</i></li>
-    <li>ML-Ops.org. <i>CRISP-ML(Q): The ML Lifecycle Process.</i> · KDnuggets (2025). <i>The Machine Learning Lifecycle.</i></li>
-  </ul>
-  <p style="margin-top:16px"><b>License of RoCoLe:</b> <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. I can use and change the data if I give credit to the authors, link to the license, and say what I changed. This does not mean the authors support this project.</p>
+<section><div class="wrap">
+  <h2>Manuals</h2>
+  <p><a href="{{ url_for('manual', tipo='user') }}">User manual</a> · <a href="{{ url_for('manual', tipo='training') }}">Training guide</a> · <a href="{{ url_for('manual', tipo='technical') }}">Technical manual</a></p>
+  <p class="note" style="margin-top:10px">The model only knows rust and red spider mite and it was trained with robusta photos. The result is a help, not a diagnosis.</p>
 </div></section>
 </div>
 {% endblock %}

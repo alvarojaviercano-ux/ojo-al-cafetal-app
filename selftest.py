@@ -24,10 +24,11 @@ def img():
     ok_, b = cv2.imencode(".jpg", a); return io.BytesIO(b.tobytes())
 # public
 c = client()
-for u in ["/", "/health", "/login", "/register", "/phases/deployment", "/manuals/user", "/manuals/technical", "/manuals/training"]:
+for u in ["/", "/health", "/login", "/register", "/manuals/user", "/manuals/technical", "/manuals/training"]:
     r = c.get(u); check("GET " + u, r.status_code == 200, r.status_code)
 check("private redirects", client().get("/farms").status_code in (301, 302))
 check("404", client().get("/nope").status_code == 404)
+check("phases pages not in the app", client().get("/phases/deployment").status_code == 404)
 r = client().post("/login", data={"usuario": "x", "clave": "y"}); check("CSRF blocks", r.status_code in (400, 403))
 # bootstrap logins
 adm, r = login("admin_t", "Admin12345"); check("admin login", r.status_code in (302, 303), r.status_code)

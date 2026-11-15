@@ -120,16 +120,6 @@
 <body>
   <nav><div class="wrap">
     <a class="brand" href="{{ url_for('resumen') }}"><b>Eye on the Coffee Farm</b></a>
-    <a href="{{ url_for('resumen') }}#problem">Overview</a>
-    <details class="dd">
-      <summary>Project phases ▾</summary>
-      <div class="menu">
-        <a href="{{ url_for('resumen') }}#phases">All phases</a>
-        {% for s, nombre in FASES %}
-        <a href="{{ url_for('fase', slug=s) }}"{% if fase_actual == s %} class="on"{% endif %}>{{ loop.index }}. {{ nombre }}</a>
-        {% endfor %}
-      </div>
-    </details>
     <details class="dd">
       <summary>Manuals ▾</summary>
       <div class="menu">
@@ -178,7 +168,7 @@
   <footer><div class="wrap">
     Final project, Machine Learning, UDEC · Álvaro Javier Cano.<br>
     Model trained with the RoCoLe dataset (robusta coffee leaves); for other varieties the result
-    may be less accurate. <a href="{{ url_for('resumen') }}">See the project phases</a>.
+    may be less accurate. <a href="https://ojo-al-cafetal.onrender.com">Read the research behind it</a>.
   </div></footer>
 </body>
 </html>

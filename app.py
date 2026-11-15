@@ -404,13 +404,6 @@ def resumen():
     return render_template("resumen.html")
 
 
-@app.route("/phases/<slug>")
-def fase(slug):
-    if slug not in dict(FASES):
-        abort(404)
-    return render_template(f"phases/{slug}.html", fase_actual=slug)
-
-
 @app.route("/manuals/<tipo>")
 def manual(tipo):
     if tipo not in ("user", "technical", "training"):
