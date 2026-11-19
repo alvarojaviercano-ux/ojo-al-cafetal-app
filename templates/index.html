@@ -12,6 +12,17 @@
       <label for="foto"><b>Photo of the leaf</b></label>
       <p class="note">Take a photo of <b>one single leaf</b>, up close and filling the photo. A plain background (your hand, a sheet of paper) or backlight helps a lot.</p>
       <input type="file" id="foto" name="foto" accept="image/*" required>
+      <button type="button" id="btn-camara" class="cambtn">Use the camera</button>
+      <div class="examples" aria-label="Examples of photos">
+        <div class="ex good">
+          <svg viewBox="0 0 160 110" role="img" aria-label="Good photo: one leaf on a plain background"><rect width="160" height="110" fill="#EFE8DC"/><ellipse cx="80" cy="55" rx="52" ry="26" transform="rotate(-18 80 55)" fill="#3E9B4F"/><path d="M34 80 L126 30" stroke="#2D7A3C" stroke-width="2"/></svg>
+          <div>&#10003; One leaf, plain background</div>
+        </div>
+        <div class="ex bad">
+          <svg viewBox="0 0 160 110" role="img" aria-label="Bad photo: many leaves and a busy background"><rect width="160" height="110" fill="#CBBFA9"/><ellipse cx="45" cy="40" rx="34" ry="16" transform="rotate(25 45 40)" fill="#3E9B4F"/><ellipse cx="105" cy="38" rx="34" ry="16" transform="rotate(-30 105 38)" fill="#2F7F3E"/><ellipse cx="80" cy="78" rx="38" ry="17" transform="rotate(8 80 78)" fill="#4DAA5C"/><ellipse cx="130" cy="85" rx="26" ry="12" transform="rotate(-50 130 85)" fill="#357F44"/></svg>
+          <div>&#10007; Many leaves together</div>
+        </div>
+      </div>
       <label for="variedad" style="display:block;margin-top:14px"><b>Coffee variety</b></label>
       <p class="note">Rust-resistant varieties (Castillo, Colombia, Cenicafé 1, Tabi) and susceptible ones
         (Caturra, Typica, Bourbon) are managed in different ways.</p>
@@ -21,6 +32,13 @@
         <option value="susceptible" {{ 'selected' if variedad == 'susceptible' }}>Susceptible to rust</option>
       </select>
       <button id="btn-revisar" type="submit">Check the leaf</button>
+      <div id="progreso" aria-live="polite">
+        <ol>
+          <li data-p="0"><span class="dot"></span>Cutting the leaf from the background</li>
+          <li data-p="1"><span class="dot"></span>Reading color, spots and texture</li>
+          <li data-p="2"><span class="dot"></span>Deciding: healthy or sick</li>
+        </ol>
+      </div>
     </form>
     {% else %}
     <div class="card">
@@ -35,47 +53,95 @@
     {% if resultado %}
       <div class="card resultado {{ 'enferma' if resultado.enferma else 'sana' }}">
         {% if resultado.dudosa %}
-          <p class="aviso">
-            <strong>This photo may not be suitable.</strong>
-            The cut seems to include more than one leaf or part of the background, so the result
-            is not reliable. Take a photo of a single leaf, centered, on a plain background
-            (your hand or a sheet of paper behind it).
-          </p>
+        <div class="warnbar" role="alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+          <div><b>This photo may not be suitable.</b> The cut seems to include more than one leaf or part of the background, so the result is not reliable. Take a photo of a single leaf, centered, on a plain background.</div></div>
         {% endif %}
-        {% if resultado.enferma %}
-          <h2>The leaf looks sick</h2>
-        {% else %}
-          <h2>The leaf looks healthy</h2>
-        {% endif %}
-        <p>Model confidence: <b>{{ resultado.nivel }}</b> ({{ resultado.porcentaje }}%)</p>
-        {% if resultado.afectada is not none %}
-          <p>Zone with signs of damage (in magenta): about <b>{{ resultado.afectada }}%</b> of the leaf.</p>
-        {% endif %}
+
+        <div class="verdict">
+          <div class="vicon" aria-hidden="true">
+            {% if resultado.enferma %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v5M12 17h.01"/><circle cx="12" cy="12" r="9.5"/></svg>
+            {% else %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+            {% endif %}
+          </div>
+          <div>
+            <h2>{{ 'The leaf looks sick' if resultado.enferma else 'The leaf looks healthy' }}</h2>
+            <p>{{ 'Signs of rust or red spider mite were found.' if resultado.enferma else 'No signs of rust or red spider mite were found.' }}</p>
+          </div>
+        </div>
+
+        {% if resultado.dudosa or resultado.nivel == 'low' %}{% set luz, titulo, texto = 'y', 'Take another photo', 'The result may not be reliable.' %}
+        {% elif not resultado.enferma %}{% set luz, titulo, texto = 'g', 'No action needed now', 'Keep checking your plants regularly.' %}
+        {% elif resultado.nivel_roya >= 3 %}{% set luz, titulo, texto = 'r', 'Talk to a technician soon', 'The estimated rust level is high.' %}
+        {% else %}{% set luz, titulo, texto = 'y', 'Check more leaves', 'Look at other leaves of the same plant.' %}{% endif %}
+        <div class="tl" role="status">
+          <div class="lights" aria-hidden="true"><i class="{{ 'on r' if luz == 'r' }}"></i><i class="{{ 'on y' if luz == 'y' }}"></i><i class="{{ 'on g' if luz == 'g' }}"></i></div>
+          <div><b>{{ titulo }}</b><span>{{ texto }}</span></div>
+        </div>
+        {% set p_enferma = resultado.porcentaje if resultado.enferma else 100 - resultado.porcentaje %}
+        <div class="prob">
+          <div class="row"><span style="color:var(--green)">Healthy {{ 100 - p_enferma }}%</span><span style="color:var(--rust)">Sick {{ p_enferma }}%</span></div>
+          <div class="bar" role="img" aria-label="Probability: {{ 100 - p_enferma }} percent healthy, {{ p_enferma }} percent sick"><div class="h" style="width: {{ 100 - p_enferma }}%"></div><div class="s" style="width: {{ p_enferma }}%"></div></div>
+          <div class="cap">The black line is the 50% limit where the model changes its decision.</div>
+        </div>
+
+        <div class="tiles">
+          <div class="tile">
+            <div class="lab">Model confidence</div>
+            <div class="big">{{ resultado.porcentaje }}% <small>{{ resultado.nivel }}</small></div>
+            <div class="track" role="img" aria-label="Confidence {{ resultado.porcentaje }} percent"><div class="fill {{ resultado.nivel }}" style="width: {{ resultado.porcentaje }}%"></div></div>
+            <div class="ticks"><span>0%</span><span>65%</span><span>80%</span><span>100%</span></div>
+          </div>
+          {% if resultado.afectada is not none %}
+          <div class="tile">
+            <div class="lab">Zone with signs of damage</div>
+            <div class="big">{{ resultado.afectada }}% <small>of the leaf</small></div>
+            <div class="track" role="img" aria-label="Damaged zone {{ resultado.afectada }} percent of the leaf"><div class="fill dmg" style="width: {{ [ [resultado.afectada, 25]|min / 25 * 100, 3 ]|max }}%"></div></div>
+            <div class="ticks"><span>0%</span><span>3%</span><span>8%</span><span>15%</span><span>25%+</span></div>
+          </div>
+          <div class="tile">
+            <div class="lab">Estimated rust level</div>
+            <div class="big">{{ resultado.nivel_roya }} <small>of 4 (approximate)</small></div>
+            <div class="scale" role="img" aria-label="Rust level {{ resultado.nivel_roya }} of 4">
+              {% for n in [1, 2, 3, 4] %}<span class="{{ 'on' if n == resultado.nivel_roya else ('pass' if n < resultado.nivel_roya else '') }}">{{ n }}</span>{% endfor %}
+            </div>
+          </div>
+          {% endif %}
+        </div>
+
         {% if resultado.nivel == "low" %}
-          <p class="note">The confidence is low. Try another photo of a single leaf, closer and with good light.</p>
+        <div class="warnbar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 8v5M12 17h.01"/></svg>
+          <div>The confidence is low. Try another photo of a single leaf, closer and with good light.</div></div>
         {% endif %}
+
         <img src="data:image/jpeg;base64,{{ resultado.imagen }}" alt="Analyzed zone">
-        <p class="note">The yellow line shows the zone the app analyzed. If it does not cover the leaf,
-          the result is not reliable.
-          {% if resultado.afectada is not none %}The magenta parts have the color of damage;
-          it is an estimate, not an exact measure.{% endif %}</p>
+        <div class="legend"><span><i style="background:#FFFF00"></i>Zone the app analyzed</span>{% if resultado.afectada is not none %}<span><i style="background:#C2188F"></i>Signs of damage (estimate)</span>{% endif %}</div>
+        <p class="note">If the yellow line does not cover the leaf, the result is not reliable.{% if resultado.afectada is not none %} The magenta parts have the color of damage; it is an estimate, not an exact measure.{% endif %}</p>
+
         {% if resultado.enferma %}
-          <h3 style="margin-top:14px">What to do</h3>
-          <p class="note">If it is rust, with an estimated level of <b>{{ resultado.nivel_roya }}</b> (approximate):</p>
+          <h3 style="margin-top:16px">What to do</h3>
+          <div class="advice">
           {% for r in resultado.recomendaciones %}
-            <div class="reco">
-              <b>{{ r.variedad|capitalize }} variety: {{ r.accion }}.</b><br>{{ r.texto }}
+            <div class="acard">
+              <div class="aicon {{ 'warn' if 'fungicide' in r.accion|lower else ('mid' if 'improve' in r.accion|lower else '') }}" aria-hidden="true">
+                {% if 'fungicide' in r.accion|lower %}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 4 5 6.5 5 9.5a5 5 0 0 1-10 0C7 9.5 9 7 12 3z"/></svg>
+                {% elif 'improve' in r.accion|lower %}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-9"/><path d="M12 12c0-4 3-7 8-7 0 5-3 8-8 8"/><path d="M12 14c0-3-2-5-6-5 0 4 2 6 6 6"/></svg>
+                {% else %}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.500 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                {% endif %}
+              </div>
+              <div><span class="tag">{{ r.variedad|capitalize }} variety</span><b class="t">{{ r.accion }}</b><p>{{ r.texto }}</p></div>
             </div>
           {% endfor %}
-          <p class="note" style="margin-top:10px">This advice comes from a simulation with assumptions
-            and Cenicafé's guidance. It is a help, not a diagnosis: check more leaves from the same plant
-            and talk to a technician from the Coffee Growers Committee or Cenicafé before applying any product.</p>
+          </div>
+          <p class="note" style="margin-top:10px">This advice comes from a simulation with assumptions and Cenicafé's guidance. It is a help, not a diagnosis: check more leaves from the same plant and talk to a technician from the Coffee Growers Committee or Cenicafé before applying any product.</p>
         {% endif %}
-        <p class="aviso">
-          The app only recognizes rust and red spider mite (RoCoLe dataset).
-          Other problems, like white mold or spots from other causes,
-          may show up as false positives.
-        </p>
+
+        <div class="warnbar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v5M12 8h.01"/></svg>
+          <div>The app only recognizes rust and red spider mite (RoCoLe dataset). Other problems, like white mold or spots from other causes, may show up as false positives.</div></div>
       </div>
     {% else %}
       <div class="card side">
@@ -120,14 +186,32 @@
     });
   }
 
-  // 2) Tell the user the app is working
+  // Camera button: asks the phone to open the camera (on a computer it just opens the file picker)
+  var cam = document.getElementById('btn-camara');
+  if (cam) {
+    cam.addEventListener('click', function () { inp.setAttribute('capture', 'environment'); inp.click(); });
+    inp.addEventListener('click', function (e) { if (e.isTrusted) inp.removeAttribute('capture'); });
+  }
+
+  // 2) Tell the user the app is working, step by step
   form.addEventListener('submit', function () {
     btn.disabled = true;
     btn.textContent = 'Analyzing… this can take about 10 seconds';
+    var box = document.getElementById('progreso');
+    if (box) {
+      box.style.display = 'block';
+      var items = box.querySelectorAll('li'), i = 0;
+      function paso() {
+        items.forEach(function (li, k) { li.className = k < i ? 'done' : (k === i ? 'now' : ''); });
+        if (i < items.length - 1) { i++; setTimeout(paso, 2200); }
+      }
+      paso();
+    }
   });
   window.addEventListener('pageshow', function () {        // when the user comes back with the Back button
     btn.disabled = false;
     btn.textContent = 'Check the leaf';
+    var bx = document.getElementById('progreso'); if (bx) bx.style.display = 'none';
   });
 })();
 </script>
